@@ -5,6 +5,9 @@ import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
+import Profile from "./pages/Profile.js";
+import Feed from "./pages/Feed.js";
+import PlanTrip from "./pages/PlanTrip.js";
 
 import "../utilities.css";
 
@@ -55,6 +58,9 @@ const App = () => {
           />
         }
       />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/feed" element={<Feed />} />
+      <Route path="/plantrip" element={<PlanTrip />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
