@@ -36,9 +36,10 @@ const socketManager = require("./server-socket");
 
 // Server configuration below
 // TODO change connection URL after setting up your team database
+process.env.MONGO_SRV = 'mongodb+srv://jkuhlman:BYGIYcn5fOMLNpTg@cluster0.smymg1e.mongodb.net/?retryWrites=true&w=majority';
 const mongoConnectionURL = process.env.MONGO_SRV;
 // TODO change database name to the name you chose
-const databaseName = "FILL_ME_IN";
+const databaseName = "Online Passport";
 
 // mongoose 7 warning
 mongoose.set("strictQuery", false);
