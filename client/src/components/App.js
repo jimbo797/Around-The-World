@@ -8,6 +8,7 @@ import Skeleton from "./pages/Skeleton.js";
 import Profile from "./pages/Profile.js";
 import Feed from "./pages/Feed.js";
 import PlanTrip from "./pages/PlanTrip.js";
+import Settings from "./pages/Settings.js";
 
 import "../utilities.css";
 
@@ -49,19 +50,15 @@ const App = () => {
     <div>
       <Routes>
         <Route
-          path="/"
+          path="/skeleton"
           element={
-            <Skeleton
-              path="/"
-              handleLogin={handleLogin}
-              handleLogout={handleLogout}
-              userId={userId}
-            />
+            <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
           }
         />
+        <Route path="/" element={<Feed userId={userId} />} />
         <Route path="/profile" element={<Profile userId={userId} />} />
-        <Route path="/feed" element={<Feed userId={userId} />} />
         <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
+        <Route path="/settings" element={<Settings userId={userId} />} />
         <Route path="*" element={<NotFound userId={userId} />} />
       </Routes>
     </div>
