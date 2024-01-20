@@ -1,11 +1,14 @@
 import React from "react";
+import Page from "../modules/Page";
 
-const NotFound = () => {
+const NotFound = ({ userId }) => {
   return (
-    <div>
-      <h1>404 Not Found</h1>
-      <p>The page you requested couldn't be found.</p>
-    </div>
+    <Page userId={userId}>
+      <div>
+        <h1>404 Not Found</h1>
+        <p>The page you requested couldn't be found.</p>
+      </div>
+    </Page>
   );
 };
 

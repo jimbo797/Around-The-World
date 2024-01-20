@@ -46,23 +46,25 @@ const App = () => {
   };
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Skeleton
-            path="/"
-            handleLogin={handleLogin}
-            handleLogout={handleLogout}
-            userId={userId}
-          />
-        }
-      />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/feed" element={<Feed />} />
-      <Route path="/plantrip" element={<PlanTrip />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Skeleton
+              path="/"
+              handleLogin={handleLogin}
+              handleLogout={handleLogout}
+              userId={userId}
+            />
+          }
+        />
+        <Route path="/profile" element={<Profile userId={userId} />} />
+        <Route path="/feed" element={<Feed userId={userId} />} />
+        <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
+        <Route path="*" element={<NotFound userId={userId} />} />
+      </Routes>
+    </div>
   );
 };
 
