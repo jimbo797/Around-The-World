@@ -1,4 +1,18 @@
-backgroundfill {
-  width: 100%;
+.bg-size {
+  width: 85%;
   height: 100%;
+}
+
+.bg-pos {
+  /* margin-right: 0; */
+  position: relative;
+}
+
+.bg-color {
+  background-color: rgb(70, 70, 70);
+} 
+
+.bg-padding {
+  padding-left: 5%;
+  padding-top: 2%;
 }

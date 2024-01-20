@@ -36,6 +36,7 @@ body {
   padding: 0;
   font-family: "Roboto", sans-serif;
   font-weight: 300;
+  background-color: rgb(19, 19, 59); /* Color above and below the visible page */
 }
 
 form {
@@ -49,6 +50,11 @@ form {
 .u-flexColumn {
   display: flex;
   flex-direction: column;
+}
+
+.u-flexRow {
+  display: flex;
+  flex-direction: row;
 }
 
 .u-flex-justifyCenter {
@@ -73,6 +79,14 @@ form {
 
 .u-relative {
   position: relative;
+}
+
+.u-absolute {
+  position: absolute;
+}
+
+.u-static {
+  position: static;
 }
 
 .u-pointer {

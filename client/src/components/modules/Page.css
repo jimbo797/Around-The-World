@@ -1,0 +1,9 @@
+.page-size {
+  height: 100%;
+  width: 100%;
+}
+
+.page-overflow {
+  overflow-y: hidden;
+  /* overflow-x: hidden; */
+}

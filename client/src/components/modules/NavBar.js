@@ -1,22 +1,25 @@
 import React from "react";
 
-const NavBar = ({ userId }) => {
-  return (
-    <div>
-      <div>{userId}</div>
+import "./NavBar.css";
+import "../../utilities.css";
 
-      <a href="/feed">
-        <div>Feed</div>
-      </a>
-      <a href="/profile">
-        <div>Profile</div>
-      </a>
-      <a href="/plantrip">
-        <div>Plan a Trip</div>
-      </a>
-      <a href="/settings">
-        <div>Settings</div>
-      </a>
+const NavBar = ({ userId }) => {
+  const pages = [
+    { name: "Feed", link: "/" },
+    { name: "Profile", link: "/profile" },
+    { name: "Plan a Trip", link: "/plantrip" },
+    { name: "Settings", link: "/settings" },
+  ];
+  const navbarLinks = pages.map(({ name, link }) => (
+    <a href={link} key={name}>
+      <div className="navbar-text-color navbar-text-padding navbar-text-style">{name}</div>
+    </a>
+  ));
+
+  return (
+    <div className="navbar-size navbar-bgcolor">
+      <div>{userId}</div>
+      {navbarLinks}
     </div>
   );
 };

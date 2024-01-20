@@ -1,0 +1,27 @@
+a {
+  text-decoration: none;
+}
+
+.navbar-size {
+  width: 15%;
+  /* height: 100%; */
+  margin-top: 0;
+}
+
+.navbar-bgcolor {
+  background-color: rgb(45, 45, 109);
+}
+
+.navbar-text-color {
+  color:aliceblue;
+}
+
+.navbar-text-style {
+  font-size: larger;
+}
+
+.navbar-text-padding {
+  padding: 10px;
+  padding-left: 20px;
+}
+
