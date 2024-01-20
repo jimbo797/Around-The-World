@@ -43,6 +43,37 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+
+router.get("/user", (req, res) => {
+  if (req.user) {
+    User.findById(req.query.userid).then((user) => {
+      res.send(user);
+    });
+  }
+  res.send({});
+});
+
+router.get("/getUsername", (req, res) => {
+  if (req.user) {
+    User.findOne({ name: req.user.name }).then((user) => {
+      res.send({ username: user.username });
+    });
+  } else {
+    res.send({});
+  }
+});
+
+router.post("/changeUsername", (req, res) => {
+  if (req.user) {
+    User.findOne({ name: req.user.name }).then((user) => {
+      user.username = req.body.username;
+      user.save();
+      socketManager.getSocketFromUserID(req.user._id).emit("username", user.username);
+    });
+    res.send({ message: "updated username" });
+  }
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
