@@ -1,0 +1,36 @@
+
+.profile-bio{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.white-text-overall{
+    color: white;
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    display: flex;
+    flex-direction: column;
+  
+}
+
+.padding-between{
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.bio-button{
+    font-size:15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    justify-content: center;
+    padding: auto;
+}
+
+.align-bio-button{
+    justify-content: center;
+}

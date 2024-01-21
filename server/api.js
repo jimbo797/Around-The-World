@@ -74,6 +74,17 @@ router.post("/changeUsername", (req, res) => {
   }
 });
 
+router.post("/changeBiography", (req, res) => {
+  if (req.user) {
+    User.findOne({ name: req.user.name }).then((user) => {
+      user.biography = req.body.biography;
+      user.save();
+      socketManager.getSocketFromUserID(req.user._id).emit("biography", user.biography);
+    });
+    res.send({ message: "updated biography" });
+  }
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
