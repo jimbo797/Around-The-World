@@ -2,9 +2,9 @@ import React from "react";
 import Page from "../modules/Page";
 import LogIn from "../modules/LogIn";
 
-const Settings = ({ userId, handleLogin }) => {
+const Settings = ({ userId, handleLogin, handleLogout }) => {
   return (
-    <LogIn></LogIn>
+    <LogIn userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}></LogIn>
   )
 
   // <Page userId={userId}></Page>;
