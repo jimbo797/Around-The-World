@@ -61,6 +61,11 @@ form {
   justify-content: center;
 }
 
+.u-justifyRight {
+  margin-left: auto;
+  margin-right: 0;
+}
+
 .u-flex-alignCenter {
   align-items: center;
 }

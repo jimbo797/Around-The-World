@@ -4,12 +4,13 @@ import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/goo
 import "../../utilities.css";
 import "./Skeleton.css";
 import NavBar from "../modules/NavBar";
-import Page from "../modules/Page"
+import Page from "../modules/Page";
+import LogIn from "../modules/LogIn";
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "242268688964-cqlt0cqtv3n2qg8nu3km11r7s8ctnioq.apps.googleusercontent.com";
 
-const Skeleton = ({ userId, handleLogin, handleLogout }) => {
+const Skeleton = ({userId, handleLogout, handleLogin}) => {
   return (
     <Page>
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>

@@ -2,7 +2,7 @@ import React from "react";
 import Page from "../modules/Page";
 
 const PlanTrip = () => {
-  return <Page></Page>;
+  return;
 };
 
 export default PlanTrip;

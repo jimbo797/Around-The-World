@@ -9,6 +9,7 @@ import Profile from "./pages/Profile.js";
 import Feed from "./pages/Feed.js";
 import PlanTrip from "./pages/PlanTrip.js";
 import Settings from "./pages/Settings.js";
+import Page from "./modules/Page.js";
 
 import "../utilities.css";
 
@@ -48,19 +49,26 @@ const App = () => {
 
   return (
     <div>
-      <Routes>
-        <Route
-          path="/skeleton"
-          element={
-            <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-          }
-        />
-        <Route path="/" element={<Feed userId={userId} />} />
-        <Route path="/profile" element={<Profile userId={userId} />} />
-        <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
-        <Route path="/settings" element={<Settings userId={userId} />} />
-        <Route path="*" element={<NotFound userId={userId} />} />
-      </Routes>
+      <Page userId={userId}> 
+        <Routes>
+          <Route
+            path="/skeleton"
+            element={
+              <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+            }
+          />
+          <Route path="/" element={<Feed userId={userId} />} />
+          <Route path="/profile" element={<Profile userId={userId} />} />
+          <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
+          <Route
+            path="/settings"
+            element={
+              <Settings handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+            }
+          />
+          <Route path="*" element={<NotFound userId={userId} />} />
+        </Routes>
+      </Page>
     </div>
   );
 };

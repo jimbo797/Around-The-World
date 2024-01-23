@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
 import Card from "../modules/Post.js";
 import { NewStory } from "../modules/NewPostInput.js";
-import Page from '../modules/Page';
+import Page from "../modules/Page";
 
 const Feed = () => {
   const [stories, setStories] = useState([]);
@@ -34,13 +34,10 @@ const Feed = () => {
     storiesList = <div>No stories!</div>;
   }
   return (
-    <Page>
-        <div>
-        <NewStory addNewStory={addNewStory} />
-        {storiesList}
-        </div>
-    </Page>
-    
+    <div>
+      <NewStory addNewStory={addNewStory} />
+      {storiesList}
+    </div>
   );
 };
 
