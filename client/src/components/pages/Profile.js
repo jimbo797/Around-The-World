@@ -79,6 +79,11 @@ const Profile = ({ userId }) => {
     <div>
       <div className="white-text-overall"> Name: {username} </div>
       <div className="padding-between">{BiographyModule}</div>
+      {/* {adding images via link for imgur: https://apidocs.imgur.com/} */}
+      <img 
+      src="https://worldanimalfoundation.org/wp-content/uploads/2023/09/Cute-dogs.jpg"
+      alt="new"
+      />
     </div>
   );
 };
