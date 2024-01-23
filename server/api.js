@@ -114,11 +114,13 @@ const data = {
       _id: 0,
       creator_name: "Tony Cui",
       content: "Send it or blend it?",
+      imgSrc: "XgbZdeA"
     },
     {
       _id: 1,
       creator_name: "Andrew Liu",
       content: "web.labing with Tony <3",
+      imgSrc: "26xcQUF"
     },
   ],
   comments: [

@@ -1,6 +1,7 @@
 import React from "react";
 
 import "../modules/Post.css";
+import ImgurRequest from "./ImgurRequest";
 
 /**
  * Story is a component that renders creator and content of a story
@@ -15,7 +16,8 @@ const SingleStory = (props) => {
   return (
     <div className="Card-story">
       <span className="u-bold">{props.creator_name}</span>
-      <p className="Card-storyContent">{props.imgSrc}</p>
+      {/* <p className="Card-storyContent">{props.imgSrc}</p> */}
+      <ImgurRequest imgId={props.imgSrc}/>
       <p className="Card-storyContent">{props.content}</p>
     </div>
   );
