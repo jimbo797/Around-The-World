@@ -59,9 +59,23 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ["*", ".js", ".jsx"],
+    extensions: [".*", ".js", ".jsx"],
+    fallback: {
+      stream: false,
+      crypto: false,
+      url: false,
+      querystring: false,
+      http: false,
+      https: false,
+      path: false,
+      net: "empty",
+      zlib: false,
+      fs: false,
+    },
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [new webpack.HotModuleReplacementPlugin(), new webpack.ProvidePlugin({
+    process: 'process/browser',
+  })],
   devServer: {
     historyApiFallback: true,
     static: "./client/dist",
