@@ -46,6 +46,9 @@ module.exports = {
           {
             loader: "css-loader",
           },
+          {
+            loader: "postcss-loader",
+          },
         ],
       },
       {
@@ -73,9 +76,12 @@ module.exports = {
       fs: false,
     },
   },
-  plugins: [new webpack.HotModuleReplacementPlugin(), new webpack.ProvidePlugin({
-    process: 'process/browser',
-  })],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.ProvidePlugin({
+      process: "process/browser",
+    }),
+  ],
   devServer: {
     historyApiFallback: true,
     static: "./client/dist",
