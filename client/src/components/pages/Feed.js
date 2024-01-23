@@ -3,6 +3,7 @@ import { get } from "../../utilities";
 import Card from "../modules/Post.js";
 import { NewStory } from "../modules/NewPostInput.js";
 import Page from "../modules/Page";
+import "../modules/Page.css";
 
 const Feed = () => {
   const [stories, setStories] = useState([]);
@@ -35,7 +36,7 @@ const Feed = () => {
     storiesList = <div>No stories!</div>;
   }
   return (
-    <div>
+    <div className="padding-feed">
       <NewStory addNewStory={addNewStory} />
       {storiesList}
     </div>
