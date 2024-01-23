@@ -26,7 +26,7 @@ const Page = ({ userId, children }) => {
     <div className="u-absolute page-size u-flexRow page-overflow">
       <NavBar userId={userId}></NavBar>
       <Background>
-        <div className="u-flexRow page-username-padding page-head-size">
+        <div className="u-flexRow page-text">
           <div>Online Passport</div>
           <div className="u-justifyRight">{message}</div>
         </div>
