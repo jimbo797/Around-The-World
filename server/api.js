@@ -43,7 +43,6 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-
 router.get("/user", (req, res) => {
   if (req.user) {
     User.findById(req.query.userid).then((user) => {
@@ -57,6 +56,16 @@ router.get("/getUsername", (req, res) => {
   if (req.user) {
     User.findOne({ name: req.user.name }).then((user) => {
       res.send({ username: user.username });
+    });
+  } else {
+    res.send({});
+  }
+});
+
+router.get("/getProfilePicture", (req, res) => {
+  if (req.user) {
+    User.findById(req.query.userid).then((user) => {
+      res.send({ profilePicture: user.profilePicture });
     });
   } else {
     res.send({});
@@ -85,6 +94,17 @@ router.post("/changeBiography", (req, res) => {
   }
 });
 
+router.post("/setProfilePicture", (req, res) => {
+  if (req.user) {
+    User.findById(req.query.userid).then((user) => {
+      user.profilePicture = req.body.profilePicture;
+      user.save();
+      socketManager.getSocketFromUserID(req.user._id).emit("profilePicture", user.username);
+    });
+    res.send({ message: "updated profile picture" });
+  }
+});
+
 const myName = "Anonymous";
 
 const data = {
@@ -95,10 +115,10 @@ const data = {
       content: "Send it or blend it?",
     },
     {
-      _id: 1, 
+      _id: 1,
       creator_name: "Andrew Liu",
       content: "web.labing with Tony <3",
-    }
+    },
   ],
   comments: [
     {
