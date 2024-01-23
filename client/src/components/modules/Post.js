@@ -12,6 +12,7 @@ import "./Post.css";
  * @param {string} _id of the story
  * @param {string} creator_name
  * @param {string} content of the story
+ * @param {string} imgSrc imgur link
  */
 const Card = (props) => {
   const [comments, setComments] = useState([]);
@@ -30,7 +31,7 @@ const Card = (props) => {
 
   return (
     <div className="Card-container">
-      <SingleStory _id={props._id} creator_name={props.creator_name} content={props.content} />
+      <SingleStory _id={props._id} creator_name={props.creator_name} content={props.content} imgSrc={props.imgSrc}/>
       <CommentsBlock story={props} comments={comments} addNewComment={addNewComment} />
     </div>
   );
