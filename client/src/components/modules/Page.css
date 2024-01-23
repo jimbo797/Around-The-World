@@ -13,4 +13,13 @@
   padding-top: 2%;
 }
 
+.page-text{
+  display:flex;
+  flex-direction: row;
+  justify-content: left;
+  font-size: 20px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-style: italic;
+}
+
 
