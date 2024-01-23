@@ -13,9 +13,11 @@ const Page = ({ userId, children }) => {
   const [message, setMessage] = useState(notLoggedInMessage);
 
   useEffect(() => {
-    get("/api/getUsername").then((data) => {
-      if (data.username) {
-        setMessage(`Logged in as ${data.username}`);
+    get("/api/whoami").then((user) => { // TODO: Change to user's profile name instead of their google name
+      if (user._id) {
+        setMessage(`Logged in as ${user.name}`);
+      } else {
+        setMessage(notLoggedInMessage);
       }
     });
   }, []);
@@ -24,7 +26,7 @@ const Page = ({ userId, children }) => {
     <div className="u-absolute page-size u-flexRow page-overflow">
       <NavBar userId={userId}></NavBar>
       <Background>
-        <div className="u-flexRow page-username-padding">
+        <div className="u-flexRow page-username-padding page-head-size">
           <div>Online Passport</div>
           <div className="u-justifyRight">{message}</div>
         </div>

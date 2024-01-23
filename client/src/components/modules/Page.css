@@ -9,8 +9,13 @@
 }
 
 .page-text-padding {
+  box-sizing: border-box;
   padding: 1%;
   padding-top: 2%;
+}
+
+.page-head-size {
+margin-right: 1%;
 }
 
 
