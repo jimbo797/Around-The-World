@@ -143,7 +143,10 @@ router.get("/test", (req, res) => {
 
 router.get("/stories", (req, res) => {
   // send back all of the stories!
-  res.send(data.stories);
+  // res.send(data.stories);
+
+  // empty selector means get all documents
+  Story.find({}).then((stories) => res.send(stories));
 });
 
 router.get("/comment", (req, res) => {
@@ -152,15 +155,17 @@ router.get("/comment", (req, res) => {
 });
 
 router.post("/story", (req, res) => {
-  const newStory = {
-    _id: data.stories.length,
-    creator_name: myName,
+  const newStory = new Story({
+    // _id: data.stories.length,
+    creator_id: req.user._id,
+    creator_name: req.user.name,
     content: req.body.content,
     imgSrc: req.body.imgSrc,
-  };
+  });
+  newStory.save().then((story) => res.send(story));
 
-  data.stories.push(newStory);
-  res.send(newStory);
+  // data.stories.push(newStory);
+  // res.send(newStory);
 });
 
 router.post("/comment", (req, res) => {
