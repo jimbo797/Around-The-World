@@ -61,7 +61,7 @@ const App = () => {
               <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
             }
           />
-          <Route path="/" element={<Feed userId={userId} />} />
+          <Route path="/" element={<Feed userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />} />
           <Route path="/profile" element={<Profile userId={userId} />} />
           <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
           <Route

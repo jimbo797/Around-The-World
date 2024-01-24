@@ -4,8 +4,10 @@ import Card from "../modules/Post.js";
 import { NewStory } from "../modules/NewPostInput.js";
 import Page from "../modules/Page";
 import "../modules/Page.css";
+import LogIn from "../modules/LogIn";
+import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 
-const Feed = () => {
+const Feed = ({userId, handleLogin, handleLogout}) => {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
@@ -38,10 +40,17 @@ const Feed = () => {
   } else {
     storiesList = <div>No stories!</div>;
   }
+
   return (
-    <div className="overflow-scroll">
-      <NewStory addNewStory={addNewStory} />
-      {storiesList}
+    <div>
+      {!userId ? (
+        <LogIn userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}></LogIn>
+      ):(
+        <div className="overflow-scroll">
+        <NewStory addNewStory={addNewStory} />
+        {storiesList}
+        </div>
+      )}
     </div>
   );
 };
