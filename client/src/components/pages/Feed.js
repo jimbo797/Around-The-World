@@ -36,7 +36,7 @@ const Feed = () => {
     storiesList = <div>No stories!</div>;
   }
   return (
-    <div className="padding-feed">
+    <div className="overflow-scroll">
       <NewStory addNewStory={addNewStory} />
       {storiesList}
     </div>

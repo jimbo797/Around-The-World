@@ -46,7 +46,6 @@ router.post("/initsocket", (req, res) => {
 
 router.get("/user", (req, res) => {
   if (req.user) {
-    console.log(req.user)
     User.findById(req.query.userid).then((user) => {
       res.send(user);
     });

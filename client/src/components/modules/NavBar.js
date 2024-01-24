@@ -17,7 +17,7 @@ const NavBar = ({ userId }) => {
   ));
 
   return (
-    <div className="navbar-size navbar-bgcolor">
+    <div className="navbar-size navbar-bgcolor float-left navbar-position">
       <div className="navbar-centering">{navbarLinks}</div>
     </div>
   );

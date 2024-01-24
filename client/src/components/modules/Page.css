@@ -1,10 +1,9 @@
 .page-size {
-  height: 100%;
   width: 100%;
 }
 
 .page-overflow {
-  overflow-y: auto;
+  overflow-y: hidden;
   /* overflow-x: hidden; */
 }
 
@@ -22,7 +21,8 @@
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: bold;
   color:rgb(250, 250, 250);
-  padding: 10px
+  padding: 10px;
+  padding-top:0px;
 }
 
 .padding-feed{
