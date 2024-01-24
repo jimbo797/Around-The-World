@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
-import 'mapbox-gl/dist/mapbox-gl.css'
+import "mapbox-gl/dist/mapbox-gl.css";
 import "./Map.css";
 /**
  * Map is a component that displays the interactive Mapbox map
@@ -8,8 +8,8 @@ import "./Map.css";
  * Proptypes
  */
 const MapComponent = () => {
-    // var locations = [];
-    const [locations, setLocations] = useState([]);
+  // var locations = [];
+  const [locations, setLocations] = useState([]);
 
   useEffect(() => {
     // Set your Mapbox access token
@@ -25,8 +25,8 @@ const MapComponent = () => {
 
     // add markers
     for (const element of locations) {
-        var [longitude, latitude] = element;
-        new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
+      var [longitude, latitude] = element;
+      new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
     }
 
     return () => {
@@ -35,46 +35,51 @@ const MapComponent = () => {
     };
   }, [locations]); // Empty dependency array ensures that the effect runs only once
 
+  const [value, setValue] = useState("");
 
-    const [value, setValue] = useState("");
-  
-    // called whenever the user types in the new post input box
-    const handleChange = (event) => {
-      setValue(event.target.value);
-    };
-  
-    // called when the user hits "Submit" for a new post
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      addLocation && addLocation(value);
-      setValue("");
-    };
+  // called whenever the user types in the new post input box
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
-    const addLocation = (value) => {
-        // const body = { parent: props.storyId, content: value };
-        // post("/api/comment", body).then((comment) => {
-        //   // display this comment on the screen
-        //   props.addNewComment(comment);
-        // });
-        const coordinatesArray = value.slice(1, -1).split(',');
+  // called when the user hits "Submit" for a new post
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addLocation && addLocation(value);
+    setValue("");
+  };
 
-        // Convert each substring to a number
-        const longitude = parseFloat(coordinatesArray[0]);
-        const latitude = parseFloat(coordinatesArray[1]);
-        // console.log(typeof longitude);
-        // locations.push([longitude, latitude]);
-        // console.log(locations);
+  const checkValidCoordinates = (latitude, longitude) => {
+    if (-180 > longitude || longitude > 180) return false;
+    if (-90 > latitude || latitude > 90) return false;
+    return true;
+  };
 
-        if (!isNaN(longitude) && !isNaN(latitude)) {
-            setLocations([...locations, [longitude, latitude]]);
-        }
-      
-      };
+  const addLocation = (value) => {
+    // const body = { parent: props.storyId, content: value };
+    // post("/api/comment", body).then((comment) => {
+    //   // display this comment on the screen
+    //   props.addNewComment(comment);
+    // });
+    const coordinatesArray = value.slice(1, -1).split(",");
 
-    // return <div id="map" style={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }} />;
+    // Convert each substring to a number
+    const longitude = parseFloat(coordinatesArray[0]);
+    const latitude = parseFloat(coordinatesArray[1]);
+    // console.log(typeof longitude);
+    // locations.push([longitude, latitude]);
+    // console.log(locations);
+
+    if (!checkValidCoordinates(latitude, longitude)) return;
+    if (!isNaN(longitude) && !isNaN(latitude)) {
+      setLocations([...locations, [longitude, latitude]]);
+    }
+  };
+
+  // return <div id="map" style={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }} />;
   return (
     <div>
-        <div className="u-flex">
+      <div className="u-flex">
         <input
           type="text"
           placeholder={"Enter locations you've visited in the format of [longitude, latitude]: "}
@@ -82,7 +87,7 @@ const MapComponent = () => {
           onChange={handleChange}
           className="NewPostInput-input"
         />
-        
+
         <button
           type="submit"
           className="NewPostInput-button u-pointer"
@@ -93,12 +98,9 @@ const MapComponent = () => {
         </button>
       </div>
 
-        <div id="map" />
-
+      <div id="map" />
     </div>
-
-  )
-    
+  );
 };
 
 export default MapComponent;
