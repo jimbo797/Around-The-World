@@ -14,7 +14,7 @@ const Feed = () => {
       let reversedStoryObjs = storyObjs.reverse();
       setStories(reversedStoryObjs);
     });
-  }, []);
+  }, [stories]);
 
   // this gets called when the user pushes "Submit", so their
   // post gets added to the screen right away
