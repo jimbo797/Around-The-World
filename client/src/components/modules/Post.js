@@ -26,12 +26,17 @@ const Card = (props) => {
   // this gets called when the user pushes "Submit", so their
   // post gets added to the screen right away
   const addNewComment = (commentObj) => {
-    setComments(comments.concat([commentObj]));
+    setComments([commentObj].concat(comments));
   };
 
   return (
     <div className="Card-container">
-      <SingleStory _id={props._id} creator_name={props.creator_name} content={props.content} imgSrc={props.imgSrc}/>
+      <SingleStory
+        _id={props._id}
+        creator_name={props.creator_name}
+        content={props.content}
+        imgSrc={props.imgSrc}
+      />
       <CommentsBlock story={props} comments={comments} addNewComment={addNewComment} />
     </div>
   );
