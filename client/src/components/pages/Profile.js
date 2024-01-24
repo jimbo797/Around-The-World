@@ -84,7 +84,7 @@ const Profile = ({ userId }) => {
       src="https://worldanimalfoundation.org/wp-content/uploads/2023/09/Cute-dogs.jpg"
       alt="new"
       /> */}
-    <MapComponent locations={[[12.554729, 55.70651]]}/>
+      <MapComponent locations={[[12.554729, 55.70651]]} />
     </div>
   );
 };

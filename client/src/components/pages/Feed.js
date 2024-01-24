@@ -10,13 +10,16 @@ const Feed = () => {
 
   useEffect(() => {
     get("/api/stories").then((storyObjs) => {
-      setStories(storyObjs);
+      // setStories(storyObjs);
+      let reversedStoryObjs = storyObjs.reverse();
+      setStories(reversedStoryObjs);
     });
   }, []);
 
   // this gets called when the user pushes "Submit", so their
   // post gets added to the screen right away
   const addNewStory = (storyObj) => {
+    console.log(storyObj.content + " " + storyObj._id);
     setStories(stories.concat([storyObj]));
   };
 

@@ -14,7 +14,7 @@ import { NewComment } from "./NewPostInput.js";
  *
  * Proptypes
  * @param {ContentObject[]} comments
- * @param {string} storyId
+//  * @param {string} storyId THIS DOES NOT WORK DO NOT USE STORYID
  */
 const CommentsBlock = (props) => {
   return (

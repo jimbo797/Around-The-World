@@ -150,13 +150,11 @@ router.get("/stories", (req, res) => {
 });
 
 router.get("/comment", (req, res) => {
-  Comment.find({parent: req.query.parent}).then((comments) => {
-    // console.log(req.query.parent);
-    // console.log(comments);
-    res.send(comments);
-  });
   // const filteredComments = data.comments.filter((comment) => comment.parent == req.query.parent);
   // res.send(filteredComments);
+  Comment.find({ parent: req.query.parent }).then((comments) => {
+    res.send(comments);
+  });
 });
 
 router.post("/story", (req, res) => {
@@ -167,6 +165,7 @@ router.post("/story", (req, res) => {
     content: req.body.content,
     imgSrc: req.body.imgSrc,
   });
+
   newStory.save().then((story) => res.send(story));
 
   // data.stories.push(newStory);
