@@ -151,6 +151,7 @@ router.post("/story", (req, res) => {
     _id: data.stories.length,
     creator_name: myName,
     content: req.body.content,
+    imgSrc: req.body.imgSrc
   };
 
   data.stories.push(newStory);

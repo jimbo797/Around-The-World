@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { post } from "../../utilities";
+import axios from "axios";
 
 import "./NewPostInput.css";
+import ImgurUpload from "./ImgurUpload";
 
 /**
  * New Post is a parent component for all input components
@@ -132,51 +134,121 @@ import "./NewPostInput.css";
  * @param {string} defaultText is the placeholder text
  * @param {string} storyId optional prop, used for comments
  * @param {({storyId, value}) => void} onSubmit: (function) triggered when this post is submitted, takes {storyId, value} as parameters (might need to remove from props later!!)
- * @param {string} imgSrc imgur link
  */
 const NewStory = (props) => {
-  const initialValues = {
-    caption: "",
-    img: ""
+  // const initialValues = {
+  //   caption: "",
+  //   img: ""
+  // };
+
+  const [values, setValues] = useState("");
+  const [image, setImage] = useState(null); // for Imgur upload
+  var imgId = "";
+
+  // when imgur upload made
+  const handleImageChange = (event) => {
+    // Assuming you have an input field for selecting a file
+    const selectedImage = event.target.files[0];
+    setImage(selectedImage);
   };
 
-  const [values, setValues] = useState(initialValues);
   
   // called whenever the user types in the new post input box
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setValues({
+  //     ...values,
+  //     [name]: value,
+  //   });
+  //   // setValues(event.target.value);
+  // };
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-    // setValues(event.target.value);
+    setValues(event.target.value);
+  };
+
+  // upload image to imgur api
+  const handleImageUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("image", image);
+
+      const response = await axios.post("https://api.imgur.com/3/image", formData, {
+        headers: {
+          Authorization: "Client-ID 6b1e2512d36fa88", // Replace with your Imgur client ID
+        },
+      });
+
+      console.log("Upload successful:", response.data);
+      imgId = parseImgurImageId(response.data.data.link);
+      
+      // console.log(response.data.data.link);
+      // console.log(parseImgurImageId(response.data.data.link));
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
   };
 
   // called when the user hits "Submit" for a new post
   const handleSubmit = (event) => {
-    event.preventDefault();
-    props.onSubmit && props.onSubmit(values);
-    setValues(initialValues);
+    handleImageUpload().then(() => {
+      // console.log("here")
+      event.preventDefault();
+      
+      addStory && addStory(values);
+      console.log("after adding story")
+      setValues("");
+    })
+  
+    // handleImageUpload();
+    // event.preventDefault();
+    // props.addStory && props.addStory(values);
+    // setValues("");
   };
 
+  // parse input link for just the image id
+  const parseImgurImageId = (imgurImageUrl) => {
+    try {
+      // Extract the portion after the last slash
+      const parts = imgurImageUrl.split('/');
+      const fileName = parts[parts.length - 1];
+  
+      // Remove the file extension
+      const imageId = fileName.split('.')[0];
+  
+      return imageId;
+    } catch (error) {
+      // Handle any parsing errors
+      console.error("Error parsing Imgur image ID:", error);
+      return null;
+    }
+  }
+
   const addStory = (value) => {
-    const body = { content: value };
+    // console.log(imgId);
+    const body = { content: value, imgSrc: imgId};
+    // console.log("inside add Story:" + body);
     post("/api/story", body).then((story) => {
       // display this story on the screen
+      // console.log("post done")
+     
       props.addNewStory(story);
+      // console.log("story entry:" + story);
     });
   };
 
   return (
     <div className="u-flex">
-      <input
+      {/* <ImgurUpload /> */}
+      {/* <input
         type="text"
         placeholder={"New Image"}
         value={values.img}
         onChange={handleChange}
         name="img"
         className="NewPostInput-input"
-      />
+      /> */}
+
+      <input type="file" accept="image/*" onChange={handleImageChange} />
 
       <input
         type="text"

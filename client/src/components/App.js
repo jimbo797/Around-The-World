@@ -12,6 +12,7 @@ import Settings from "./pages/Settings.js";
 import Page from "./modules/Page.js";
 
 import "../utilities.css";
+import "./App.css"
 
 import { socket } from "../client-socket.js";
 
