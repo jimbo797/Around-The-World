@@ -23,7 +23,7 @@ const Page = ({ userId, children }) => {
   }, []);
 
   return (
-    <div className="u-absolute page-size u-flexRow page-overflow">
+    <div className="flex flex-row page-size">
       <NavBar userId={userId}></NavBar>
       <Background>
         <div className="u-flexRow page-text">

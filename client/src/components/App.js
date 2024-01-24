@@ -42,7 +42,7 @@ const App = () => {
       post("/api/initsocket", { socketid: socket.id });
     });
     // Refreshes the page
-    location.reload(); // TODO: Is there a better solution using hooks to refresh content on login and logout?
+    // location.reload(); // TODO: Is there a better solution using hooks to refresh content on login and logout?
   };
 
   const handleLogout = () => {
