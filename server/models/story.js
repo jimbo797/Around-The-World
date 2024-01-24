@@ -11,7 +11,8 @@ const StorySchema = new mongoose.Schema({
   creator_name: String,
   content: String,
   imgSrc: String,
-  // location: LocationSchema
+  // location: LocationSchema,
+  // comments: [String],
 });
 
 // compile model from schema

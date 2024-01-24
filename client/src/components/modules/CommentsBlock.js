@@ -28,7 +28,7 @@ const CommentsBlock = (props) => {
             content={comment.content}
           />
         ))}
-        <NewComment storyId={props.storyId} addNewComment={props.addNewComment} />
+        <NewComment storyId={props.story._id} addNewComment={props.addNewComment} />
       </div>
     </div>
   );

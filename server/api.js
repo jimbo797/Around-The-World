@@ -150,8 +150,13 @@ router.get("/stories", (req, res) => {
 });
 
 router.get("/comment", (req, res) => {
-  const filteredComments = data.comments.filter((comment) => comment.parent == req.query.parent);
-  res.send(filteredComments);
+  Comment.find({parent: req.query.parent}).then((comments) => {
+    // console.log(req.query.parent);
+    // console.log(comments);
+    res.send(comments);
+  });
+  // const filteredComments = data.comments.filter((comment) => comment.parent == req.query.parent);
+  // res.send(filteredComments);
 });
 
 router.post("/story", (req, res) => {
@@ -169,15 +174,19 @@ router.post("/story", (req, res) => {
 });
 
 router.post("/comment", (req, res) => {
-  const newComment = {
-    _id: data.comments.length,
-    creator_name: myName,
+  console.log(req.body)
+  // console.log(req.user)
+  const newComment = new Comment({
+    // _id: data.comments.length,
+    creator_id: req.user._id,
+    creator_name: req.user.name,
     parent: req.body.parent,
     content: req.body.content,
-  };
+  });
+  newComment.save().then((comment) => res.send(comment));
 
-  data.comments.push(newComment);
-  res.send(newComment);
+  // data.comments.push(newComment);
+  // res.send(newComment);
 });
 
 // anything else falls to this "not found" case
