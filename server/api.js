@@ -11,6 +11,8 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+const Story = require("./models/story");
+const Comment = require("./models/comment");
 
 // import authentication library
 const auth = require("./auth");
@@ -28,7 +30,7 @@ router.get("/whoami", (req, res) => {
     // not logged in
     return res.send({});
   }
-
+  // console.log(req.user);
   res.send(req.user);
 });
 
@@ -56,7 +58,7 @@ router.get("/user", (req, res) => {
 router.get("/getUsername", (req, res) => {
   if (req.user) {
     User.findOne({ name: req.user.name }).then((user) => {
-      res.send({ username: user.username });
+      res.send({ username: user.name });
     });
   } else {
     res.send({});
@@ -76,9 +78,11 @@ router.get("/getProfilePicture", (req, res) => {
 router.post("/changeUsername", (req, res) => {
   if (req.user) {
     User.findOne({ name: req.user.name }).then((user) => {
-      user.username = req.body.username;
+      // For some reason, user._id gets set to 'new Object(user._id)'
+      user.name = req.body.username;
       user.save();
-      socketManager.getSocketFromUserID(req.user._id).emit("username", user.username);
+      // console.log(user)
+      socketManager.getSocketFromUserID(req.user._id).emit("username", user.username); // is this correct/necessary?
     });
     res.send({ message: "updated username" });
   }
@@ -152,7 +156,7 @@ router.post("/story", (req, res) => {
     _id: data.stories.length,
     creator_name: myName,
     content: req.body.content,
-    imgSrc: req.body.imgSrc
+    imgSrc: req.body.imgSrc,
   };
 
   data.stories.push(newStory);
