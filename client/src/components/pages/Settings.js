@@ -29,7 +29,7 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
   return (
     <>
       <LogIn userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}></LogIn>
-      <input
+      {/* <input
         type="text"
         placeholder="Username"
         className="profile-bio"
@@ -37,7 +37,7 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
         onChange={handleChange}
         value={username}
       ></input>
-      <button onClick={handleButton}>Set Username</button>
+      <button onClick={handleButton}>Set Username</button> */}
     </>
   );
 };
