@@ -22,7 +22,7 @@ import { get, post } from "../utilities";
  * Define the "App" component
  */
 const App = () => {
-  const [userId, setUserId] = useState(undefined);
+  const [userId, setUserId] = useState(undefined); // can't use console.log to check this on render since it's async and delayed
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
@@ -41,16 +41,19 @@ const App = () => {
       setUserId(user._id);
       post("/api/initsocket", { socketid: socket.id });
     });
+    // Refreshes the page
+    location.reload(); // TODO: Is there a better solution using hooks to refresh content on login and logout?
   };
 
   const handleLogout = () => {
     setUserId(undefined);
     post("/api/logout");
+    location.reload();
   };
 
   return (
     <div>
-      <Page userId={userId}> 
+      <Page userId={userId}>
         <Routes>
           <Route
             path="/skeleton"

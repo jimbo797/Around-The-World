@@ -36,6 +36,7 @@ router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
   if (req.user)
     socketManager.addUser(req.user, socketManager.getSocketFromSocketID(req.body.socketid));
+
   res.send({});
 });
 
@@ -45,6 +46,7 @@ router.post("/initsocket", (req, res) => {
 
 router.get("/user", (req, res) => {
   if (req.user) {
+    console.log(req.user)
     User.findById(req.query.userid).then((user) => {
       res.send(user);
     });
@@ -113,13 +115,13 @@ const data = {
       _id: 0,
       creator_name: "Tony Cui",
       content: "Send it or blend it?",
-      imgSrc: "XgbZdeA"
+      imgSrc: "XgbZdeA",
     },
     {
       _id: 1,
       creator_name: "Andrew Liu",
       content: "web.labing with Tony <3",
-      imgSrc: "26xcQUF"
+      imgSrc: "26xcQUF",
     },
   ],
   comments: [

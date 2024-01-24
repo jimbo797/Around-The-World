@@ -36,10 +36,14 @@ const socketManager = require("./server-socket");
 
 // Server configuration below
 // TODO change connection URL after setting up your team database
-process.env.MONGO_SRV = 'mongodb+srv://jkuhlman:BYGlYcn5fOMLNpTg@cluster0.smymg1e.mongodb.net/?retryWrites=true&w=majority';
+process.env.MONGO_SRV =
+  "mongodb+srv://jkuhlman:BYGlYcn5fOMLNpTg@cluster0.smymg1e.mongodb.net/?retryWrites=true&w=majority";
 const mongoConnectionURL = process.env.MONGO_SRV;
 // TODO change database name to the name you chose
 const databaseName = "Cluster0"; // name of the cluster
+
+// Session secret
+process.env.SESSION_SECRET = "qwertyuiopasdfghjklxcvbnm";
 
 // mongoose 7 warning
 mongoose.set("strictQuery", false);
@@ -65,7 +69,7 @@ app.use(express.json());
 app.use(
   session({
     // TODO: add a SESSION_SECRET string in your .env file, and replace the secret with process.env.SESSION_SECRET
-    secret: "session-secret",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
