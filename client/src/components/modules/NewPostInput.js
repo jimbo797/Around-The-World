@@ -241,7 +241,7 @@ const NewStory = (props) => {
     post("/api/story", body).then((story) => {
       // display this story on the screen
       // console.log("post done")
-      console.log("here")
+      // console.log("here")
       props.addNewStory(story);
       // console.log("story entry:" + story);
     });
