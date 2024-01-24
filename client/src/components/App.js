@@ -12,7 +12,7 @@ import Settings from "./pages/Settings.js";
 import Page from "./modules/Page.js";
 
 import "../utilities.css";
-import "./App.css"
+import "./App.css";
 
 import { socket } from "../client-socket.js";
 
@@ -48,12 +48,12 @@ const App = () => {
   const handleLogout = () => {
     setUserId(undefined);
     post("/api/logout");
-    location.reload();
+    // location.reload(); // part of login temp soln
   };
 
   return (
     <div>
-      <Page userId={userId}>
+      <Page userId={userId} name={name}>
         <Routes>
           <Route
             path="/skeleton"
