@@ -236,11 +236,12 @@ const NewStory = (props) => {
   const addStory = (value) => {
     // console.log(imgId);
     const body = { content: value, imgSrc: imgId};
+    // console.log("body " + value + imgId)
     // console.log("inside add Story:" + body);
     post("/api/story", body).then((story) => {
       // display this story on the screen
       // console.log("post done")
-     
+      console.log("here")
       props.addNewStory(story);
       // console.log("story entry:" + story);
     });

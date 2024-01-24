@@ -150,8 +150,11 @@ router.get("/stories", (req, res) => {
 });
 
 router.get("/comment", (req, res) => {
-  const filteredComments = data.comments.filter((comment) => comment.parent == req.query.parent);
-  res.send(filteredComments);
+  // const filteredComments = data.comments.filter((comment) => comment.parent == req.query.parent);
+  // res.send(filteredComments);
+  Comment.find({ parent: req.query.parent }).then((comments) => {
+    res.send(comments);
+  });
 });
 
 router.post("/story", (req, res) => {
@@ -162,6 +165,7 @@ router.post("/story", (req, res) => {
     content: req.body.content,
     imgSrc: req.body.imgSrc,
   });
+
   newStory.save().then((story) => res.send(story));
 
   // data.stories.push(newStory);
@@ -169,15 +173,22 @@ router.post("/story", (req, res) => {
 });
 
 router.post("/comment", (req, res) => {
-  const newComment = {
-    _id: data.comments.length,
+  // const newComment = {
+  //   _id: data.comments.length,
+  //   creator_name: myName,
+  //   parent: req.body.parent,
+  //   content: req.body.content,
+  // };
+
+  // data.comments.push(newComment);
+  // res.send(newComment);
+  const newComment = new Comment({
     creator_name: myName,
     parent: req.body.parent,
     content: req.body.content,
-  };
+  });
 
-  data.comments.push(newComment);
-  res.send(newComment);
+  newComment.save().then((comment) => res.send(comment));
 });
 
 // anything else falls to this "not found" case

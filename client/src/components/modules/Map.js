@@ -93,7 +93,7 @@ const MapComponent = () => {
         </button>
       </div>
 
-        <div id="map" />;
+        <div id="map" />
 
     </div>
 
