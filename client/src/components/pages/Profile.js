@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useState, useEffect } from "react";
 import { socket } from "../../client-socket.js";
 import "../modules/Background";
@@ -7,6 +6,7 @@ import { get, post } from "../../utilities.js";
 import Background from "../modules/Background";
 import Page from "../modules/Page";
 import "./Profile.css";
+import MapComponent from "../modules/Map.js";
 
 const Profile = ({ userId }) => {
   // if (userId === undefined){
@@ -80,10 +80,11 @@ const Profile = ({ userId }) => {
       <div className="white-text-overall"> Name: {username} </div>
       <div className="padding-between">{BiographyModule}</div>
       {/* {adding images via link for imgur: https://apidocs.imgur.com/} */}
-      <img 
+      {/* <img 
       src="https://worldanimalfoundation.org/wp-content/uploads/2023/09/Cute-dogs.jpg"
       alt="new"
-      />
+      /> */}
+    <MapComponent locations={[[12.554729, 55.70651]]}/>
     </div>
   );
 };
