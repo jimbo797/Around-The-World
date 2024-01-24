@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { post } from "../../utilities";
 import axios from "axios";
 
@@ -141,9 +141,10 @@ const NewStory = (props) => {
   //   img: ""
   // };
 
-  const [values, setValues] = useState("");
+  const [value, setValue] = useState("");
   const [image, setImage] = useState(null); // for Imgur upload
   var imgId = "";
+  const inputFile = useRef(null);
 
   // when imgur upload made
   const handleImageChange = (event) => {
@@ -163,7 +164,7 @@ const NewStory = (props) => {
   //   // setValues(event.target.value);
   // };
   const handleChange = (event) => {
-    setValues(event.target.value);
+    setValue(event.target.value);
   };
 
   // upload image to imgur api
@@ -194,9 +195,18 @@ const NewStory = (props) => {
       // console.log("here")
       event.preventDefault();
       
-      addStory && addStory(values);
-      console.log("after adding story")
-      setValues("");
+      addStory && addStory(value);
+      // console.log("after adding story")
+      setValue("");
+      setImage(null);
+
+      if (inputFile.current) {
+        inputFile.current.value = "";
+        inputFile.current.type = "text";
+        inputFile.current.type = "file";
+    }
+
+      // key=Math.random();
     })
   
     // handleImageUpload();
@@ -248,12 +258,12 @@ const NewStory = (props) => {
         className="NewPostInput-input"
       /> */}
 
-      <input type="file" accept="image/*" onChange={handleImageChange} />
+      <input type="file" accept="image/*" ref={inputFile} onChange={handleImageChange} />
 
       <input
         type="text"
         placeholder={"New Caption"}
-        value={values.caption}
+        value={value}
         onChange={handleChange}
         name="caption"
         className="NewPostInput-input"
