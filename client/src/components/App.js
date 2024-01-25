@@ -43,43 +43,41 @@ const App = () => {
       setUserId(user._id);
       post("/api/initsocket", { socketid: socket.id });
     });
-    // Refreshes the page
-    // location.reload(); // TODO: Is there a better solution using hooks to refresh content on login and logout?
   };
 
   const handleLogout = () => {
     setUserId(undefined);
     post("/api/logout");
-    location.reload(); // part of login temp soln
   };
 
   if (!userId)
     return <LogInPage handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />;
 
   return (
-    <div>
-      <Page userId={userId}>
-        <Routes>
-          <Route
-            path="/skeleton"
-            element={
-              <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-            }
-          />
-          <Route path="/" element={<Home userId={userId}/>}/>
-          <Route path="/feed" element={<Feed userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />} />
-          <Route path="/profile" element={<Profile userId={userId} />} />
-          <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
-          <Route
-            path="/settings"
-            element={
-              <Settings handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-            }
-          />
-          <Route path="*" element={<NotFound userId={userId} />} />
-        </Routes>
-      </Page>
-    </div>
+    <Page userId={userId}>
+      <Routes>
+        <Route
+          path="/skeleton"
+          element={
+            <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+          }
+        />
+        <Route path="/" element={<Home userId={userId} />} />
+        <Route
+          path="/feed"
+          element={<Feed userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />}
+        />
+        <Route path="/profile" element={<Profile userId={userId} />} />
+        <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
+        <Route
+          path="/settings"
+          element={
+            <Settings handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+          }
+        />
+        <Route path="*" element={<NotFound userId={userId} />} />
+      </Routes>
+    </Page>
   );
 };
 
