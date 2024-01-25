@@ -5,6 +5,7 @@ import "../../utilities.css";
 
 const NavBar = ({ userId }) => {
   const pages = [
+    { name: "Online Passport", link: "/"},
     { name: "Feed", link: "/feed" },
     { name: "Profile", link: "/profile" },
     { name: "Plan a Trip", link: "/plantrip" },
@@ -16,9 +17,10 @@ const NavBar = ({ userId }) => {
     </a>
   ));
 
+  console.log(navbarLinks);
   return (
     <div className="navbar-size navbar-bgcolor float-left navbar-position">
-      <h1>Online Passport</h1>
+      {/* <h1 className="page-text">Online Passport</h1> */}
       <div className="navbar-centering">{navbarLinks}</div>
     </div>
   );

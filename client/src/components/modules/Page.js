@@ -27,7 +27,7 @@ const Page = ({ userId, children }) => {
       <NavBar userId={userId}></NavBar>
       <Background>
         <div className="u-flexRow page-text">
-          <div>Online Passport</div>
+          {/* <div>Online Passport</div> */}
           <div className="u-justifyRight">{message}</div>
         </div>
         {children}
