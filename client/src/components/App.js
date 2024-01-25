@@ -10,6 +10,7 @@ import Feed from "./pages/Feed.js";
 import PlanTrip from "./pages/PlanTrip.js";
 import Settings from "./pages/Settings.js";
 import Page from "./modules/Page.js";
+import Home from "./pages/Home.js";
 
 import "../utilities.css";
 import "./App.css";
@@ -61,7 +62,8 @@ const App = () => {
               <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
             }
           />
-          <Route path="/" element={<Feed userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />} />
+          <Route path="/" element={<Home userId={userId}/>}/>
+          <Route path="/feed" element={<Feed userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />} />
           <Route path="/profile" element={<Profile userId={userId} />} />
           <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
           <Route
