@@ -11,6 +11,7 @@ import PlanTrip from "./pages/PlanTrip.js";
 import Settings from "./pages/Settings.js";
 import Page from "./modules/Page.js";
 import LogInPage from "./pages/LogInPage.js";
+import Home from "./pages/Home.js";
 
 import "../utilities.css";
 import "./App.css";
@@ -65,7 +66,8 @@ const App = () => {
               <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
             }
           />
-          <Route path="/" element={<Feed userId={userId} />} />
+          <Route path="/" element={<Home userId={userId}/>}/>
+          <Route path="/feed" element={<Feed userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />} />
           <Route path="/profile" element={<Profile userId={userId} />} />
           <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
           <Route
