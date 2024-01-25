@@ -10,6 +10,7 @@ import Feed from "./pages/Feed.js";
 import PlanTrip from "./pages/PlanTrip.js";
 import Settings from "./pages/Settings.js";
 import Page from "./modules/Page.js";
+import LogInPage from "./pages/LogInPage.js";
 
 import "../utilities.css";
 import "./App.css";
@@ -48,12 +49,15 @@ const App = () => {
   const handleLogout = () => {
     setUserId(undefined);
     post("/api/logout");
-    // location.reload(); // part of login temp soln
+    location.reload(); // part of login temp soln
   };
+
+  if (!userId)
+    return <LogInPage handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />;
 
   return (
     <div>
-      <Page userId={userId} name={name}>
+      <Page userId={userId}>
         <Routes>
           <Route
             path="/skeleton"
@@ -61,7 +65,7 @@ const App = () => {
               <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
             }
           />
-          <Route path="/" element={<Feed userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />} />
+          <Route path="/" element={<Feed userId={userId} />} />
           <Route path="/profile" element={<Profile userId={userId} />} />
           <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
           <Route
