@@ -76,6 +76,7 @@ const Profile = ({ userId }) => {
   );
 
   return (
+    <Page userId={userId}>
     <div>
       <div className="white-text-overall"> Name: {username} </div>
       <div className="padding-between">{BiographyModule}</div>
@@ -86,6 +87,7 @@ const Profile = ({ userId }) => {
       /> */}
       <MapComponent locations={[[12.554729, 55.70651]]} />
     </div>
+    </Page>
   );
 };
 

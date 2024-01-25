@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { StrictMode, useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import jwt_decode from "jwt-decode";
@@ -15,6 +15,11 @@ import Home from "./pages/Home.js";
 
 import "../utilities.css";
 import "./App.css";
+
+// import './App.module.css';
+import './_resets.module.css';
+// import Home from './components/pages/Home.js';
+
 
 import { socket } from "../client-socket.js";
 
@@ -54,7 +59,9 @@ const App = () => {
     return <LogInPage handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />;
 
   return (
-    <Page userId={userId}>
+      <div>
+
+    {/* <Page userId={userId}> */}
       <Routes>
         <Route
           path="/skeleton"
@@ -62,7 +69,7 @@ const App = () => {
             <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
           }
         />
-        <Route path="/" element={<Home userId={userId} />} />
+        <Route path="/" className="clapyResets root" element={<Home userId={userId} />}/>
         <Route
           path="/feed"
           element={<Feed userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />}
@@ -77,8 +84,12 @@ const App = () => {
         />
         <Route path="*" element={<NotFound userId={userId} />} />
       </Routes>
-    </Page>
+    {/* </Page> */}
+    </div>  
   );
 };
 
 export default App;
+
+
+
