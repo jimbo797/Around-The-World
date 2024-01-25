@@ -1,0 +1,100 @@
+.root {
+    width: min-content;
+    height: min-content;
+    flex: 1;
+    align-self: stretch;
+    align-items: center;
+    padding: 86px 207px;
+    background-color: #00063d;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .prioritize {
+    position: relative;
+    width: 553.4606px;
+    height: 433px;
+  }
+  .travelAnywhere {
+    transform-origin: top left;
+    color: #fff;
+    font-size: 50px;
+    line-height: 100%;
+    font-weight: 200;
+    font-family: Outfit, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      'Liberation Sans', sans-serif;
+    position: absolute;
+    left: 0;
+    right: 0.0003%;
+    top: 58.4311%;
+    bottom: 8.3126%;
+    width: 553.459px;
+    height: 144px;
+    flex-direction: column;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+  .rectangle20 {
+    position: absolute;
+    left: 0.542%;
+    right: 60.8964%;
+    top: 81.5242%;
+    bottom: 1.9974%;
+    width: 213.423px;
+    height: 71.3513px;
+    border-radius: 100px;
+    background-color: #76b2c7;
+  }
+  .startTraveling {
+    color: #fff;
+    font-size: 25px;
+    line-height: 27.5px;
+    font-family: Outfit, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      'Liberation Sans', sans-serif;
+    letter-spacing: 0.05em;
+    position: absolute;
+    left: 3.998%;
+    right: 64.1705%;
+    top: 86.268%;
+    bottom: 0%;
+    width: 176.1746px;
+    height: 59.4595px;
+    flex-direction: column;
+  }
+  .aroundTheWRld11 {
+    position: absolute;
+    left: 34.8577%;
+    right: 18.7462%;
+    top: 0;
+    bottom: 39.261%;
+    width: 256.7842px;
+    height: 263px;
+    background-image:/* webpackIgnore: true */ url('../../../dist/assets/aroundTheWRld11.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .aROUNDTHEWORLD {
+    color: #fff;
+    font-size: 70px;
+    line-height: 90%;
+    font-weight: bold;
+    font-family: Outfit, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      'Liberation Sans', sans-serif;
+    text-transform: uppercase;
+    position: absolute;
+    left: 0.542%;
+    right: 11.0427%;
+    top: 14.0878%;
+    bottom: 69.515%;
+    width: 489.3435px;
+    height: 71px;
+    flex-direction: column;
+  }
+  .traveling1 {
+    width: 505.9986px;
+    height: 551px;
+    background-image:/* webpackIgnore: true */ url('../../../dist/assets/traveling1.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(1px);
+  }  
