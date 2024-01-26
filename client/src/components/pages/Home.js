@@ -25,14 +25,17 @@ import React, { memo } from 'react';
 
 import '../_resets.module.css';
 import './Home.css';
+import LogIn from "../modules/LogIn";
 
-const Home = memo(function Desktop1(props = {}) {
+
+
+const Home = memo(function Desktop1({ userId, handleLogin, handleLogout }) {
   return (
-    <div className="clapyResets root">
+    <div className="clapyResets root u-flex">
       <div className="prioritize">
         <div className="travelAnywhere">travel anywhere.</div>
         <div className="rectangle20"></div>
-        <div className="startTraveling">start traveling</div>
+        <button className="startTraveling">start traveling</button>
         <div className="aroundTheWRld11"></div>
         <div className="aROUNDTHEWORLD">AROUND THE WORLD</div>
       </div>

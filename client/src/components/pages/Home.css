@@ -1,10 +1,10 @@
 .root {
-    width: min-content;
-    height: min-content;
+    width: 100%;
+    height: 100vh;
     flex: 1;
     align-self: stretch;
     align-items: center;
-    padding: 86px 207px;
+    padding: 45px 90px;
     background-color: #00063d;
     overflow-y: auto;
     overflow-x: hidden;
@@ -51,7 +51,7 @@
       'Liberation Sans', sans-serif;
     letter-spacing: 0.05em;
     position: absolute;
-    left: 3.998%;
+    left: 5.1%;
     right: 64.1705%;
     top: 86.268%;
     bottom: 0%;
@@ -67,7 +67,7 @@
     bottom: 39.261%;
     width: 256.7842px;
     height: 263px;
-    background-image:/* webpackIgnore: true */ url('../../../dist/assets/aroundTheWRld11.png');
+    background-image:/* webpackIgnore: true */ url('assets/aroundTheWRld11.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -92,7 +92,7 @@
   .traveling1 {
     width: 505.9986px;
     height: 551px;
-    background-image:/* webpackIgnore: true */ url('../../../dist/assets/traveling1.gif');
+    background-image:/* webpackIgnore: true */ url('assets/traveling1.gif');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
