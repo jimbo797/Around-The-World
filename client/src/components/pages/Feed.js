@@ -7,7 +7,7 @@ import "../modules/Page.css";
 import LogIn from "../modules/LogIn";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 
-const Feed = ({userId, handleLogin, handleLogout}) => {
+const Feed = ({ userId }) => {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
@@ -43,16 +43,16 @@ const Feed = ({userId, handleLogin, handleLogout}) => {
 
   return (
     <Page userId={userId}>
-    <div>
-      {/* {!userId ? (
+      <div>
+        {/* {!userId ? (
         <LogIn userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}></LogIn>
       ):( */}
         <div className="overflow-scroll">
-        <NewStory addNewStory={addNewStory} />
-        {storiesList}
+          <NewStory addNewStory={addNewStory} />
+          {storiesList}
         </div>
-      {/* )} */}
-    </div>
+        {/* )} */}
+      </div>
     </Page>
   );
 };

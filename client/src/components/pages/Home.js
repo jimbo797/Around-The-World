@@ -27,14 +27,14 @@ import "../_resets.module.css";
 import "./Home.css";
 import LogIn from "../modules/LogIn";
 
-const Home = ({ userId, handleLogin, handleLogout }) => {
+const Home = ({ userId, handleLogin, handleLoggedIn }) => {
   return (
     <div className="clapyResets root u-flex">
       <div className="prioritize">
         <div className="travelAnywhere">travel anywhere.</div>
 
         <div className="googleLoginPos">
-          <LogIn userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}></LogIn>
+          <LogIn userId={userId} handleLogin={handleLogin} handleLoggedIn={handleLoggedIn}></LogIn>
         </div>
 
         <div className="rectangle20 pointer-events-none"></div>

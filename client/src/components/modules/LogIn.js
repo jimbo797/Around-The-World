@@ -5,19 +5,11 @@ import "./LogIn.css";
 
 const GOOGLE_CLIENT_ID = "242268688964-cqlt0cqtv3n2qg8nu3km11r7s8ctnioq.apps.googleusercontent.com";
 
-const LogIn = ({ userId, handleLogout, handleLogin }) => {
+const LogIn = ({ userId, handleLoggedIn, handleLogin }) => {
   return (
-    // <div className="outer">
-    //   <div className="w-10 h-10 bg-blue-600 top"></div>
-    //   <div className="below">
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       {userId ? (
-        <button className="gotofeed-size"
-          onClick={() => {
-            // googleLogout();
-            handleLogout();
-          }}
-        >
+        <button className="gotofeed-size" onClick={handleLoggedIn}>
           Go to feed
         </button>
       ) : (
@@ -29,8 +21,6 @@ const LogIn = ({ userId, handleLogout, handleLogin }) => {
         />
       )}
     </GoogleOAuthProvider>
-    //   </div>
-    // </div>
   );
 };
 

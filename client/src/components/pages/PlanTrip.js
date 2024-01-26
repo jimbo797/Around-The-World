@@ -3,7 +3,7 @@ import Page from "../modules/Page";
 import axios from "axios";
 import "./PlanTrip.css";
 
-const PlanTrip = () => {
+const PlanTrip = ({ userId }) => {
   return <Page userId={userId}></Page>;
 };
 

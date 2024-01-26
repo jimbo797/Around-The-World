@@ -17,9 +17,8 @@ import "../utilities.css";
 import "./App.css";
 
 // import './App.module.css';
-import './_resets.module.css';
+import "./_resets.module.css";
 // import Home from './components/pages/Home.js';
-
 
 import { socket } from "../client-socket.js";
 
@@ -41,37 +40,38 @@ const App = () => {
   }, []);
 
   const redirectToFeed = () => {
-    window.location.href="/feed"
-  }
+    window.location.href = "/feed";
+  };
 
   const redirectToHome = () => {
-    window.location.href="/"
-  }
+    window.location.href = "/";
+  };
 
-  const handleLogin = (credentialResponse) => { // TODO: change for new login button, add redirect function
+  const handleLogin = (credentialResponse) => {
+    // TODO: change for new login button, add redirect function
     const userToken = credentialResponse.credential;
     const decodedCredential = jwt_decode(userToken);
     console.log(`Logged in as ${decodedCredential.name}`);
-    post("/api/login", { token: userToken }).then((user) => {
-      setUserId(user._id);
-      post("/api/initsocket", { socketid: socket.id });
-    });
-    redirectToFeed();
+    post("/api/login", { token: userToken })
+      .then((user) => {
+        setUserId(user._id);
+        post("/api/initsocket", { socketid: socket.id });
+      })
+      .then(redirectToFeed);
   };
 
-  const handleLogout = () => { // TODO: new function for new login button that redirects to page
+  const handleLogout = () => {
+    // TODO: new function for new login button that redirects to page
     setUserId(undefined);
-    post("/api/logout");
-    redirectToHome();
+    post("/api/logout").then(redirectToHome);
   };
 
   // if (!userId)
   //   return <LogInPage handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />;
 
   return (
-      <div>
-
-    {/* <Page userId={userId}> */}
+    <div>
+      {/* <Page userId={userId}> */}
       <Routes>
         <Route
           path="/skeleton"
@@ -79,11 +79,14 @@ const App = () => {
             <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
           }
         />
-        <Route path="/" className="clapyResets root" element={<Home userId={userId} handleLogin={handleLogin} handleLogout={redirectToFeed}/>}/>
         <Route
-          path="/feed"
-          element={<Feed userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />}
+          path="/"
+          className="clapyResets root"
+          element={
+            <Home userId={userId} handleLogin={handleLogin} handleLoggedIn={redirectToFeed} />
+          }
         />
+        <Route path="/feed" element={<Feed userId={userId} />} />
         <Route path="/profile" element={<Profile userId={userId} />} />
         <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
         <Route
@@ -94,12 +97,9 @@ const App = () => {
         />
         <Route path="*" element={<NotFound userId={userId} />} />
       </Routes>
-    {/* </Page> */}
-    </div>  
+      {/* </Page> */}
+    </div>
   );
 };
 
 export default App;
-
-
-

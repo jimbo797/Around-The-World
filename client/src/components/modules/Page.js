@@ -13,7 +13,7 @@ const Page = ({ userId, children }) => {
   const [message, setMessage] = useState(notLoggedInMessage);
 
   useEffect(() => {
-    get("/api/whoami").then((user) => { // TODO: Change to user's profile name instead of their google name
+    get("/api/whoami").then((user) => {
       if (user._id) {
         setMessage(`Logged in as ${user.name}`);
       } else {
