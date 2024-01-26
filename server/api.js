@@ -19,6 +19,7 @@ const auth = require("./auth");
 
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
+router.use(express.json());
 
 //initialize socket
 const socketManager = require("./server-socket");
@@ -45,6 +46,27 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+router.post("/completions", async (req, res) =>{
+  const options = {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.OPEN_AI_API_KEY}`,
+      "Content-Type": "application/json" 
+    }, 
+    body: JSON.stringify({
+      model: "gpt-3.5-turbo",
+      messages: [{role: "user", content: "how are you"}], 
+    })
+  }
+  try{
+    const response = await fetch("https://api.openai.com/v1/chat/completions", options)
+    const data = await response.json(); 
+    res.send(data);
+  }catch (error){
+    console.error(error)
+  }
+})
 
 router.get("/user", (req, res) => {
   if (req.user) {

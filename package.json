@@ -39,6 +39,7 @@
     "mongoose": "^6.9.0",
     "net": "^1.0.2",
     "nodemon": "^2.0.6",
+    "openai": "^4.26.0",
     "os-browserify": "^0.3.0",
     "postcss": "^8.4.33",
     "postcss-loader": "^8.0.0",
