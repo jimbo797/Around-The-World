@@ -1,4 +1,112 @@
-img {
-    width: 200px;
-    height: auto
+*{
+    color: white;
+    font-family: sans-serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    border-top: solid 0.5px rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    margin: 10px;
+}
+
+button{
+    border: solid 0.5px rgba(255, 255, 255, 0.5);
+    background-color: transparent;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+h1{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+input{
+    width: 100%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: rgba(0, 0, 0, 0.05) 0 54px 55px,
+               rgba(0, 0, 0, 0.05) 0 -12px 30px,
+               rgba(0, 0, 0, 0.05) 0 4px 6px,
+               rgba(0, 0, 0, 0.05) 0 12px 3px,
+               rgba(0, 0, 0, 0.05) 0 -3px 5px;
+    padding: 12px 15px;
+    border-radius: 5px;
+    font-size: 20px;
+
+}
+
+input:focus{
+    outline: none;
+}
+
+#submit{
+    position: absolute;
+    bottom: 15px; 
+    margin-left: 625px;
+    cursor: pointer;
+}
+
+.background{
+    background-color: rgb(48, 89, 59);
+    display: flex;
+
+}
+
+.chat-side-bar{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(68, 90, 79);
+    height: 100vh;
+    width: 244px;
+    justify-content: space-between;
+}
+
+.main{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.past-trips{
+    padding: 10px;
+    margin: 10px;
+    height: 100%;
+}
+
+.past-trips li{
+    list-style-type: none;
+    padding: 15px 0;
+    cursor: pointer;
+}
+
+.information{
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+    padding: 10px;
+}
+
+.input{
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+
+}
+
+.bottom{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
