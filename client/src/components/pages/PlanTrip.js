@@ -4,7 +4,7 @@ import axios from "axios";
 import "./PlanTrip.css";
 
 const PlanTrip = () => {
-  return;
+  return <Page userId={userId}></Page>;
 };
 
 export default PlanTrip;

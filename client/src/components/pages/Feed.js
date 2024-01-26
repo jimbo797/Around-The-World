@@ -44,14 +44,14 @@ const Feed = ({userId, handleLogin, handleLogout}) => {
   return (
     <Page userId={userId}>
     <div>
-      {!userId ? (
+      {/* {!userId ? (
         <LogIn userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}></LogIn>
-      ):(
+      ):( */}
         <div className="overflow-scroll">
         <NewStory addNewStory={addNewStory} />
         {storiesList}
         </div>
-      )}
+      {/* )} */}
     </div>
     </Page>
   );

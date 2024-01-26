@@ -1,6 +1,7 @@
 import React from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 import "./LogIn.css";
+// import "../pages/Home.css";
 
 const GOOGLE_CLIENT_ID = "242268688964-cqlt0cqtv3n2qg8nu3km11r7s8ctnioq.apps.googleusercontent.com";
 
@@ -11,13 +12,13 @@ const LogIn = ({ userId, handleLogout, handleLogin }) => {
     //   <div className="below">
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       {userId ? (
-        <button
+        <button className="gotofeed-size"
           onClick={() => {
-            googleLogout();
+            // googleLogout();
             handleLogout();
           }}
         >
-          Logout
+          Go to feed
         </button>
       ) : (
         <GoogleLogin

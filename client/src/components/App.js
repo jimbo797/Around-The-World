@@ -40,7 +40,15 @@ const App = () => {
     });
   }, []);
 
-  const handleLogin = (credentialResponse) => {
+  const redirectToFeed = () => {
+    window.location.href="/feed"
+  }
+
+  const redirectToHome = () => {
+    window.location.href="/"
+  }
+
+  const handleLogin = (credentialResponse) => { // TODO: change for new login button, add redirect function
     const userToken = credentialResponse.credential;
     const decodedCredential = jwt_decode(userToken);
     console.log(`Logged in as ${decodedCredential.name}`);
@@ -48,15 +56,17 @@ const App = () => {
       setUserId(user._id);
       post("/api/initsocket", { socketid: socket.id });
     });
+    redirectToFeed();
   };
 
-  const handleLogout = () => {
+  const handleLogout = () => { // TODO: new function for new login button that redirects to page
     setUserId(undefined);
     post("/api/logout");
+    redirectToHome();
   };
 
-  if (!userId)
-    return <LogInPage handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />;
+  // if (!userId)
+  //   return <LogInPage handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />;
 
   return (
       <div>
@@ -69,7 +79,7 @@ const App = () => {
             <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
           }
         />
-        <Route path="/" className="clapyResets root" element={<Home userId={userId} />}/>
+        <Route path="/" className="clapyResets root" element={<Home userId={userId} handleLogin={handleLogin} handleLogout={redirectToFeed}/>}/>
         <Route
           path="/feed"
           element={<Feed userId={userId} handleLogin={handleLogin} handleLogout={handleLogout} />}

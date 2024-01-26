@@ -38,11 +38,20 @@
     right: 60.8964%;
     top: 81.5242%;
     bottom: 1.9974%;
-    width: 213.423px;
+    width: 223.423px;
     height: 71.3513px;
     border-radius: 100px;
     background-color: #76b2c7;
   }
+
+  .googleLoginPos {
+    position: absolute;
+    left: 1.2%;
+    right: 64.1705%;
+    top: 85%;
+    bottom: 0%;
+  }
+
   .startTraveling {
     color: #fff;
     font-size: 25px;
@@ -51,7 +60,7 @@
       'Liberation Sans', sans-serif;
     letter-spacing: 0.05em;
     position: absolute;
-    left: 5.1%;
+    left: 6.5%;
     right: 64.1705%;
     top: 86.268%;
     bottom: 0%;

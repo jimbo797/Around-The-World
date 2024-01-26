@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 import Page from "../modules/Page";
 import LogIn from "../modules/LogIn";
 
 import { get, post } from "../../utilities";
 
 const Settings = ({ userId, handleLogin, handleLogout }) => {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     get("/api/getUsername").then((data) => {
@@ -28,7 +29,7 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
 
   return (
     <>
-      <LogIn userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}></LogIn>
+      {/* <LogIn userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}></LogIn> */}
       {/* <input
         type="text"
         placeholder="Username"
@@ -38,6 +39,16 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
         value={username}
       ></input>
       <button onClick={handleButton}>Set Username</button> */}
+      <Page userId={userId}>
+        <button
+          onClick={() => {
+            googleLogout();
+            handleLogout();
+          }}
+        >
+          LOGOUT
+        </button>
+      </Page>
     </>
   );
 };
