@@ -171,12 +171,40 @@ router.get("/stories", (req, res) => {
   Story.find({}).then((stories) => res.send(stories));
 });
 
-router.get("/allusers", (req, res) => {
-  User.find({}).then((users) => {
-    res.send(users);
-    console.log(users);
-  });
+router.get("/notfollowed", (req, res) => {
+  console.log(req.user.following);
+  console.log("BREAK");
+  let final;
+  if (req.user) {
+    User.find({}).then((users) => {
+      final = users;
+      // console.log("hi" + users[0]._id);
+      
+      for (let followed of req.user.following) {
+        final = final.filter(user => String(user._id) !== followed);
+      }
+    }).then(() => {
+      res.send(final);
+      console.log("here in not followed" + final)
+    });
+  }
 });
+
+// router.get("/following", (req, res) => {
+//   if (req.user) {
+//     User.findOne({ name: req.user.name }).then((user) => {
+//       console.log("found user")
+//       user.following.push(req.body._id);
+//       user.save();
+//       socketManager.getSocketFromUserID(req.user._id).emit("follow", user.following);
+//     });
+//   // res.send(User.findOne({googleid: req.body.googleid}));
+//     // res.send({message: req.body.googleid});
+//     // console.log(req.user);
+//     res.send({userid: req.body._id});
+//   }
+// });
+
 
 
 router.get("/comment", (req, res) => {
@@ -201,6 +229,25 @@ router.post("/story", (req, res) => {
   // data.stories.push(newStory);
   // res.send(newStory);
 });
+
+router.post("/follow", (req, res) => {
+  // console.log("here")
+  if (req.user) {
+    // console.log("here2")
+
+    User.findOne({ name: req.user.name }).then((user) => {
+      // console.log("found user")
+      user.following.push(req.body._id);
+      user.save();
+      socketManager.getSocketFromUserID(req.user._id).emit("follow", user.following);
+    });
+  // res.send(User.findOne({googleid: req.body.googleid}));
+    // res.send({message: req.body.googleid});
+    // console.log(req.user);
+    res.send({userid: req.body._id, following: req.user.following});
+    // console.log(req.user.following)
+  }
+})
 
 router.post("/comment", (req, res) => {
   console.log(req.body)

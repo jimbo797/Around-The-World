@@ -3,42 +3,66 @@ import Page from "../modules/Page";
 import { get } from "../../utilities";
 import UserProfile from "../modules/UserProfile";
 
-
 const AddFriends = ({ userId }) => {
-    const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
+  //   let usersCurrent = users;
+  // let users = [];
 
-    useEffect(() => {
-        get("/api/allusers").then((userObjs) => {
-          // setStories(storyObjs);
-          setUsers(userObjs);
-        });
-      }, [users]);
-    
-    // console.log(users); 
-    let usersList = null;
-    const hasUsers = users.length !== 0;
-    if (hasUsers) {
-        usersList = users.map((userObj) => (
-          <UserProfile
-            key={`UserProfile_${userObj._id}`}
-            _id={userObj._id}
-            name={userObj.name}
-            googleid={userObj.googleid}
-          />
-        ));
-      } else {
-        usersList = <div>No users!</div>;
-      }
-    // console.log(usersList);
+  useEffect(() => {
+    get("/api/notfollowed").then((userObjs) => {
+      // setStories(storyObjs);
+      //   users = userObjs;
+      //   console.log(users);
+      // console.log(userObjs);
+        setUsers(userObjs);
+        console.log("here" + users);
+    });
+  }, []);
+
+  const followUser = (user) => {
+    // console.log(storyObj.content + " " + storyObj._id);
+    // console.log(typeof googleid);
+    // for (let item of users) {
+    //     console.log(item.googleid);
+    //     console.log(typeof item.googleid);
+    // }
+    // googleid = String(googleid);
+    // console.log(user);
+
+    // console.log(users.filter(item => item._id !== userid.userid));
+    // console.log(user.userid);
+    // console.log(users[0]._id);
+    setUsers(users.filter(item => item._id !== user.userid));
+    // // usersCurrent = users.filter(item => item._id !== userid.userid)
+    // console.log(users);
+  };
+
+  // console.log(users);
+  let usersList = null;
+  const hasUsers = users.length !== 0;
+  if (hasUsers) {
+    usersList = users.map((userObj) => (
+      <UserProfile
+        key={`UserProfile_${userObj._id}`}
+        _id={userObj._id}
+        name={userObj.name}
+        googleid={userObj.googleid}
+        followUser={followUser}
+      />
+    ));
+  } else {
+    usersList = <div>No users!</div>;
+  }
+  // console.log(usersList);
 
   return (
     <Page userId={userId}>
-        <div className="overflow-scroll">
-          {/* <NewStory addNewStory={addNewStory} /> */}
-          {usersList}
-        </div>
+      <div className="overflow-scroll">
+        {/* <NewStory addNewStory={addNewStory} /> */}
+        {usersList}
+      </div>
     </Page>
-    );
+  );
 };
 
 export default AddFriends;
