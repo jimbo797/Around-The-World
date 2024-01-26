@@ -11,7 +11,8 @@
 }
 
 .bg-color {
-  background-color: rgb(132, 149, 164);
+  /* background-color: rgb(132, 149, 164); */
+  background-color: whitesmoke;
 } 
 
 .bg-padding {
