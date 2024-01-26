@@ -9,6 +9,7 @@ const NavBar = ({ userId }) => {
     // { name: "AROUND THE WORLD", link: "/" },
     { name: "Feed", link: "/feed" },
     { name: "Profile", link: "/profile" },
+    { name: "Add Friends", link: "/addfriends"},
     { name: "Plan a Trip", link: "/plantrip" },
     { name: "Settings", link: "/settings" },
   ];

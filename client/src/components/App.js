@@ -12,6 +12,7 @@ import Settings from "./pages/Settings.js";
 import Page from "./modules/Page.js";
 import LogInPage from "./pages/LogInPage.js";
 import Home from "./pages/Home.js";
+import AddFriends from "./pages/AddFriends.js";
 
 import "../utilities.css";
 import "./App.css";
@@ -88,6 +89,7 @@ const App = () => {
         />
         <Route path="/feed" element={<Feed userId={userId} />} />
         <Route path="/profile" element={<Profile userId={userId} />} />
+        <Route path="/addfriends" element={<AddFriends userId={userId} />} />
         <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
         <Route
           path="/settings"

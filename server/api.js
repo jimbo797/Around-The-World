@@ -149,6 +149,14 @@ router.get("/stories", (req, res) => {
   Story.find({}).then((stories) => res.send(stories));
 });
 
+router.get("/allusers", (req, res) => {
+  User.find({}).then((users) => {
+    res.send(users);
+    console.log(users);
+  });
+});
+
+
 router.get("/comment", (req, res) => {
   // const filteredComments = data.comments.filter((comment) => comment.parent == req.query.parent);
   // res.send(filteredComments);
