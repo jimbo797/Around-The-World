@@ -4,52 +4,85 @@ import axios from "axios";
 import { get, post } from "../../utilities.js";
 import "./PlanTrip.css";
 
-function formatParams(params) {
-  // iterate of all the keys of params as an array,
-  // map it to a new array of URL string encoded key,value pairs
-  // join all the url params using an ampersand (&).
-  return Object.keys(params)
-    .map((key) => key + "=" + encodeURIComponent(params[key]))
-    .join("&");
-}
 
 const PlanTrip = () => {
 
+  const [message, setMessage] = useState(null)
+  const [inputValue, setInput] = useState(null)
+  const [previousChats, setPrevious] = useState([])
+  const [current, setCurrent] = useState(null)
+
   const getMessages = async () =>{
     const options = {
-        message: "hello"
+        message: inputValue
     }
-    const fullPath = "/api/completions" + "?" + formatParams(options);
     try{
       const response = await post("/api/completions", options);
       console.log(response);
+      setMessage(response.choices[0].message);
     } catch(error){
       console.error(error);
     }
-
   }
 
+  const newChat = () =>{
+    setMessage(null);
+    setInput("");
+    setCurrent(null);
+  }
+
+  const handleClick = (title) =>{
+    setCurrent(title);
+    setMessage(null);
+    setInput("");
+  }
+
+  useEffect(() => {
+    console.log(current, inputValue, message);
+    if (!current && inputValue && message){
+      setCurrent(inputValue)
+    }
+    if(current && inputValue && message){
+      setPrevious(prevChats => (
+        [...prevChats, {
+          title: current, 
+          role : "user",
+          content: inputValue
+        }, {
+          title: current,
+          role: message.role,
+          content: message.content
+        }]
+      ))
+    }
+  }, [message, current])
+
+  const currentChat = previousChats.filter(prevchat => prevchat.title === current);
+  const uniqueTitles = Array.from(new Set(previousChats.map(prevchat => prevchat.title)));
 
 
   return (
     <div className="background">
       <section className="chat-side-bar">
-        <button>New Trip</button>
+        <button onClick={newChat}>New Trip</button>
         <ul className="past-trips">
-          <li>a trip</li>
+          {uniqueTitles?.map((title, index) => <li key={index} onClick={() => handleClick(title)}>{title}</li>)}
         </ul>
         <nav>
           <p>Around the World</p>
         </nav>
       </section>
       <section className="main">
-        <h1> Plan a Trip </h1>
+        {!current && <h1> Plan a Trip </h1>}
         <ul className="feed">
-
+          {currentChat?.map((chat, index) => <li key={index}>
+            <p className="role">{chat.role}</p>
+            <p>{chat.content}</p>
+          </li>)}
         </ul>
         <div className="bottom">
           <div className="input">
-            <input/>
+            <input value={inputValue} onChange= {(e) => setInput(e.target.value)}/>
             <div id="submit" onClick={getMessages}>✈</div>
           </div>
           <p className="information">
