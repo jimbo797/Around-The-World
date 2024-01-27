@@ -13,9 +13,9 @@ const AddFriends = ({ userId }) => {
       // setStories(storyObjs);
       //   users = userObjs;
       //   console.log(users);
-      // console.log(userObjs);
-        setUsers(userObjs);
-        console.log("here" + users);
+      console.log(userObjs);
+      setUsers(userObjs);
+    //   console.log("here" + userObjs);
     });
   }, []);
 
@@ -32,7 +32,7 @@ const AddFriends = ({ userId }) => {
     // console.log(users.filter(item => item._id !== userid.userid));
     // console.log(user.userid);
     // console.log(users[0]._id);
-    setUsers(users.filter(item => item._id !== user.userid));
+    setUsers(users.filter((item) => item._id !== user.userid));
     // // usersCurrent = users.filter(item => item._id !== userid.userid)
     // console.log(users);
   };

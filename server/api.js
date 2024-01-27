@@ -23,6 +23,7 @@ router.use(express.json());
 
 //initialize socket
 const socketManager = require("./server-socket");
+const user = require("./models/user");
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -47,30 +48,31 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.post("/completions", async (req, res) =>{
+router.post("/completions", async (req, res) => {
   const options = {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${process.env.OPEN_AI_API_KEY}`,
-      "Content-Type": "application/json" 
-    }, 
+      Authorization: `Bearer ${process.env.OPEN_AI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       model: "gpt-3.5-turbo",
-      messages: [{role: "user", content: req.body.message}], 
-    })
-  }
-  try{
-    const response = await fetch("https://api.openai.com/v1/chat/completions", options)
-    const data = await response.json(); 
+      messages: [{ role: "user", content: req.body.message }],
+    }),
+  };
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", options);
+    const data = await response.json();
     res.send(data);
-  }catch (error){
-    console.error(error)
+  } catch (error) {
+    console.error(error);
   }
-})
+});
 
 router.get("/user", (req, res) => {
   if (req.user) {
-    User.findOne({_id: req.user._id}).then((user) => { // findOne or findById ?
+    User.findOne({ _id: req.user._id }).then((user) => {
+      // findOne or findById ?
       res.send(user);
     });
   }
@@ -172,22 +174,34 @@ router.get("/stories", (req, res) => {
 });
 
 router.get("/notfollowed", (req, res) => {
-  console.log(req.user.following);
-  console.log("BREAK");
-  let final;
+  // console.log(req.user.following);
+  // console.log("BREAK");
+  let final = [];
+
   if (req.user) {
-    User.find({}).then((users) => {
-      final = users;
-      // console.log("hi" + users[0]._id);
-      
-      for (let followed of req.user.following) {
-        final = final.filter(user => String(user._id) !== followed);
-      }
-    }).then(() => {
-      res.send(final);
-      console.log("here in not followed" + final)
-    });
+    User.findOne({ _id: req.user._id })
+      .then((currUser) => {
+        // console.log("user" + user);
+        User.find({}).then((users) => {
+          final = [...users];
+          // console.log("users" + users);
+          // console.log("hi" + users[0]._id);
+          console.log("id" + currUser._id);
+          console.log(currUser.following);
+
+          for (let followed of currUser.following) {
+            final = final.filter((user) => String(user._id) !== followed);
+          }
+          console.log("FINAL" + final);
+          res.send(final);
+
+        });
+      })
+    // console.log("here in not followed" + final)
+  } else {
+    res.send([]);
   }
+  
 });
 
 // router.get("/following", (req, res) => {
@@ -204,8 +218,6 @@ router.get("/notfollowed", (req, res) => {
 //     res.send({userid: req.body._id});
 //   }
 // });
-
-
 
 router.get("/comment", (req, res) => {
   // const filteredComments = data.comments.filter((comment) => comment.parent == req.query.parent);
@@ -235,22 +247,40 @@ router.post("/follow", (req, res) => {
   if (req.user) {
     // console.log("here2")
 
-    User.findOne({ name: req.user.name }).then((user) => {
+    User.findOne({ _id: req.user._id }).then((user) => {
+      // const newFollowing = user.following.concat(req.body._id);
+      //   const newUser = new User({
+      //     name: user.name,
+      //     // _id: user._id,
+      //     googleid: user.googleid,
+      //     biography : user.biography,
+      //     stories : user.stories,
+      //     following: newFollowing
+      //   })
+      //   newUser.save();
+      //   res.send({ userid: req.body._id , newId: newUser._id});
+      //   console.log(newUser._id);
+  
       // console.log("found user")
+      
       user.following.push(req.body._id);
       user.save();
-      socketManager.getSocketFromUserID(req.user._id).emit("follow", user.following);
+      // req.user.save();
+      // socketManager.getSocketFromUserID(req.user._id).emit("follow", user.following);
     });
-  // res.send(User.findOne({googleid: req.body.googleid}));
+    // req.user.following.push(req.body._id);
+    // req.user.save().then(() => 
+    
+    // res.send(User.findOne({googleid: req.body.googleid}));
     // res.send({message: req.body.googleid});
     // console.log(req.user);
-    res.send({userid: req.body._id, following: req.user.following});
+    res.send({userid: req.body._id});
     // console.log(req.user.following)
   }
-})
+});
 
 router.post("/comment", (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   // console.log(req.user)
   const newComment = new Comment({
     // _id: data.comments.length,
