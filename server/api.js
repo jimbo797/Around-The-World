@@ -192,6 +192,7 @@ router.get("/notfollowed", (req, res) => {
           for (let followed of currUser.following) {
             final = final.filter((user) => String(user._id) !== followed);
           }
+          final = final.filter((user) => String(user._id) !== String(currUser._id));
           console.log("FINAL" + final);
           res.send(final);
 
