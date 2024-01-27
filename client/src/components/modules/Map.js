@@ -8,6 +8,10 @@ import "./Map.css";
  * Proptypes
  */
 const MapComponent = () => {
+    const axios = require('axios');
+
+    // const request = require('request');
+
   // var locations = [];
   const [locations, setLocations] = useState([]);
 
@@ -55,25 +59,56 @@ const MapComponent = () => {
     return true;
   };
 
+  const convertLocation = async (city) => {
+    try {
+    //   const formData = new FormData();
+    //   formData.append("image", image);
+
+      const response = await axios.get('https://api.api-ninjas.com/v1/geocoding', {
+        params: { city: city },
+        headers: {
+        'X-Api-Key': 'P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj',
+        },
+        })
+
+      console.log("Upload successful:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
   const addLocation = (value) => {
     // const body = { parent: props.storyId, content: value };
     // post("/api/comment", body).then((comment) => {
     //   // display this comment on the screen
     //   props.addNewComment(comment);
     // });
-    const coordinatesArray = value.slice(1, -1).split(",");
+    
+    convertLocation(value).then((response) => {
+        console.log(response[0].longitude);
+        setLocations([...locations, [response[0].longitude, response[0].latitude]]);
+        console.log(locations);
+    })
+
+
+    // const coordinatesArray = value.slice(1, -1).split(",");
+    // const longitude = parseFloat(coordinatesArray[0]);
+    // const latitude = parseFloat(coordinatesArray[1]);
+    // if (!checkValidCoordinates(latitude, longitude)) return;
+    // if (!isNaN(longitude) && !isNaN(latitude)) {
+    //   setLocations([...locations, [longitude, latitude]]);
+    // }
+
+
 
     // Convert each substring to a number
-    const longitude = parseFloat(coordinatesArray[0]);
-    const latitude = parseFloat(coordinatesArray[1]);
+   
     // console.log(typeof longitude);
     // locations.push([longitude, latitude]);
     // console.log(locations);
 
-    if (!checkValidCoordinates(latitude, longitude)) return;
-    if (!isNaN(longitude) && !isNaN(latitude)) {
-      setLocations([...locations, [longitude, latitude]]);
-    }
+    
   };
 
   // return <div id="map" style={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }} />;
@@ -82,7 +117,7 @@ const MapComponent = () => {
       <div className="u-flex">
         <input
           type="text"
-          placeholder={"Enter locations you've visited in the format of [longitude, latitude]: "}
+          placeholder={"Enter cities you've visited: "}
           value={value}
           onChange={handleChange}
           className="NewPostInput-input"
