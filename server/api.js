@@ -242,6 +242,51 @@ router.post("/story", (req, res) => {
   // res.send(newStory);
 });
 
+router.get("/locations", (req, res) => {
+  console.log("get request")
+  if (req.user){
+    User.findOne({_id: req.user._id}).then((user) => {
+      console.log("hi" + user.locations);
+      res.send({locations: user.locations});
+    })
+  }
+})
+   
+//       User.find({}).then((users) => {
+//         final = [...users];
+//         // console.log("users" + users);
+//         // console.log("hi" + users[0]._id);
+//         console.log("id" + currUser._id);
+//         console.log(currUser.following);
+
+//         for (let followed of currUser.following) {
+//           final = final.filter((user) => String(user._id) !== followed);
+//         }
+//         console.log("FINAL" + final);
+//         res.send(final);
+
+//       });
+//     })
+//   // console.log("here in not followed" + final)
+// } else {
+//   res.send([]);
+// }
+
+// Story.find({}).then((stories) => res.send(stories));
+
+router.post("/setlocation", (req, res) => {
+  console.log("post req");
+  if (req.user) {
+    User.findOne({ _id: req.user._id }).then((user) => {
+      user.locations.push(req.body.location);
+      console.log("user locations" + user.locations);
+      user.save();
+    });
+    res.send({location: req.body.location});
+    console.log("hi" + req.user.locations);
+  }
+})
+
 router.post("/follow", (req, res) => {
   // console.log("here")
   if (req.user) {

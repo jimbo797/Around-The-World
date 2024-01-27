@@ -34,7 +34,7 @@
     "google-auth-library": "^8.7.0",
     "https-browserify": "^1.0.0",
     "jwt-decode": "^3.1.2",
-    "mapbox-gl": "^3.1.0",
+    "mapbox-gl": "^3.1.2",
     "mongodb": "^6.3.0",
     "mongoose": "^6.9.0",
     "net": "^1.0.2",

@@ -12,6 +12,7 @@ const Profile = ({ userId }) => {
   // if (userId === undefined){
   //   return <NotLoggedInPage/> //need to make this page
   // }
+  
 
   const getUser = () => {
     // the "sub" field means "subject", which is a unique identifier for each user
@@ -85,7 +86,7 @@ const Profile = ({ userId }) => {
       src="https://worldanimalfoundation.org/wp-content/uploads/2023/09/Cute-dogs.jpg"
       alt="new"
       /> */}
-      <MapComponent locations={[[12.554729, 55.70651]]} />
+      <MapComponent userId ={userId} locations={[[12.554729, 55.70651]]} />
     </div>
     </Page>
   );

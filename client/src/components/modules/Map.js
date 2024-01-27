@@ -2,18 +2,31 @@ import React, { useState, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./Map.css";
+import { get, post } from "../../utilities.js";
+
 /**
  * Map is a component that displays the interactive Mapbox map
  *
  * Proptypes
  */
-const MapComponent = () => {
+const MapComponent = ({ userId }) => {
     const axios = require('axios');
+    const [locations, setLocations] = useState([]);
+
 
     // const request = require('request');
 
   // var locations = [];
-  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    get("/api/locations").then((visited) => {
+      console.log(visited);
+      setLocations(visited.locations);
+
+    });
+  }, []);
+
+ 
 
   useEffect(() => {
     // Set your Mapbox access token
@@ -24,13 +37,18 @@ const MapComponent = () => {
     const map = new mapboxgl.Map({
       container: "map", // container ID
       center: [-74.5, 40], // starting position [lng, lat]
-      zoom: 9, // starting zoom
+      zoom: 2, // starting zoom
     });
 
     // add markers
     for (const element of locations) {
-      var [longitude, latitude] = element;
-      new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
+    convertLocation(element).then((converted) => {
+        // console.log("element" + element)
+        // console.log(typeof converted);
+        var [longitude, latitude] = [converted[0].longitude, converted[0].latitude];
+        new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
+    })
+      
     }
 
     return () => {
@@ -50,7 +68,12 @@ const MapComponent = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     addLocation && addLocation(value);
+
+    
+
     setValue("");
+
+    
   };
 
   const checkValidCoordinates = (latitude, longitude) => {
@@ -70,26 +93,66 @@ const MapComponent = () => {
         'X-Api-Key': 'P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj',
         },
         })
-
+    console.log("res" + response.data);
       console.log("Upload successful:", response.data);
       return response.data;
     } catch (error) {
+        
       console.error("Error uploading image:", error);
     }
   };
 
-  const addLocation = (value) => {
-    // const body = { parent: props.storyId, content: value };
-    // post("/api/comment", body).then((comment) => {
-    //   // display this comment on the screen
-    //   props.addNewComment(comment);
-    // });
-    
-    convertLocation(value).then((response) => {
-        console.log(response[0].longitude);
-        setLocations([...locations, [response[0].longitude, response[0].latitude]]);
-        console.log(locations);
+const addLocation = (value) => {
+    // console.log("add location");
+//     convertLocation(value).then((response) => {
+//         // console.log(response[0].longitude);
+//         // setLocations([...locations, [response[0].longitude, response[0].latitude]]);
+//         console.log(locations);
+
+//         // const body = {location: value};
+//         // post("/api/setlocation", body);
+//   })
+    convertLocation(value).then((res) => {
+        console.log("length", res.length);
+        
+        if (res.length === 0) {
+            // console.log(typeof res[0].longitude === Number);
+            alert("Enter a valid city");
+        } else {
+            console.log("else");
+            const body = {location: value};
+            post("/api/setlocation", body);
+            setLocations([...locations, value]);
+        }
+        
     })
+    
+    // const body = {location: value};
+    // post("/api/setlocation", body);
+}
+  
+//   const addLocation = (value) => {
+//     // const body = { parent: props.storyId, content: value };
+//     // post("/api/comment", body).then((comment) => {
+//     //   // display this comment on the screen
+//     //   props.addNewComment(comment);
+//     // });
+    
+    
+//         // const body = {location: [response[0].longitude, response[0].latitude]};
+//         // console.log(body);
+//         // post("/api/setlocation", body);
+
+//         // const addUser = (value) => {
+//         //     const body = { name: props.name, _id: props._id, googleid: props.googleid };
+//         //     // console.log("before req" + props._id);
+//         //     post("/api/follow", body).then((user) => {
+//         //       // console.log("req made");
+//         //       props.followUser(user);
+//         //       // console.log("after");
+//         //     });
+//     })
+    
 
 
     // const coordinatesArray = value.slice(1, -1).split(",");
@@ -109,7 +172,6 @@ const MapComponent = () => {
     // console.log(locations);
 
     
-  };
 
   // return <div id="map" style={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }} />;
   return (

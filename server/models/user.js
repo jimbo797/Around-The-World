@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
   biography : String,
   // profilePicture: String,
   stories : [String],
+  locations: [String],
   following: [String]
 });
 
