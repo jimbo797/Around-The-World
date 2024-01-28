@@ -24,7 +24,7 @@ router.use(express.json());
 //initialize socket
 const socketManager = require("./server-socket");
 const user = require("./models/user");
-const OPEN_AI_API_KEY="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"
+const OPEN_AI_API_KEY="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";
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
