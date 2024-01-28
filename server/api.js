@@ -183,7 +183,7 @@ router.get("/stories", (req, res) => {
       //   res.send(stories);
       // });
       console.log(currUser);
-      Story.find({creator_id: { $in: currUser.following }}).then((stories) => res.send(stories));
+      Story.find({ creator_id: { $in: currUser.following } }).then((stories) => res.send(stories));
     });
   }
 
@@ -249,6 +249,7 @@ router.post("/story", (req, res) => {
     creator_name: req.user.name,
     content: req.body.content,
     imgSrc: req.body.imgSrc,
+    location: req.body.location,
   });
 
   newStory.save().then((story) => res.send(story));
@@ -261,7 +262,7 @@ router.get("/locations", (req, res) => {
   console.log("get request");
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((user) => {
-      console.log("hi" + user.locations);
+      console.log("hi" + user);
       res.send({ locations: user.locations });
     });
   }

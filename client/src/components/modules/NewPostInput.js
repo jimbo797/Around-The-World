@@ -37,7 +37,7 @@ import ImgurUpload from "./ImgurUpload";
 //         onChange={handleChange}
 //         className="NewPostInput-input"
 //       />
-      
+
 //       <button
 //         type="submit"
 //         className="NewPostInput-button u-pointer"
@@ -99,11 +99,10 @@ import ImgurUpload from "./ImgurUpload";
 //     //     onChange={handleChange}
 //     //     className="NewPostInput-input"
 //     //   />
-//       <NewPostInput defaultText="New Story" onSubmit={addStory} />  
+//       <NewPostInput defaultText="New Story" onSubmit={addStory} />
 
 //     // </div>
-    
-    
+
 //   );
 // };
 
@@ -125,8 +124,6 @@ import ImgurUpload from "./ImgurUpload";
 //   return <NewPostInput defaultText="New Comment" onSubmit={addComment} />;
 // };
 
-
-
 /**
  * New Post is a parent component for all input components
  *
@@ -143,6 +140,7 @@ const NewStory = (props) => {
 
   const [value, setValue] = useState("");
   const [image, setImage] = useState(null); // for Imgur upload
+  const [location, setLocation] = useState("");
   var imgId = "";
   const inputFile = useRef(null);
 
@@ -153,7 +151,6 @@ const NewStory = (props) => {
     setImage(selectedImage);
   };
 
-  
   // called whenever the user types in the new post input box
   // const handleChange = (event) => {
   //   const { name, value } = event.target;
@@ -181,7 +178,7 @@ const NewStory = (props) => {
 
       console.log("Upload successful:", response.data);
       imgId = parseImgurImageId(response.data.data.link);
-      
+
       // console.log(response.data.data.link);
       // console.log(parseImgurImageId(response.data.data.link));
     } catch (error) {
@@ -189,26 +186,62 @@ const NewStory = (props) => {
     }
   };
 
-  // called when the user hits "Submit" for a new post
-  const handleSubmit = (event) => {
-    handleImageUpload().then(() => {
-      // console.log("here")
-      event.preventDefault();
-      
-      addStory && addStory(value);
-      // console.log("after adding story")
-      setValue("");
-      setImage(null);
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value);
+  };
 
-      if (inputFile.current) {
-        inputFile.current.value = "";
-        inputFile.current.type = "text";
-        inputFile.current.type = "file";
+  const convertLocation = async (city) => {
+    try {
+      const response = await axios.get("https://api.api-ninjas.com/v1/geocoding", {
+        params: { city: city },
+        headers: {
+          "X-Api-Key": "P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj",
+        },
+      });
+      console.log("res" + response.data);
+      console.log("Upload successful:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  // called when the user hits "Submit" for a new post
+  const handleSubmit = async (event) => {
+    if (!location) {
+      alert("Enter a city");
+      return;
     }
 
-      // key=Math.random();
-    })
-  
+    const latlong = await convertLocation(location);
+    if (latlong.length === 0) {
+      alert("Enter a valid city");
+      return;
+    }
+    const locationBody = { location: location, latlong: latlong };
+    // post("/api/setlocation", body);
+    // setLocations([...locations, value]);
+    
+    handleImageUpload()
+      .then(() => {
+        // console.log("here")
+        event.preventDefault();
+
+        addStory && addStory(value, locationBody);
+        // console.log("after adding story")
+        setValue("");
+        setImage(null);
+        // setLocation("");
+
+        if (inputFile.current) {
+          inputFile.current.value = "";
+          inputFile.current.type = "text";
+          inputFile.current.type = "file";
+        }
+
+        // key=Math.random();
+      });
+
     // handleImageUpload();
     // event.preventDefault();
     // props.addStory && props.addStory(values);
@@ -219,23 +252,26 @@ const NewStory = (props) => {
   const parseImgurImageId = (imgurImageUrl) => {
     try {
       // Extract the portion after the last slash
-      const parts = imgurImageUrl.split('/');
+      const parts = imgurImageUrl.split("/");
       const fileName = parts[parts.length - 1];
-  
+
       // Remove the file extension
-      const imageId = fileName.split('.')[0];
-  
+      const imageId = fileName.split(".")[0];
+
       return imageId;
     } catch (error) {
       // Handle any parsing errors
       console.error("Error parsing Imgur image ID:", error);
       return null;
     }
-  }
+  };
 
-  const addStory = (value) => {
+  const addStory = (value, location) => {
     // console.log(imgId);
-    const body = { content: value, imgSrc: imgId};
+
+    // TODO: Use location to coords converter to add this info to body
+    const body = { content: value, imgSrc: imgId, location: location };
+
     // console.log("body " + value + imgId)
     // console.log("inside add Story:" + body);
     post("/api/story", body).then((story) => {
@@ -269,7 +305,15 @@ const NewStory = (props) => {
         name="caption"
         className="NewPostInput-input"
       />
-      
+      <input
+        type="text"
+        placeholder={"Location"}
+        value={value}
+        onChange={handleLocationChange}
+        name="caption"
+        className="NewPostInput-input"
+      />
+
       <button
         type="submit"
         className="NewPostInput-button u-pointer"
@@ -281,7 +325,6 @@ const NewStory = (props) => {
     </div>
   );
 };
-
 
 /**
  * New Post is a parent component for all input components
@@ -316,7 +359,7 @@ const NewComment = (props) => {
   };
 
   return (
-    <div onSubmit = {addComment} className="u-flex">
+    <div onSubmit={addComment} className="u-flex">
       <input
         type="text"
         placeholder={"New Comment"}
@@ -324,7 +367,7 @@ const NewComment = (props) => {
         onChange={handleChange}
         className="NewPostInput-input"
       />
-      
+
       <button
         type="submit"
         className="NewPostInput-button u-pointer"
@@ -336,6 +379,5 @@ const NewComment = (props) => {
     </div>
   );
 };
-
 
 export { NewComment, NewStory };

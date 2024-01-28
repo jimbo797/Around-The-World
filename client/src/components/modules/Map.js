@@ -10,11 +10,10 @@ import { get, post } from "../../utilities.js";
  * Proptypes
  */
 const MapComponent = ({ userId }) => {
-    const axios = require('axios');
-    const [locations, setLocations] = useState([]);
+  const axios = require("axios");
+  const [locations, setLocations] = useState([]);
 
-
-    // const request = require('request');
+  // const request = require('request');
 
   // var locations = [];
 
@@ -22,11 +21,8 @@ const MapComponent = ({ userId }) => {
     get("/api/locations").then((visited) => {
       console.log(visited);
       setLocations(visited.locations);
-
     });
   }, []);
-
- 
 
   useEffect(() => {
     // Set your Mapbox access token
@@ -42,13 +38,12 @@ const MapComponent = ({ userId }) => {
 
     // add markers
     for (const element of locations) {
-    convertLocation(element).then((converted) => {
+      convertLocation(element).then((converted) => {
         // console.log("element" + element)
         // console.log(typeof converted);
         var [longitude, latitude] = [converted[0].longitude, converted[0].latitude];
         new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
-    })
-      
+      });
     }
 
     return () => {
@@ -69,109 +64,96 @@ const MapComponent = ({ userId }) => {
     event.preventDefault();
     addLocation && addLocation(value);
 
-    
-
     setValue("");
-
-    
   };
 
-  const checkValidCoordinates = (latitude, longitude) => {
-    if (-180 > longitude || longitude > 180) return false;
-    if (-90 > latitude || latitude > 90) return false;
-    return true;
+  // const checkValidCoordinates = (latitude, longitude) => {
+  //   if (-180 > longitude || longitude > 180) return false;
+  //   if (-90 > latitude || latitude > 90) return false;
+  //   return true;
   };
 
   const convertLocation = async (city) => {
     try {
-    //   const formData = new FormData();
-    //   formData.append("image", image);
+      //   const formData = new FormData();
+      //   formData.append("image", image);
 
-      const response = await axios.get('https://api.api-ninjas.com/v1/geocoding', {
+      const response = await axios.get("https://api.api-ninjas.com/v1/geocoding", {
         params: { city: city },
         headers: {
-        'X-Api-Key': 'P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj',
+          "X-Api-Key": "P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj",
         },
-        })
-    console.log("res" + response.data);
+      });
+      console.log("res" + response.data);
       console.log("Upload successful:", response.data);
       return response.data;
     } catch (error) {
-        
       console.error("Error uploading image:", error);
     }
   };
 
-const addLocation = (value) => {
+  const addLocation = (value) => {
     // console.log("add location");
-//     convertLocation(value).then((response) => {
-//         // console.log(response[0].longitude);
-//         // setLocations([...locations, [response[0].longitude, response[0].latitude]]);
-//         console.log(locations);
+    //     convertLocation(value).then((response) => {
+    //         // console.log(response[0].longitude);
+    //         // setLocations([...locations, [response[0].longitude, response[0].latitude]]);
+    //         console.log(locations);
 
-//         // const body = {location: value};
-//         // post("/api/setlocation", body);
-//   })
+    //         // const body = {location: value};
+    //         // post("/api/setlocation", body);
+    //   })
     convertLocation(value).then((res) => {
-        console.log("length", res.length);
-        
-        if (res.length === 0) {
-            // console.log(typeof res[0].longitude === Number);
-            alert("Enter a valid city");
-        } else {
-            console.log("else");
-            const body = {location: value};
-            post("/api/setlocation", body);
-            setLocations([...locations, value]);
-        }
-        
-    })
-    
+      console.log("length", res.length);
+
+      if (res.length === 0) {
+        // console.log(typeof res[0].longitude === Number);
+        alert("Enter a valid city");
+      } else {
+        console.log("else");
+        const body = { location: value };
+        post("/api/setlocation", body);
+        setLocations([...locations, value]);
+      }
+    });
+
     // const body = {location: value};
     // post("/api/setlocation", body);
-}
-  
-//   const addLocation = (value) => {
-//     // const body = { parent: props.storyId, content: value };
-//     // post("/api/comment", body).then((comment) => {
-//     //   // display this comment on the screen
-//     //   props.addNewComment(comment);
-//     // });
-    
-    
-//         // const body = {location: [response[0].longitude, response[0].latitude]};
-//         // console.log(body);
-//         // post("/api/setlocation", body);
+  };
 
-//         // const addUser = (value) => {
-//         //     const body = { name: props.name, _id: props._id, googleid: props.googleid };
-//         //     // console.log("before req" + props._id);
-//         //     post("/api/follow", body).then((user) => {
-//         //       // console.log("req made");
-//         //       props.followUser(user);
-//         //       // console.log("after");
-//         //     });
-//     })
-    
+  //   const addLocation = (value) => {
+  //     // const body = { parent: props.storyId, content: value };
+  //     // post("/api/comment", body).then((comment) => {
+  //     //   // display this comment on the screen
+  //     //   props.addNewComment(comment);
+  //     // });
 
+  //         // const body = {location: [response[0].longitude, response[0].latitude]};
+  //         // console.log(body);
+  //         // post("/api/setlocation", body);
 
-    // const coordinatesArray = value.slice(1, -1).split(",");
-    // const longitude = parseFloat(coordinatesArray[0]);
-    // const latitude = parseFloat(coordinatesArray[1]);
-    // if (!checkValidCoordinates(latitude, longitude)) return;
-    // if (!isNaN(longitude) && !isNaN(latitude)) {
-    //   setLocations([...locations, [longitude, latitude]]);
-    // }
+  //         // const addUser = (value) => {
+  //         //     const body = { name: props.name, _id: props._id, googleid: props.googleid };
+  //         //     // console.log("before req" + props._id);
+  //         //     post("/api/follow", body).then((user) => {
+  //         //       // console.log("req made");
+  //         //       props.followUser(user);
+  //         //       // console.log("after");
+  //         //     });
+  //     })
 
+  // const coordinatesArray = value.slice(1, -1).split(",");
+  // const longitude = parseFloat(coordinatesArray[0]);
+  // const latitude = parseFloat(coordinatesArray[1]);
+  // if (!checkValidCoordinates(latitude, longitude)) return;
+  // if (!isNaN(longitude) && !isNaN(latitude)) {
+  //   setLocations([...locations, [longitude, latitude]]);
+  // }
 
+  // Convert each substring to a number
 
-    // Convert each substring to a number
-   
-    // console.log(typeof longitude);
-    // locations.push([longitude, latitude]);
-    // console.log(locations);
-
-    
+  // console.log(typeof longitude);
+  // locations.push([longitude, latitude]);
+  // console.log(locations);
 
   // return <div id="map" style={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }} />;
   return (

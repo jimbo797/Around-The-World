@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
+// const LocationObject = require("./location");
+import { LocationObject } from "./location";
 
-const LocationSchema = new mongoose.Schema({
-  latitude: String,
-  longitude: String
-});
+// const LocationSchema = new mongoose.Schema({
+//   name: String,
+//   latitude: Number,
+//   longitude: Number,
+// });
 
 //define a story schema for the database
 const StorySchema = new mongoose.Schema({
@@ -11,7 +14,7 @@ const StorySchema = new mongoose.Schema({
   creator_name: String,
   content: String,
   imgSrc: String,
-  location: LocationSchema,
+  location: LocationObject,
   // comments: [String],
 });
 
