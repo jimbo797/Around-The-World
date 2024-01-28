@@ -62,6 +62,7 @@ const PlanTrip = () => {
 
 
   return (
+    <Page>
     <div className="background">
       <section className="chat-side-bar">
         <button onClick={newChat}>New Trip</button>
@@ -92,6 +93,7 @@ const PlanTrip = () => {
         </div>
       </section>
     </div>
+    </Page>
   )
 };
 
