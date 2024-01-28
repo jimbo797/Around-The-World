@@ -5,6 +5,7 @@ import { get, post } from "../../utilities.js";
 import "./PlanTrip.css";
 
 
+
 const PlanTrip = () => {
 
   const [message, setMessage] = useState(null)
