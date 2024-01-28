@@ -5,6 +5,7 @@ import { get, post } from "../../utilities.js";
 import "./PlanTrip.css";
 
 
+
 const PlanTrip = () => {
 
   const [message, setMessage] = useState(null)
@@ -62,6 +63,7 @@ const PlanTrip = () => {
 
 
   return (
+    <Page>
     <div className="background">
       <section className="chat-side-bar">
         <button onClick={newChat}>New Trip</button>
@@ -92,6 +94,7 @@ const PlanTrip = () => {
         </div>
       </section>
     </div>
+    </Page>
   )
 };
 

@@ -24,6 +24,7 @@ router.use(express.json());
 //initialize socket
 const socketManager = require("./server-socket");
 const user = require("./models/user");
+const OPEN_AI_API_KEY="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";
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -52,7 +53,7 @@ router.post("/completions", async (req, res) => {
   const options = {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.OPEN_AI_API_KEY}`,
+      Authorization: `Bearer ${OPEN_AI_API_KEY}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
