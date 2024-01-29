@@ -324,6 +324,13 @@ router.post("/story", (req, res) => {
     location: req.body.location,
   });
 
+  if (req.user){
+    User.findOne({_id: req.user._id}).then((user) => {
+      user.locations.push(req.body.location.name);
+      user.save();
+    })
+  }
+
   newStory.save().then((story) => res.send(story));
 
   // data.stories.push(newStory);
@@ -334,7 +341,7 @@ router.get("/locations", (req, res) => {
   console.log("get request");
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((user) => {
-      // console.log("hi" + user);
+      // console.log("hi" + user.name);
       res.send({ locations: user.locations });
     });
   }

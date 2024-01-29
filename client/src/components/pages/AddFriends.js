@@ -47,6 +47,7 @@ const AddFriends = ({ userId }) => {
         _id={userObj._id}
         name={userObj.name}
         googleid={userObj.googleid}
+        locations={userObj.locations}
         followUser={followUser}
       />
     ));

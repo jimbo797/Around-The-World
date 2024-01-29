@@ -28,6 +28,49 @@ const Profile = ({ userId }) => {
   const [posts, setPosts] = useState([]);
   const [locations, setLocations] = useState([]);
 
+  const [displayLocations, setDisplayLocations] = useState([]);
+
+  function capitalizeFirstLetter(city) {
+    // Check if the city is not an empty string or null
+    if (city && typeof city === 'string') {
+      // Capitalize the first letter of each word in the string
+      return city
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    } else {
+      // Return the original value for non-string or empty values
+      return city;
+    }
+  }
+
+  function capitalizeCityNames(cityList) {
+    // Check if the input is an array
+    if (Array.isArray(cityList)) {
+      // Capitalize each city name using the capitalizeFirstLetter function
+      return cityList.map(capitalizeFirstLetter);
+    } else {
+      // Return the original value for non-array input
+      return cityList;
+    }
+  }
+
+  function formatCityNames(cityList){
+   
+    for ( let i = 0; i < cityList.length - 1; i++){
+      cityList[i] = cityList[i] + ", ";
+    }
+
+    return cityList
+  }
+
+  useEffect(() => {
+    get("/api/locations").then((visited) => {
+      console.log(visited);
+      setDisplayLocations(formatCityNames(capitalizeCityNames(visited.locations)));
+    });
+  }, []);
+
   // const getUsername = () => {
   //   get("/api/getUsername").then((res) => {
   //     return res.username;
@@ -50,6 +93,7 @@ const Profile = ({ userId }) => {
       setPosts(posts);
       // console.log(posts)
       setLocations(posts.map(({ location }) => location));
+      // console.log(locations);
     });
     // get("/api/getUser", { userId});
     //   console.log(user);
@@ -137,6 +181,8 @@ const Profile = ({ userId }) => {
       src="https://worldanimalfoundation.org/wp-content/uploads/2023/09/Cute-dogs.jpg"
       alt="new"
       /> */}
+      <h1>Places Visited: {displayLocations}</h1>
+      
         <MapComponent userId={userId} locations={locations} />
         {storiesList}
       </div>

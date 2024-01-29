@@ -4,6 +4,8 @@ import axios from "axios";
 
 import "./NewPostInput.css";
 import ImgurUpload from "./ImgurUpload";
+// import LocationSelect from "./LocationSelect";
+
 
 /**
  * New Post is a parent component for all input components
@@ -141,6 +143,9 @@ const NewStory = (props) => {
   const [value, setValue] = useState("");
   const [image, setImage] = useState(null); // for Imgur upload
   const [location, setLocation] = useState("");
+  // const [possibleLocations, setPossibleLocations] = useState([]);
+  // const [selectedLocations, setSelectedLocations] = useState([]);
+
   var imgId = "";
   const inputFile = useRef(null);
 
@@ -167,6 +172,9 @@ const NewStory = (props) => {
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
   };
+  // const handleLocationChange = (selectedOptions) => {
+  //   setSelectedLocations(selectedOptions);
+  // };
 
   // upload image to imgur api
   const handleImageUpload = async () => {
@@ -223,11 +231,16 @@ const NewStory = (props) => {
     }
     const resultsFirst = results[0]
     console.log(resultsFirst)
+
+    // setPossibleLocations(results);
     // return
 
     const locationBody = resultsFirst;
     // post("/api/setlocation", body);
     // setLocations([...locations, value]);
+
+    // const locationBody = selectedLocations.map(loc => loc.value);
+
     
     handleImageUpload()
       .then(() => {
@@ -239,6 +252,7 @@ const NewStory = (props) => {
         setValue("");
         setImage(null);
         setLocation("");
+        // setSelectedLocations([]);
 
         if (inputFile.current) {
           inputFile.current.value = "";
@@ -248,6 +262,8 @@ const NewStory = (props) => {
 
         // key=Math.random();
       });
+
+      // openMultiSelectPopup();
 
     // handleImageUpload();
     // event.preventDefault();
@@ -289,6 +305,23 @@ const NewStory = (props) => {
     });
   };
 
+  // multiselect
+  // const [isMultiSelectPopupOpen, setIsMultiSelectPopupOpen] = useState(false);
+  // const [selectedOptions, setSelectedOptions] = useState([]);
+
+  // const openMultiSelectPopup = () => {
+  //   setIsMultiSelectPopupOpen(true);
+  // };
+
+  // const closeMultiSelectPopup = () => {
+  //   setIsMultiSelectPopupOpen(false);
+  // };
+
+  // const handleMultiSelect = (selectedValues) => {
+  //   setSelectedOptions(selectedValues);
+  // };
+
+
   return (
     <div className="u-flex">
       {/* <ImgurUpload /> */}
@@ -311,6 +344,12 @@ const NewStory = (props) => {
         name="caption"
         className="NewPostInput-input"
       />
+
+      {/* <LocationSelect
+        options={possibleLocations.map(loc => ({ value: loc.name, label: loc.name }))}
+        value={selectedLocations}
+        onChange={handleLocationChange}
+      />   */}
       <input
         type="text"
         placeholder={"Location"}
@@ -319,6 +358,22 @@ const NewStory = (props) => {
         name="caption"
         className="NewPostInput-input"
       />
+
+      {/* <LocationSelection
+        isOpen={isMultiSelectPopupOpen}
+        onRequestClose={closeMultiSelectPopup}
+        options={possibleLocations}
+        onSelect={handleMultiSelect}
+      /> */}
+
+      {/* <select value={location} onChange={handleLocationChange}>
+        <option value="" disabled>Select a location</option>
+        {possibleLocations.map((loc) => (
+          <option key={loc.id} value={loc.name}>
+            {loc.name}
+          </option>
+        ))}
+      </select> */}
 
       <button
         type="submit"
