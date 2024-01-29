@@ -33,6 +33,7 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
         _id={userObj._id}
         name={userObj.name}
         googleid={userObj.googleid}
+        locations={userObj.locations}
         unfollowUser={unfollowUser}
       />
     ));

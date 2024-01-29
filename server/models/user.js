@@ -8,7 +8,8 @@ const UserSchema = new mongoose.Schema({
   // profilePicture: String,
   stories : [String],
   locations: [String],
-  following: [String]
+  following: [String],
+  savedTrips: [String]
 });
 
 // compile model from schema

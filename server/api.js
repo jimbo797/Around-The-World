@@ -243,6 +243,14 @@ router.get("/mystories", (req, res) => {
 
 });
 
+router.get("/savedtrips", (req, res) => {
+  if (req.user) {
+    User.findOne({_id: req.user._id}).then((currUser) => {
+      Story.find({_id: {$in: currUser.savedTrips}}).then((stories) => res.send(stories));
+    })
+  }
+})
+
 router.get("/followed", (req, res) => {
   let final = [];
 
@@ -333,17 +341,46 @@ router.post("/story", (req, res) => {
     location: req.body.location,
   });
 
+  if (req.user){
+    User.findOne({_id: req.user._id}).then((user) => {
+      user.locations.push(req.body.location.name);
+      user.save();
+    })
+  }
+
   newStory.save().then((story) => res.send(story));
 
   // data.stories.push(newStory);
   // res.send(newStory);
 });
 
+router.post("/savepost", (req, res) => {
+  if (req.user){
+    User.findOne({_id: req.user._id}).then((user) => {
+      user.savedTrips.push(req.body.saveTripId);
+      user.save();
+    })
+  }
+
+  res.send({saveTripId: req.body.saveTripId});
+})
+
+router.post("/unsavepost", (req, res) => {
+  if (req.user) {
+    User.findOne({_id: req.user._id}).then((user) => {
+      // let idFollowing = currUser.following;
+      // User.find({_id: {$in: idFollowing}}).then((users) => res.send(users));
+      user.savedTrips = user.savedTrips.filter((trip) => trip !== req.body.saveTripId);
+      user.save()
+    })
+  }
+})
+
 router.get("/locations", (req, res) => {
   // console.log("get request");
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((user) => {
-      // console.log("hi" + user);
+      // console.log("hi" + user.name);
       res.send({ locations: user.locations });
     });
   }

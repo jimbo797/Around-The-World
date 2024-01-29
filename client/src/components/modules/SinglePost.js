@@ -24,8 +24,8 @@ const SingleStory = (props) => {
   return (
     <div className="Card-story">
       <div className="flex flex-col">
-        <span className="u-bold">{props.creator_name}</span>
-        <span className="u-bold">{location}</span>
+        <span className="u-bold black-text">{props.creator_name}</span>
+        <span className="black-text">{location}</span>
       </div>
       {/* <p className="Card-storyContent">{props.imgSrc}</p> */}
       <ImgurRequest imgId={props.imgSrc} />

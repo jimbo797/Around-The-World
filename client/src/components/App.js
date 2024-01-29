@@ -26,6 +26,7 @@ import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
 import MapComponent from "./modules/Map.js";
+import SavedTrips from "./pages/SavedTrips.js";
 
 /**
  * Define the "App" component
@@ -91,6 +92,7 @@ const App = () => {
         <Route path="/profile" element={<Profile userId={userId} />} />
         <Route path="/addfriends" element={<AddFriends userId={userId} />} />
         <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
+        <Route path="/savedtrips" element={<SavedTrips userId={userId} />} />
         {/* <Route path="/map" element={<MapMarker userId={userId} />} /> */}
         <Route
           path="/settings"

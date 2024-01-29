@@ -2,10 +2,13 @@
     border: var(--darkgrey) 1px solid;
     border-radius: var(--xs);
     margin-top: var(--m);
+    border-radius: 8px;
+    background-color: white;
   }
   
   .Card-container:first-of-type {
     margin-top: var(--l);
+    /* background-color: white; */
   }
   
   .Card-story,
@@ -21,13 +24,21 @@
   .Card-storyContent {
     font-size: 40px;
     margin: var(--s) 0 0;
+    color: black;
+    /* background-color: white; */
   }
   
   .Card-commentSection {
     background-color: var(--grey);
     border-top: 1px solid var(--darkgrey);
+    border-radius: 8px;
   }
   
   .Card-commentBody {
     margin: 0 0 var(--s);
   }
+
+  .black-text{
+    color: black;
+  }
+

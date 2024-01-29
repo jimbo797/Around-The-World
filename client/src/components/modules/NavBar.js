@@ -10,6 +10,7 @@ const NavBar = ({ userId }) => {
     { name: "Feed", link: "/feed" },
     { name: "Profile", link: "/profile" },
     { name: "Add Friends", link: "/addfriends"},
+    {name: "Saved Trips", link: "/savedtrips"},
     { name: "Plan a Trip", link: "/plantrip" },
     { name: "Settings", link: "/settings" },
   ];

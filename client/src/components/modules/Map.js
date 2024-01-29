@@ -49,7 +49,7 @@ const MapComponent = ({ userId, locations }) => {
         new mapboxgl.Marker()
           .setLngLat([longitude, latitude])
           .setPopup(new mapboxgl.Popup().setHTML("<NavBar/>"))
-          .addTo(map); //TODO: Change this popup
+        //   .addTo(map); //TODO: Change this popup
       });
     }
 
