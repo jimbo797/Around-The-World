@@ -164,6 +164,10 @@ const NewStory = (props) => {
     setValue(event.target.value);
   };
 
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value);
+  };
+
   // upload image to imgur api
   const handleImageUpload = async () => {
     try {
@@ -186,9 +190,7 @@ const NewStory = (props) => {
     }
   };
 
-  const handleLocationChange = (event) => {
-    setLocation(event.target.value);
-  };
+
 
   const convertLocation = async (city) => {
     try {
@@ -198,8 +200,8 @@ const NewStory = (props) => {
           "X-Api-Key": "P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj",
         },
       });
-      console.log("res" + response.data);
-      console.log("Upload successful:", response.data);
+      // console.log("res" + response.data);
+      // console.log("Upload successful:", response.data);
       return response.data;
     } catch (error) {
       console.error("Error:", error);
@@ -213,12 +215,16 @@ const NewStory = (props) => {
       return;
     }
 
-    const latlong = await convertLocation(location);
-    if (latlong.length === 0) {
+    const results = await convertLocation(location);
+    if (results.length === 0) {
       alert("Enter a valid city");
       return;
     }
-    const locationBody = { location: location, latlong: latlong };
+    const resultsFirst = results[0]
+    console.log(resultsFirst)
+    // return
+
+    const locationBody = resultsFirst;
     // post("/api/setlocation", body);
     // setLocations([...locations, value]);
     
@@ -231,7 +237,7 @@ const NewStory = (props) => {
         // console.log("after adding story")
         setValue("");
         setImage(null);
-        // setLocation("");
+        setLocation("");
 
         if (inputFile.current) {
           inputFile.current.value = "";
@@ -308,7 +314,7 @@ const NewStory = (props) => {
       <input
         type="text"
         placeholder={"Location"}
-        value={value}
+        value={location}
         onChange={handleLocationChange}
         name="caption"
         className="NewPostInput-input"
@@ -325,6 +331,9 @@ const NewStory = (props) => {
     </div>
   );
 };
+
+
+
 
 /**
  * New Post is a parent component for all input components

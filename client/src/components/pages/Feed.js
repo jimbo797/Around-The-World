@@ -35,6 +35,7 @@ const Feed = ({ userId }) => {
         creator_name={storyObj.creator_name}
         content={storyObj.content}
         imgSrc={storyObj.imgSrc}
+        location={storyObj.location}
       />
     ));
   } else {

@@ -13,11 +13,22 @@ import ImgurRequest from "./ImgurRequest";
  * @param {string} imgSrc imgur link
  */
 const SingleStory = (props) => {
+  let location;
+  if (props.location) {
+    const { name: city, state, country } = props.location;
+    location = state ? `${city}, ${state}, ${country}` : `${city}, ${country}`;
+  } else {
+    location = "Location not specified";
+  }
+
   return (
     <div className="Card-story">
-      <span className="u-bold">{props.creator_name}</span>
+      <div className="flex flex-col">
+        <span className="u-bold">{props.creator_name}</span>
+        <span className="u-bold">{location}</span>
+      </div>
       {/* <p className="Card-storyContent">{props.imgSrc}</p> */}
-      <ImgurRequest imgId={props.imgSrc}/>
+      <ImgurRequest imgId={props.imgSrc} />
       <p className="Card-storyContent">{props.content}</p>
     </div>
   );

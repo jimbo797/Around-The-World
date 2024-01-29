@@ -30,8 +30,10 @@ import { get, post } from "../utilities";
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined); // can't use console.log to check this on render since it's async and delayed
+  // const [user, setUser] = useState({})
 
   useEffect(() => {
+    // console.log('APP')
     get("/api/whoami").then((user) => {
       if (user._id) {
         // they are registed in the database, and currently logged in.

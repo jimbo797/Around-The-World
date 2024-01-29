@@ -9,9 +9,11 @@ import { get, post } from "../../utilities.js";
  *
  * Proptypes
  */
-const MapComponent = ({ userId }) => {
+const MapComponent = ({ userId, locations }) => {
   const axios = require("axios");
-  const [locations, setLocations] = useState([]);
+  const [manualLocations, setLocations] = useState([]);
+
+  // console.log(locations);
 
   // const request = require('request');
 
@@ -19,7 +21,7 @@ const MapComponent = ({ userId }) => {
 
   useEffect(() => {
     get("/api/locations").then((visited) => {
-      console.log(visited);
+      // console.log(visited);
       setLocations(visited.locations);
     });
   }, []);
@@ -32,18 +34,24 @@ const MapComponent = ({ userId }) => {
     // Create a new Map instance
     const map = new mapboxgl.Map({
       container: "map", // container ID
-      center: [-74.5, 40], // starting position [lng, lat]
+      center: [-71.094162, 42.360092], // starting position [lng, lat]
       zoom: 2, // starting zoom
     });
 
     // add markers
-    for (const element of locations) {
+    for (const element of manualLocations) { // TODO: Remove manual locations
       convertLocation(element).then((converted) => {
         // console.log("element" + element)
         // console.log(typeof converted);
         var [longitude, latitude] = [converted[0].longitude, converted[0].latitude];
         new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
       });
+    }
+
+    for (const location of locations) {
+      if (!location) continue;
+      const { latitude, longitude } = location;
+      new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
     }
 
     return () => {
@@ -71,7 +79,7 @@ const MapComponent = ({ userId }) => {
   //   if (-180 > longitude || longitude > 180) return false;
   //   if (-90 > latitude || latitude > 90) return false;
   //   return true;
-  };
+  // };
 
   const convertLocation = async (city) => {
     try {
@@ -84,8 +92,8 @@ const MapComponent = ({ userId }) => {
           "X-Api-Key": "P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj",
         },
       });
-      console.log("res" + response.data);
-      console.log("Upload successful:", response.data);
+      // console.log("res" + response.data);
+      // console.log("Upload successful:", response.data);
       return response.data;
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -159,9 +167,9 @@ const MapComponent = ({ userId }) => {
   return (
     <div>
       <div className="u-flex">
-        <input
+        <input // TODO: Remove manual locations
           type="text"
-          placeholder={"Enter cities you've visited: "}
+          placeholder={"Enter a city you've visited: "}
           value={value}
           onChange={handleChange}
           className="NewPostInput-input"

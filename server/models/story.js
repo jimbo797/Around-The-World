@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-// const LocationObject = require("./location");
-import { LocationObject } from "./location";
+const LocationObject = require("./location");
+// import { LocationObject } from "./location";
 
 // const LocationSchema = new mongoose.Schema({
 //   name: String,

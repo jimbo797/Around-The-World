@@ -24,7 +24,7 @@ router.use(express.json());
 //initialize socket
 const socketManager = require("./server-socket");
 const user = require("./models/user");
-const OPEN_AI_API_KEY="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";
+const OPEN_AI_API_KEY = "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";
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -78,6 +78,28 @@ router.get("/user", (req, res) => {
     });
   }
   res.send({});
+});
+
+router.get("/getUser", (req, res) => {
+  console.log(req);
+
+  if (req.query.userId) {
+    // console.log('weee')
+    User.findOne({ _id: req.query.userId }).then((user) => {
+      console.log(user);
+      res.send(user);
+    });
+  } else res.send({});
+});
+
+router.get("/getPostsByUser", (req, res) => {
+  // TODO: Change so it accepts parameter for specific user in database, not just the current user
+  // console.log(req.user)
+  if (req.user) {
+    Story.find({ creator_id: req.user._id }).then((posts) => {
+      res.send(posts);
+    });
+  } else res.send({});
 });
 
 router.get("/getUsername", (req, res) => {
@@ -172,7 +194,10 @@ router.get("/stories", (req, res) => {
 
   // empty selector means get all documents
   // let stories = [];
-  console.log("following" + req.user.following);
+  // console.log("following" + req.user.following);
+
+  // Story.find({}).then((stories) => res.send(stories));
+
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((currUser) => {
       // for (let elmt of currUser.following) {
@@ -183,7 +208,7 @@ router.get("/stories", (req, res) => {
       //   // console.log(stories);
       //   res.send(stories);
       // });
-      console.log(currUser);
+      // console.log(currUser);
       Story.find({ creator_id: { $in: currUser.following } }).then((stories) => res.send(stories));
     });
   }
@@ -263,7 +288,7 @@ router.get("/locations", (req, res) => {
   console.log("get request");
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((user) => {
-      console.log("hi" + user);
+      // console.log("hi" + user);
       res.send({ locations: user.locations });
     });
   }
@@ -296,11 +321,11 @@ router.post("/setlocation", (req, res) => {
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((user) => {
       user.locations.push(req.body.location);
-      console.log("user locations" + user.locations);
+      // console.log("user locations" + user.locations);
       user.save();
     });
     res.send({ location: req.body.location });
-    console.log("hi" + req.user.locations);
+    // console.log("hi" + req.user.locations);
   }
 });
 

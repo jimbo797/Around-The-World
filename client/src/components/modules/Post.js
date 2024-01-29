@@ -36,6 +36,7 @@ const Card = (props) => {
         creator_name={props.creator_name}
         content={props.content}
         imgSrc={props.imgSrc}
+        location={props.location}
       />
       <CommentsBlock story={props} comments={comments} addNewComment={addNewComment} />
     </div>
