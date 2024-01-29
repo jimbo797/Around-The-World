@@ -7,6 +7,7 @@ import Background from "../modules/Background";
 import Page from "../modules/Page";
 import "./Profile.css";
 import MapComponent from "../modules/Map.js";
+import Card from "../modules/Post.js";
 
 const Profile = ({ userId }) => {
   // if (userId === undefined){
@@ -71,6 +72,35 @@ const Profile = ({ userId }) => {
     setBiography(true);
   };
 
+
+  // displaying my posts
+  const [stories, setStories] = useState([]);
+
+  useEffect(() => {
+    get("/api/mystories").then((storyObjs) => {
+      // setStories(storyObjs);
+      let reversedStoryObjs = storyObjs.reverse();
+      setStories(reversedStoryObjs);
+    });
+  }, [stories]);
+
+  let storiesList = null;
+  const hasStories = stories.length !== 0;
+  if (hasStories) {
+    storiesList = stories.map((storyObj) => (
+      <Card
+        key={`Card_${storyObj._id}`}
+        _id={storyObj._id}
+        creator_name={storyObj.creator_name}
+        content={storyObj.content}
+        imgSrc={storyObj.imgSrc}
+        location={storyObj.location}
+      />
+    ));
+  } else {
+    storiesList = <div>No stories!</div>;
+  }
+
   const BiographyModule = (
     <div className="white-text-overall">
       Biography :
@@ -107,6 +137,7 @@ const Profile = ({ userId }) => {
       alt="new"
       /> */}
         <MapComponent userId={userId} locations={locations} />
+        {storiesList}
       </div>
     </Page>
   );

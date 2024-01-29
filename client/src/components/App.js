@@ -13,6 +13,7 @@ import Page from "./modules/Page.js";
 import LogInPage from "./pages/LogInPage.js";
 import Home from "./pages/Home.js";
 import AddFriends from "./pages/AddFriends.js";
+// import MapMarker from "./pages/MapMarker.js"
 
 import "../utilities.css";
 import "./App.css";
@@ -24,6 +25,7 @@ import "./_resets.module.css";
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
+import MapComponent from "./modules/Map.js";
 
 /**
  * Define the "App" component
@@ -93,6 +95,7 @@ const App = () => {
         <Route path="/profile" element={<Profile userId={userId} />} />
         <Route path="/addfriends" element={<AddFriends userId={userId} />} />
         <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
+        {/* <Route path="/map" element={<MapMarker userId={userId} />} /> */}
         <Route
           path="/settings"
           element={

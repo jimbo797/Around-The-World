@@ -218,11 +218,20 @@ router.get("/stories", (req, res) => {
       //   res.send(stories);
       // });
       // console.log(currUser);
-      Story.find({ creator_id: { $in: currUser.following } }).then((stories) => res.send(stories));
+      Story.find({ creator_id: { $in: currUser.following.concat(currUser._id) } }).then((stories) => res.send(stories));
     });
   }
 
   // Story.find({}).then((stories) => res.send(stories));
+});
+
+router.get("/mystories", (req, res) => {
+  if (req.user) {
+    User.findOne({ _id: req.user._id }).then((currUser) => {
+      Story.find({ creator_id: currUser._id }).then((stories) => res.send(stories));
+    });
+  }
+
 });
 
 router.get("/notfollowed", (req, res) => {
