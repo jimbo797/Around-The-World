@@ -133,7 +133,7 @@ router.get("/getProfilePicture", (req, res) => {
 router.get("/getBiography", (req, res) => {
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((user) => {
-      res.send({ bio: user.biography });
+      res.send({ biography: user.biography });
     });
   } else {
     res.send({});

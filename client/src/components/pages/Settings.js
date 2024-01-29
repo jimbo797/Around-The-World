@@ -6,10 +6,9 @@ import LogIn from "../modules/LogIn";
 import { get, post } from "../../utilities";
 import RemoveUserProfile from "../modules/RemoveUserProfile";
 import ChangeUsername from "../modules/ChangeUsername";
+import ChangeBio from "../modules/ChangeBio";
 
 const Settings = ({ userId, handleLogin, handleLogout }) => {
-  
-
   // unfollow users
   const [users, setUsers] = useState([]);
   useEffect(() => {
@@ -52,6 +51,7 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
         LOGOUT
       </button>
       <ChangeUsername></ChangeUsername>
+      <ChangeBio></ChangeBio>
       <div>
         <h1>Unfollow users</h1>
         {usersList}

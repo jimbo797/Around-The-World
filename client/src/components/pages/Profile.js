@@ -23,8 +23,8 @@ const Profile = ({ userId }) => {
   // };
 
   const [username, setUsername] = useState("");
-  const [biography, setBiography] = useState(false);
-  const [message, setMessage] = useState("");
+  const [editBiography, setEditBiography] = useState(false);
+  const [biography, setBiography] = useState("");
   const [posts, setPosts] = useState([]);
   const [locations, setLocations] = useState([]);
 
@@ -88,7 +88,7 @@ const Profile = ({ userId }) => {
     //   });
     // });
     get("/api/getUsername").then((data) => setUsername(data.username));
-    get("/api/getBiography").then((data) => setMessage(data.biography));
+    get("/api/getBiography").then((data) => setBiography(data.biography));
     get("/api/getPostsByUser").then((posts) => {
       setPosts(posts);
       // console.log(posts)
@@ -106,15 +106,15 @@ const Profile = ({ userId }) => {
   // message stores input field value
 
   const handleChange = (event) => {
-    setMessage(event.target.value);
+    setBiography(event.target.value);
   };
 
   const changeBiography = () => {
-    let body = { biography: message };
+    let body = { biography: biography };
     post("/api/changeBiography", body).then((res) => {
       console.log(res.message);
     });
-    setBiography(true);
+    setEditBiography(true);
   };
 
   // displaying my posts
@@ -148,7 +148,7 @@ const Profile = ({ userId }) => {
   const BiographyModule = (
     <div className="white-text-overall">
       Biography :
-      {biography === false ? (
+      {editBiography === false ? (
         <div>
           <input
             type="text"
@@ -156,7 +156,7 @@ const Profile = ({ userId }) => {
             className="profile-bio"
             name="message"
             onChange={handleChange}
-            value={message}
+            value={biography}
           />
           <div className="align-bio-button">
             <button className="bio-button" onClick={changeBiography}>
@@ -165,7 +165,7 @@ const Profile = ({ userId }) => {
           </div>
         </div>
       ) : (
-        <div>{message}</div>
+        <div>{biography}</div>
       )}
     </div>
   );
@@ -173,8 +173,9 @@ const Profile = ({ userId }) => {
   return (
     <Page userId={userId}>
       <div>
-        <div className="white-text-overall"> Name: {username} </div>
-        <div className="padding-between">{BiographyModule}</div>
+        <div className="white-text-overall"> {username} </div>
+        <div className="white-text-overall"> {biography} </div>
+        {/* <div className="padding-between">{BiographyModule}</div> */}
         {/* {adding images via link for imgur: https://apidocs.imgur.com/} */}
         {/* <img 
       src="https://worldanimalfoundation.org/wp-content/uploads/2023/09/Cute-dogs.jpg"
