@@ -4,6 +4,7 @@ import "./LogIn.css";
 // import "../pages/Home.css";
 
 const GOOGLE_CLIENT_ID = "242268688964-cqlt0cqtv3n2qg8nu3km11r7s8ctnioq.apps.googleusercontent.com";
+// const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 
 const LogIn = ({ userId, handleLoggedIn, handleLogin }) => {
   return (

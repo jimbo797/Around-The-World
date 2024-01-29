@@ -198,6 +198,7 @@ const NewStory = (props) => {
         params: { city: city },
         headers: {
           "X-Api-Key": "P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj",
+          // "X-Api-Key": process.env.GEOCODING_KEY,
         },
       });
       // console.log("res" + response.data);

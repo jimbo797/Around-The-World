@@ -9,6 +9,7 @@ import LogIn from "../modules/LogIn";
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "242268688964-cqlt0cqtv3n2qg8nu3km11r7s8ctnioq.apps.googleusercontent.com";
+// const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 
 const Skeleton = ({ userId, handleLogout, handleLogin }) => {
   return (

@@ -30,6 +30,7 @@ const MapComponent = ({ userId, locations }) => {
     // Set your Mapbox access token
     mapboxgl.accessToken =
       "pk.eyJ1IjoibWlyYW5kYWxpdTAzIiwiYSI6ImNscnJhazZuNDBjNzIyanBkeWtveWVyNmYifQ.FnTwTmwWIwlexn6FkBXGbw";
+    // mapboxgl.accessToken = process_env.MAPBOX_ACCESS_TOKEN;
 
     // Create a new Map instance
     const map = new mapboxgl.Map({
@@ -39,26 +40,30 @@ const MapComponent = ({ userId, locations }) => {
     });
 
     // add markers
-    for (const element of manualLocations) { // TODO: Remove manual locations
+    for (const element of manualLocations) {
+      // TODO: Remove manual locations
       convertLocation(element).then((converted) => {
         // console.log("element" + element)
         // console.log(typeof converted);
         var [longitude, latitude] = [converted[0].longitude, converted[0].latitude];
-        new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
+        new mapboxgl.Marker()
+          .setLngLat([longitude, latitude])
+          .setPopup(new mapboxgl.Popup().setHTML("<NavBar/>"))
+          .addTo(map); //TODO: Change this popup
       });
     }
 
     for (const location of locations) {
       if (!location) continue;
       const { latitude, longitude } = location;
-      new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
+      new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map); //TODO: Add a popup
     }
 
     return () => {
       // Cleanup the map instance
       map.remove();
     };
-  }, [locations]); // Empty dependency array ensures that the effect runs only once
+  }, [locations, manualLocations]); // Empty dependency array ensures that the effect runs only once
 
   const [value, setValue] = useState("");
 
@@ -90,6 +95,7 @@ const MapComponent = ({ userId, locations }) => {
         params: { city: city },
         headers: {
           "X-Api-Key": "P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj",
+          // "X-Api-Key": process.env.GEOCODING_KEY,
         },
       });
       // console.log("res" + response.data);

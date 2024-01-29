@@ -17,6 +17,8 @@ const Comment = require("./models/comment");
 // import authentication library
 const auth = require("./auth");
 
+require("dotenv").config();
+
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
 router.use(express.json());
@@ -24,7 +26,8 @@ router.use(express.json());
 //initialize socket
 const socketManager = require("./server-socket");
 const user = require("./models/user");
-const OPEN_AI_API_KEY = "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";
+
+const OPEN_AI_API_KEY = process.env.OPEN_AI_API_KEY;
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -36,6 +39,12 @@ router.get("/whoami", (req, res) => {
   // console.log(req.user);
   res.send(req.user);
 });
+
+// router.get("/env", (req, res) => {
+//   res.send(process.env);
+// });
+
+// router.get("/mapbox_token", (req, res) => res.send({token: process.env.MAPBOX_ACCESS_TOKEN}));
 
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
