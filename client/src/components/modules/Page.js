@@ -13,13 +13,20 @@ const Page = ({ userId, children }) => {
   const [message, setMessage] = useState(notLoggedInMessage);
 
   useEffect(() => {
-    get("/api/whoami").then((user) => {
-      if (user._id) {
-        setMessage(`Logged in as ${user.name}`);
-      } else {
-        setMessage(notLoggedInMessage);
-      }
+    // console.log('username at page load is '+username)
+
+    get("/api/getUsername").then((data) => {
+      const newMessage = data.username ? `Logged in as ${data.username}` : notLoggedInMessage;
+      setMessage(newMessage);
     });
+
+    // get("/api/whoami").then((user) => {
+    //   if (user._id) {
+    //     setMessage(`Logged in as ${user.name}`);
+    //   } else {
+    //     setMessage(notLoggedInMessage);
+    //   }
+    // });
   }, []);
 
   return (

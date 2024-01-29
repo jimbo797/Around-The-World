@@ -46,6 +46,7 @@ const Profile = ({ userId }) => {
     //   });
     // });
     get("/api/getUsername").then((data) => setUsername(data.username));
+    get("/api/getBiography").then((data) => setMessage(data.biography));
     get("/api/getPostsByUser").then((posts) => {
       setPosts(posts);
       // console.log(posts)

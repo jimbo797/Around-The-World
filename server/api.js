@@ -25,7 +25,6 @@ router.use(express.json());
 
 //initialize socket
 const socketManager = require("./server-socket");
-const user = require("./models/user");
 
 const OPEN_AI_API_KEY = process.env.OPEN_AI_API_KEY;
 
@@ -113,7 +112,7 @@ router.get("/getPostsByUser", (req, res) => {
 
 router.get("/getUsername", (req, res) => {
   if (req.user) {
-    User.findOne({ name: req.user.name }).then((user) => {
+    User.findOne({ _id: req.user._id }).then((user) => {
       res.send({ username: user.name });
     });
   } else {
@@ -131,14 +130,24 @@ router.get("/getProfilePicture", (req, res) => {
   }
 });
 
+router.get("/getBiography", (req, res) => {
+  if (req.user) {
+    User.findOne({ _id: req.user._id }).then((user) => {
+      res.send({ bio: user.biography });
+    });
+  } else {
+    res.send({});
+  }
+});
+
 router.post("/changeUsername", (req, res) => {
   if (req.user) {
-    User.findOne({ name: req.user.name }).then((user) => {
+    User.findOne({ _id: req.user._id }).then((user) => {
       // For some reason, user._id gets set to 'new Object(user._id)'
       user.name = req.body.username;
       user.save();
       // console.log(user)
-      socketManager.getSocketFromUserID(req.user._id).emit("username", user.username); // is this correct/necessary?
+      // socketManager.getSocketFromUserID(req.user._id).emit("username", user.username); // is this correct/necessary?
     });
     res.send({ message: "updated username" });
   }
@@ -146,10 +155,10 @@ router.post("/changeUsername", (req, res) => {
 
 router.post("/changeBiography", (req, res) => {
   if (req.user) {
-    User.findOne({ name: req.user.name }).then((user) => {
+    User.findOne({ _id: req.user._id }).then((user) => {
       user.biography = req.body.biography;
       user.save();
-      socketManager.getSocketFromUserID(req.user._id).emit("biography", user.biography);
+      // socketManager.getSocketFromUserID(req.user._id).emit("biography", user.biography);
     });
     res.send({ message: "updated biography" });
   }
@@ -157,10 +166,10 @@ router.post("/changeBiography", (req, res) => {
 
 router.post("/setProfilePicture", (req, res) => {
   if (req.user) {
-    User.findById(req.query.userid).then((user) => {
+    User.findById(req.user._id).then((user) => {
       user.profilePicture = req.body.profilePicture;
       user.save();
-      socketManager.getSocketFromUserID(req.user._id).emit("profilePicture", user.username);
+      // socketManager.getSocketFromUserID(req.user._id).emit("profilePicture", user.username);
     });
     res.send({ message: "updated profile picture" });
   }
@@ -331,7 +340,7 @@ router.post("/story", (req, res) => {
 });
 
 router.get("/locations", (req, res) => {
-  console.log("get request");
+  // console.log("get request");
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((user) => {
       // console.log("hi" + user);
