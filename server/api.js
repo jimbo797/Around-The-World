@@ -209,7 +209,7 @@ router.get("/stories", (req, res) => {
       //   res.send(stories);
       // });
       // console.log(currUser);
-      Story.find({ creator_id: { $in: currUser.following } }).then((stories) => res.send(stories));
+      Story.find({ creator_id: { $in: currUser.following.concat(currUser._id) } }).then((stories) => res.send(stories));
     });
   }
 
