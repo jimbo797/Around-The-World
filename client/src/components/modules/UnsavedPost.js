@@ -4,6 +4,7 @@ import CommentsBlock from "./CommentsBlock.js";
 import { get, post } from "../../utilities.js";
 
 import "./Post.css";
+import "./UnsavedPost.css"
 
 /**
  * Card is a component for displaying content like stories
@@ -61,6 +62,7 @@ const UnsavedPost = (props) => {
 
   return (
     <div className="Card-container">
+      <div className="UnsavedPost-size">
       <SingleStory
         _id={props._id}
         creator_name={props.creator_name}
@@ -70,12 +72,14 @@ const UnsavedPost = (props) => {
       />
       <button
         type="submit"
-        className="NewPostInput-button u-pointer"
+        className="NewPostInput-button u-pointer UnsavedPost-button"
         value={saved}
         onClick={handleSubmit}
       >
         Save Trip
       </button>
+      </div>
+      
       <CommentsBlock story={props} comments={comments} addNewComment={addNewComment} />
     </div>
   );

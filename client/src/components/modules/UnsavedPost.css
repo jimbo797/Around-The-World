@@ -1,0 +1,21 @@
+.UnsavedPost-button:hover{
+    color: var(--white);
+    background-color: var(--primary);
+}
+
+.UnsavedPost-button{
+    height: min-content;
+    /* justify-content: flex-end; */
+    /* position: 'absolute'; */
+    /* top: 0;
+    right: 0  */
+}
+
+.UnsavedPost-size{
+    display: flex;
+    /* flex-direction: row; */
+    /* flex: 100%; */
+    /* margin-right: auto; */
+    width: 100%;
+    justify-content: space-between
+}
