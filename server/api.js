@@ -234,6 +234,34 @@ router.get("/mystories", (req, res) => {
 
 });
 
+router.get("/followed", (req, res) => {
+  let final = [];
+
+  if (req.user) {
+    User.findOne({ _id: req.user._id }).then((currUser) => {
+      // console.log("user" + user);
+      // User.find({}).then((users) => {
+      //   final = [...users];
+      //   // console.log("users" + users);
+      //   // console.log("hi" + users[0]._id);
+      //   // // console.log("id" + currUser._id);
+      //   // console.log(currUser.following);
+
+      //   for (let followed of currUser.following) {
+      //     final = final.filter((user) => String(user._id) === followed);
+      //   }
+      //   final = final.filter((user) => String(user._id) !== String(currUser._id));
+      //   // console.log("FINAL" + final);
+      //   res.send(final);
+      // });
+      let idFollowing = currUser.following;
+      User.find({_id: {$in: idFollowing}}).then((users) => res.send(users));
+    });
+    // console.log("here in not followed" + final)
+  } else {
+    res.send([]);
+  }
+})
 router.get("/notfollowed", (req, res) => {
   // console.log(req.user.following);
   // console.log("BREAK");
@@ -381,6 +409,24 @@ router.post("/follow", (req, res) => {
     // console.log(req.user);
     res.send({ userid: req.body._id });
     // console.log(req.user.following)
+  }
+});
+
+router.post("/unfollow", (req, res) => {
+  // console.log("here")
+  if (req.user) {
+    // console.log("here2")
+
+    User.findOne({ _id: req.user._id }).then((user) => {
+      // console.log("user following before" + user.following)
+      console.log(req.body._id);
+
+      user.following = user.following.filter((item) => item !== req.body._id);
+      // console.log("user following after" + user.following)
+      user.save();
+
+    });
+    res.send({ userid: req.body._id });
   }
 });
 

@@ -11,7 +11,7 @@ import { post } from "../../utilities";
  * @param {string} googleid of user
  * @param {string} followUser true/false for if user has followed this person
  */
-const UserProfile = (props) => {
+const AddUserProfile = (props) => {
   const [user, setUser] = useState("");
 
   const addUser = (value) => {
@@ -62,4 +62,4 @@ const UserProfile = (props) => {
   );
 };
 
-export default UserProfile;
+export default AddUserProfile;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Page from "../modules/Page";
 import { get } from "../../utilities";
-import UserProfile from "../modules/UserProfile";
+import AddUserProfile from "../modules/AddUserProfile";
 
 const AddFriends = ({ userId }) => {
   const [users, setUsers] = useState([]);
@@ -42,7 +42,7 @@ const AddFriends = ({ userId }) => {
   const hasUsers = users.length !== 0;
   if (hasUsers) {
     usersList = users.map((userObj) => (
-      <UserProfile
+      <AddUserProfile
         key={`UserProfile_${userObj._id}`}
         _id={userObj._id}
         name={userObj.name}
@@ -51,7 +51,7 @@ const AddFriends = ({ userId }) => {
       />
     ));
   } else {
-    usersList = <div>No users!</div>;
+    usersList = <div>No users to follow yet!</div>;
   }
   // console.log(usersList);
 

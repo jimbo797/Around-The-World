@@ -39,7 +39,7 @@ const Feed = ({ userId }) => {
       />
     ));
   } else {
-    storiesList = <div>No stories!</div>;
+    storiesList = <div>Please visit the Add Friends page to follow other users!</div>;
   }
 
   return (

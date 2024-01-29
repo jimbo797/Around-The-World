@@ -4,6 +4,7 @@ import Page from "../modules/Page";
 import LogIn from "../modules/LogIn";
 
 import { get, post } from "../../utilities";
+import RemoveUserProfile from "../modules/RemoveUserProfile";
 
 const Settings = ({ userId, handleLogin, handleLogout }) => {
   const [username, setUsername] = useState("");
@@ -27,6 +28,36 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
     // });
   };
 
+  // unfollow users
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    get("/api/followed").then((userObjs) => {
+      console.log(userObjs);
+      setUsers(userObjs);
+    });
+  }, []);
+
+  const unfollowUser = (user) => {
+    setUsers(users.filter((item) => item._id !== user.userid));
+  };
+
+  // console.log(users);
+  let usersList = null;
+  const hasUsers = users.length !== 0;
+  if (hasUsers) {
+    usersList = users.map((userObj) => (
+      <RemoveUserProfile
+        key={`UserProfile_${userObj._id}`}
+        _id={userObj._id}
+        name={userObj.name}
+        googleid={userObj.googleid}
+        unfollowUser={unfollowUser}
+      />
+    ));
+  } else {
+    usersList = <div>You haven't followed anyone yet!</div>;
+  }
+
   return (
     <>
       {/* <LogIn userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}></LogIn> */}
@@ -48,6 +79,11 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
         >
           LOGOUT
         </button>
+        <div>
+          <h1>Unfollow users</h1>
+        {usersList}
+        </div>
+        
       </Page>
     </>
   );

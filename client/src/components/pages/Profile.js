@@ -8,10 +8,11 @@ import Page from "../modules/Page";
 import "./Profile.css";
 import MapComponent from "../modules/Map.js";
 import Card from "../modules/Post.js";
+import Home from "./Home.js";
 
 const Profile = ({ userId }) => {
   // if (userId === undefined){
-  //   return <NotLoggedInPage/> //need to make this page
+  //   return <Home/> //need to make this page
   // }
 
   // const getUser = () => {
