@@ -276,7 +276,6 @@ const NewStory = (props) => {
   const addStory = (value, location) => {
     // console.log(imgId);
 
-    // TODO: Use location to coords converter to add this info to body
     const body = { content: value, imgSrc: imgId, location: location };
 
     // console.log("body " + value + imgId)

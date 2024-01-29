@@ -53,7 +53,6 @@ const App = () => {
   };
 
   const handleLogin = (credentialResponse) => {
-    // TODO: change for new login button, add redirect function
     const userToken = credentialResponse.credential;
     const decodedCredential = jwt_decode(userToken);
     console.log(`Logged in as ${decodedCredential.name}`);
@@ -66,7 +65,6 @@ const App = () => {
   };
 
   const handleLogout = () => {
-    // TODO: new function for new login button that redirects to page
     setUserId(undefined);
     post("/api/logout").then(redirectToHome);
   };
