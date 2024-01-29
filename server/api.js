@@ -216,6 +216,15 @@ router.get("/stories", (req, res) => {
   // Story.find({}).then((stories) => res.send(stories));
 });
 
+router.get("/mystories", (req, res) => {
+  if (req.user) {
+    User.findOne({ _id: req.user._id }).then((currUser) => {
+      Story.find({ creator_id: currUser._id }).then((stories) => res.send(stories));
+    });
+  }
+
+});
+
 router.get("/notfollowed", (req, res) => {
   // console.log(req.user.following);
   // console.log("BREAK");
