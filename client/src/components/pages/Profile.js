@@ -7,7 +7,7 @@ import Background from "../modules/Background";
 import Page from "../modules/Page";
 import "./Profile.css";
 import MapComponent from "../modules/Map.js";
-import Card from "../modules/Post.js";
+import Card from "../modules/UnsavedPost.js";
 import Home from "./Home.js";
 
 const Profile = ({ userId }) => {
@@ -32,12 +32,12 @@ const Profile = ({ userId }) => {
 
   function capitalizeFirstLetter(city) {
     // Check if the city is not an empty string or null
-    if (city && typeof city === 'string') {
+    if (city && typeof city === "string") {
       // Capitalize the first letter of each word in the string
       return city
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
     } else {
       // Return the original value for non-string or empty values
       return city;
@@ -55,13 +55,12 @@ const Profile = ({ userId }) => {
     }
   }
 
-  function formatCityNames(cityList){
-   
-    for ( let i = 0; i < cityList.length - 1; i++){
+  function formatCityNames(cityList) {
+    for (let i = 0; i < cityList.length - 1; i++) {
       cityList[i] = cityList[i] + ", ";
     }
 
-    return cityList
+    return cityList;
   }
 
   useEffect(() => {
@@ -116,7 +115,6 @@ const Profile = ({ userId }) => {
     });
     setBiography(true);
   };
-
 
   // displaying my posts
   const [stories, setStories] = useState([]);
@@ -181,8 +179,8 @@ const Profile = ({ userId }) => {
       src="https://worldanimalfoundation.org/wp-content/uploads/2023/09/Cute-dogs.jpg"
       alt="new"
       /> */}
-      <h1>Places Visited: {displayLocations}</h1>
-      
+        <h1>Places Visited: {displayLocations}</h1>
+
         <MapComponent userId={userId} locations={locations} />
         {storiesList}
       </div>

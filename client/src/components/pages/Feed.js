@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
-import Card from "../modules/Post.js";
+import UnsavedPost from "../modules/UnsavedPost.js";
 import { NewStory } from "../modules/NewPostInput.js";
 import Page from "../modules/Page";
 import "../modules/Page.css";
@@ -29,7 +29,7 @@ const Feed = ({ userId }) => {
   const hasStories = stories.length !== 0;
   if (hasStories) {
     storiesList = stories.map((storyObj) => (
-      <Card
+      <UnsavedPost
         key={`Card_${storyObj._id}`}
         _id={storyObj._id}
         creator_name={storyObj.creator_name}
