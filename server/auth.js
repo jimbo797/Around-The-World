@@ -29,7 +29,7 @@ function getOrCreateUser(user) {
       name: user.name,
       googleid: user.sub,
       stories: [],
-      biography: "bio",
+      biography: "Love to travel!",
     });
 
     return newUser.save();

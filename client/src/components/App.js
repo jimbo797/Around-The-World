@@ -33,15 +33,19 @@ import SavedTrips from "./pages/SavedTrips.js";
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined); // can't use console.log to check this on render since it's async and delayed
+  const [haltRedirect, setHalt] = useState(true);
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
       if (user._id) {
         // they are registed in the database, and currently logged in.
         setUserId(user._id);
+      } else if (window.location.pathname !== "/") {
+        // if they are not logged in and not on the home page
+        redirectToHome();
       }
     });
-  }, []);
+  }, [userId]);
 
   const redirectToFeed = () => {
     window.location.href = "/feed";
