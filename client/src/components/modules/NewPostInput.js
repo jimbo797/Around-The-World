@@ -6,7 +6,6 @@ import "./NewPostInput.css";
 import ImgurUpload from "./ImgurUpload";
 // import LocationSelect from "./LocationSelect";
 
-
 /**
  * New Post is a parent component for all input components
  *
@@ -198,12 +197,11 @@ const NewStory = (props) => {
     }
   };
 
-
-
-  const convertLocation = async (city) => {
+  // location = { city, state?, country? }
+  const convertLocation = async (location) => {
     try {
       const response = await axios.get("https://api.api-ninjas.com/v1/geocoding", {
-        params: { city: city },
+        params: location,
         headers: {
           "X-Api-Key": "P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj",
           // "X-Api-Key": process.env.GEOCODING_KEY,
@@ -217,6 +215,22 @@ const NewStory = (props) => {
     }
   };
 
+  const parseLocation = (location) => {
+    // return undefined;
+    const locationArray = location.split(",").map((content) => content.trim());
+    if (locationArray.includes("") || locationArray.length > 3) return undefined;
+
+    switch (locationArray.length) {
+      case 1:
+        return { city: locationArray[0] };
+      case 2:
+        return { city: locationArray[0], country: locationArray[1] };
+      case 3:
+        return { city: locationArray[0], state: locationArray[1], country: locationArray[2] };
+    }
+    return undefined;
+  };
+
   // called when the user hits "Submit" for a new post
   const handleSubmit = async (event) => {
     if (!location) {
@@ -224,13 +238,20 @@ const NewStory = (props) => {
       return;
     }
 
-    const results = await convertLocation(location);
+    const parsedLocation = parseLocation(location);
+    if (parsedLocation === undefined) {
+      alert(
+        'Location input invalid. It should be in the form "Boston", "Boston, Massachusetts", or "Boston, Massachusetts, US"'
+      );
+      return;
+    }
+    const results = await convertLocation(parsedLocation);
     if (results.length === 0) {
       alert("Enter a valid city");
       return;
     }
-    const resultsFirst = results[0]
-    console.log(resultsFirst)
+    const resultsFirst = results[0];
+    console.log(resultsFirst);
 
     // setPossibleLocations(results);
     // return
@@ -241,29 +262,27 @@ const NewStory = (props) => {
 
     // const locationBody = selectedLocations.map(loc => loc.value);
 
-    
-    handleImageUpload()
-      .then(() => {
-        // console.log("here")
-        event.preventDefault();
+    handleImageUpload().then(() => {
+      // console.log("here")
+      event.preventDefault();
 
-        addStory && addStory(value, locationBody);
-        // console.log("after adding story")
-        setValue("");
-        setImage(null);
-        setLocation("");
-        // setSelectedLocations([]);
+      addStory && addStory(value, locationBody);
+      // console.log("after adding story")
+      setValue("");
+      setImage(null);
+      setLocation("");
+      // setSelectedLocations([]);
 
-        if (inputFile.current) {
-          inputFile.current.value = "";
-          inputFile.current.type = "text";
-          inputFile.current.type = "file";
-        }
+      if (inputFile.current) {
+        inputFile.current.value = "";
+        inputFile.current.type = "text";
+        inputFile.current.type = "file";
+      }
 
-        // key=Math.random();
-      });
+      // key=Math.random();
+    });
 
-      // openMultiSelectPopup();
+    // openMultiSelectPopup();
 
     // handleImageUpload();
     // event.preventDefault();
@@ -320,7 +339,6 @@ const NewStory = (props) => {
   // const handleMultiSelect = (selectedValues) => {
   //   setSelectedOptions(selectedValues);
   // };
-
 
   return (
     <div className="u-flex">
@@ -386,9 +404,6 @@ const NewStory = (props) => {
     </div>
   );
 };
-
-
-
 
 /**
  * New Post is a parent component for all input components
