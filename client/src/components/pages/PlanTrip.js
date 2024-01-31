@@ -102,7 +102,7 @@ const PlanTrip = () => {
           </ul>
           <div className="bottom">
             <div className="input">
-              <input value={inputValue} onChange={(e) => handleChangeInput(e)} />
+              <input style={{backgroundColor: "white"}} placeholder="Plan a trip to ..." value={inputValue} onChange={(e) => handleChangeInput(e)} />
               <div id="submit" onClick={getMessages}>
                 ✈
               </div>
