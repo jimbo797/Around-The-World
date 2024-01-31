@@ -18,7 +18,7 @@ const PlanTrip = () => {
 
 
     if (!flag){
-      alert("Please patientally wait for a response")
+      alert("Please patientally wait for responses")
     }
     setFlag(true)
     const options = {
