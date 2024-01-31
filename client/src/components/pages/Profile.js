@@ -142,7 +142,7 @@ const Profile = ({ userId }) => {
       />
     ));
   } else {
-    storiesList = <div>No stories!</div>;
+    storiesList = <div className="Profile-storiesText">No stories!</div>;
   }
 
   const BiographyModule = (

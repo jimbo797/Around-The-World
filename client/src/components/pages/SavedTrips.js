@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { get, post } from "../../utilities.js";
 import Page from "../modules/Page";
 import SavedPost from "../modules/SavedPost.js";
+import "./SavedTrips.css";
 
 const SavedTrips = ({ userId }) => {
   // displaying saved posts
@@ -30,7 +31,7 @@ const SavedTrips = ({ userId }) => {
       />
     ));
   } else {
-    storiesList = <div>No saved stories!</div>;
+    storiesList = <div className="SavedTrips-noStories">No saved stories!</div>;
   }
 
   return (
