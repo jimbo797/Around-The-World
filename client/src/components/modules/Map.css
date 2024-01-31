@@ -1,4 +1,24 @@
 #map {
     height: 600px;
+    width: 95%;
+    z-index: 5;
+    position: absolute;
+}
+
+.map-container {
+    height: 600px;
     width: 100%;
+}
+
+.popup-text-color {
+    color: black;
+}
+
+.popup {
+    height: 500px;
+    width: 90%;
+    position: absolute;
+    z-index: 6;
+    background-color: antiquewhite;
+
 }

@@ -3,21 +3,27 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./Map.css";
 import { get, post } from "../../utilities.js";
+import UnsavedPost from "../modules/UnsavedPost.js";
+import MapPopup from "./MapPopup.js";
 
 /**
  * Map is a component that displays the interactive Mapbox map
  *
  * Proptypes
  */
-const MapComponent = ({ userId, locations }) => {
+const MapComponent = ({ userId, posts }) => {
   const axios = require("axios");
   const [manualLocations, setLocations] = useState([]);
+  const [popupPosts, setPopupPosts] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
 
   // console.log(locations);
 
   // const request = require('request');
 
   // var locations = [];
+
+  const locationToString = (location) => `${location.latitude}_${location.longitude}`;
 
   useEffect(() => {
     get("/api/locations").then((visited) => {
@@ -48,22 +54,43 @@ const MapComponent = ({ userId, locations }) => {
         var [longitude, latitude] = [converted[0].longitude, converted[0].latitude];
         new mapboxgl.Marker()
           .setLngLat([longitude, latitude])
-          .setPopup(new mapboxgl.Popup().setHTML("<NavBar/>"))
+          .setPopup(new mapboxgl.Popup().setHTML(`${element}`));
         //   .addTo(map); //TODO: Change this popup
       });
     }
 
-    for (const location of locations) {
-      if (!location) continue;
-      const { latitude, longitude } = location;
-      new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map); //TODO: Add a popup
+    const locationsMap = {};
+    for (const post of posts) {
+      if (!post.location) continue;
+      const stringifiedLocation = locationToString(post.location);
+      if (!locationsMap[stringifiedLocation]) locationsMap[stringifiedLocation] = [];
+      locationsMap[stringifiedLocation].push(post);
+    }
+    // console.log(locationsMap)
+
+    for (const key of Object.keys(locationsMap)) {
+      // if (!post.location) continue;
+      const locationArray = locationsMap[key];
+      const { latitude, longitude } = locationArray[0].location;
+      // console.log(locationArray[0]);
+      const popup = new mapboxgl.Popup()
+        .addClassName("popup-text-color")
+        // .setHTML(`<h1>You visited ${locationArray.length} locations here!</h1>`)
+        .on("open", () => {
+          setPopupPosts(locationArray);
+          setShowPopup(true);
+        })
+        .on("close", () => {
+          setShowPopup(false);
+        });
+      new mapboxgl.Marker().setLngLat([longitude, latitude]).setPopup(popup).addTo(map); //TODO: Add a popup
     }
 
     return () => {
       // Cleanup the map instance
       map.remove();
     };
-  }, [locations, manualLocations]); // Empty dependency array ensures that the effect runs only once
+  }, [posts, manualLocations]); // Empty dependency array ensures that the effect runs only once
 
   const [value, setValue] = useState("");
 
@@ -117,13 +144,13 @@ const MapComponent = ({ userId, locations }) => {
     //         // post("/api/setlocation", body);
     //   })
     convertLocation(value).then((res) => {
-      console.log("length", res.length);
+      // console.log("length", res.length);
 
       if (res.length === 0) {
         // console.log(typeof res[0].longitude === Number);
         alert("Enter a valid city");
       } else {
-        console.log("else");
+        // console.log("else");
         const body = { location: value };
         post("/api/setlocation", body);
         setLocations([...locations, value]);
@@ -170,6 +197,7 @@ const MapComponent = ({ userId, locations }) => {
   // console.log(locations);
 
   // return <div id="map" style={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }} />;
+
   return (
     <div>
       <div className="u-flex">
@@ -190,8 +218,14 @@ const MapComponent = ({ userId, locations }) => {
           Submit
         </button>
       </div>
-
-      <div id="map" />
+      <div className="flex justify-center items-center box-border map-container">
+        {showPopup === true ? (
+          <MapPopup posts={popupPosts} handleExit={() => setShowPopup(false)}></MapPopup>
+        ) : (
+          <></>
+        )}
+        <div id="map" />
+      </div>
     </div>
   );
 };

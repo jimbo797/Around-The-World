@@ -183,7 +183,7 @@ const Profile = ({ userId }) => {
       /> */}
         <h1>Places Visited: {displayLocations}</h1>
 
-        <MapComponent userId={userId} locations={locations} />
+        <MapComponent userId={userId} posts={posts} />
         {storiesList}
       </div>
     </Page>
