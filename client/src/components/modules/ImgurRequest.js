@@ -33,7 +33,7 @@ const ImgurRequest = (props) => {
     <div>
       {imageData && (
         <div>
-          <img src={imageData.link} referrerpolicy="no-referrer" alt={imageData.title} />
+          <img style="max-width: 100%; max-height: 600px; height: auto;"src={imageData.link} referrerpolicy="no-referrer" alt={imageData.title} />
         </div>
       )}
     </div>
