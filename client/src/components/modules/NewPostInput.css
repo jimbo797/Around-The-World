@@ -3,6 +3,23 @@
   font-family: "Open Sans";
   font-size: 14px;
   padding: var(--s) var(--m);
+  text-decoration-color:rgb(64, 60, 60);
+  
+}
+
+.seperation{
+  justify-content: space-between;
+}
+
+.new-post-layout{
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  width: 100%;
+  flex-grow: 1;
+  border: var(--darkgrey) 1px solid;
+  border-radius: var(--xs) 0 0 var(--xs);
+  transition: box-shadow 0.1s;
 }
 
 .NewPostInput-input {
@@ -10,11 +27,13 @@
   border: var(--darkgrey) 1px solid;
   border-radius: var(--xs) 0 0 var(--xs);
   transition: box-shadow 0.1s;
+
 }
 
 .NewPostInput-input:focus-within {
   border-color: var(--primary--dim);
   box-shadow: 0 0 0 var(--xs) rgba(0, 123, 255, 0.25);
+  color:black;
 }
 
 .NewPostInput-button {
@@ -28,4 +47,48 @@
 .NewPostInput-button:hover {
   color: var(--white);
   background-color: var(--primary);
+}
+
+.image-input{
+  display:none;
+}
+
+.location-input{
+  width: 400px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  border: var(--darkgrey) 1px solid;
+  border-radius: var(--xs) 0 0 var(--xs);
+  transition: box-shadow 0.1s;
+}
+
+.location-setting{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.flex-display{
+  display: flex;
+  flex-direction: row;
+}
+
+
+label{
+  border: 1px solid #e5e5e5;
+  border-radius: 0 var(--xs) var(--xs) 0;
+  padding: 5px;
+  font-family: "Open Sans";
+  font-weight: bold;
+  transition: .5s;
+  text-align: center;
+  justify-content: center;
+  height: 40px;
+  width: 200px;
+}
+
+label:hover {
+  background-color: rgba(255, 255, 255, 0.5);
 }

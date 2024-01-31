@@ -152,7 +152,10 @@ const NewStory = (props) => {
   const handleImageChange = (event) => {
     // Assuming you have an input field for selecting a file
     const selectedImage = event.target.files[0];
+    const filename = event.target.files[0].name;
     setImage(selectedImage);
+    const label = document.querySelector("label[for=files");
+    label.innerText = filename?? "Browse Files";
   };
 
   // called whenever the user types in the new post input box
@@ -324,6 +327,12 @@ const NewStory = (props) => {
     });
   };
 
+  const handleMedia = () =>{
+    return(
+      <input type="file" accept="image/*" ref={inputFile} onChange={handleImageChange} />
+    )
+  }
+
   // multiselect
   // const [isMultiSelectPopupOpen, setIsMultiSelectPopupOpen] = useState(false);
   // const [selectedOptions, setSelectedOptions] = useState([]);
@@ -341,7 +350,7 @@ const NewStory = (props) => {
   // };
 
   return (
-    <div className="u-flex">
+    <div>
       {/* <ImgurUpload /> */}
       {/* <input
         type="text"
@@ -351,31 +360,34 @@ const NewStory = (props) => {
         name="img"
         className="NewPostInput-input"
       /> */}
-
-      <input type="file" accept="image/*" ref={inputFile} onChange={handleImageChange} />
-
+      <div className="new-post-layout">
       <input
         type="text"
         placeholder={"New Caption"}
         value={value}
         onChange={handleChange}
         name="caption"
-        className="NewPostInput-input"
+        className="new-post-layout"
       />
+      <div className="flex-display">
+      <label for="files" class="btn">Add Media</label>
+      <input id ="files" type="file" accept="image/*" ref={inputFile} onChange={handleImageChange} className="image-input"/>
 
       {/* <LocationSelect
         options={possibleLocations.map(loc => ({ value: loc.name, label: loc.name }))}
         value={selectedLocations}
         onChange={handleLocationChange}
       />   */}
+      <div className="location-setting">
       <input
         type="text"
-        placeholder={"Location"}
+        placeholder={"Add Location"}
         value={location}
         onChange={handleLocationChange}
         name="caption"
-        className="NewPostInput-input"
+        className="location-input"
       />
+      </div>
 
       {/* <LocationSelection
         isOpen={isMultiSelectPopupOpen}
@@ -395,12 +407,14 @@ const NewStory = (props) => {
 
       <button
         type="submit"
-        className="NewPostInput-button u-pointer"
+        className="NewPostInput-button"
         value="Submit"
         onClick={handleSubmit}
       >
         Submit
       </button>
+      </div>
+      </div>
     </div>
   );
 };
