@@ -54,3 +54,8 @@
 .Profile-username{
     font-weight: bold;
 }
+
+.Profile-storiesText{
+    padding-top: 30px;
+    color: white;
+}
