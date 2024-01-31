@@ -168,45 +168,12 @@ router.post("/setProfilePicture", (req, res) => {
   }
 });
 
-const myName = "Anonymous";
-
-const data = {
-  stories: [
-    {
-      _id: 0,
-      creator_name: "Tony Cui",
-      content: "Send it or blend it?",
-      imgSrc: "XgbZdeA",
-    },
-    {
-      _id: 1,
-      creator_name: "Andrew Liu",
-      content: "web.labing with Tony <3",
-      imgSrc: "26xcQUF",
-    },
-  ],
-  comments: [
-    {
-      _id: 0,
-      creator_name: "Stanley Zhao",
-      parent: 0,
-      content: "Both!",
-    },
-  ],
-};
-
 router.get("/test", (req, res) => {
   res.send({ message: "Wow I made my first API! In its own file!" });
 });
 
 router.get("/stories", (req, res) => {
   // send back all of the stories!
-  // res.send(data.stories);
-
-  // empty selector means get all documents
-  // let stories = [];
-
-  // Story.find({}).then((stories) => res.send(stories));
 
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((currUser) => {
@@ -215,8 +182,6 @@ router.get("/stories", (req, res) => {
       );
     });
   }
-
-  // Story.find({}).then((stories) => res.send(stories));
 });
 
 router.get("/mystories", (req, res) => {
@@ -337,22 +302,6 @@ router.get("/locations", (req, res) => {
   }
 });
 
-//       User.find({}).then((users) => {
-//         final = [...users];
-
-//         for (let followed of currUser.following) {
-//           final = final.filter((user) => String(user._id) !== followed);
-//         }
-//         res.send(final);
-
-//       });
-//     })
-// } else {
-//   res.send([]);
-// }
-
-// Story.find({}).then((stories) => res.send(stories));
-
 router.post("/setlocation", (req, res) => {
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((user) => {
@@ -368,14 +317,9 @@ router.post("/follow", (req, res) => {
     User.findOne({ _id: req.user._id }).then((user) => {
       user.following.push(req.body._id);
       user.save();
-      // req.user.save();
       // socketManager.getSocketFromUserID(req.user._id).emit("follow", user.following);
     });
-    // req.user.following.push(req.body._id);
-    // req.user.save().then(() =>
 
-    // res.send(User.findOne({googleid: req.body.googleid}));
-    // res.send({message: req.body.googleid});
     res.send({ userid: req.body._id });
   }
 });
@@ -398,9 +342,6 @@ router.post("/comment", (req, res) => {
     content: req.body.content,
   });
   newComment.save().then((comment) => res.send(comment));
-
-  // data.comments.push(newComment);
-  // res.send(newComment);
 });
 
 // anything else falls to this "not found" case
