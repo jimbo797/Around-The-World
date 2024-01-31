@@ -13,6 +13,7 @@ const PlanTrip = () => {
   const [previousChats, setPrevious] = useState([])
   const [current, setCurrent] = useState(null)
   const [flag, setFlag] = useState(false)
+  const [prompt, setPrompt] = useState(null)
 
   const getMessages = async () =>{
 
@@ -21,6 +22,7 @@ const PlanTrip = () => {
       alert("Please patientally wait for responses")
     }
     setFlag(true)
+    setInput("")
     const options = {
         message: inputValue
     }
@@ -46,16 +48,16 @@ const PlanTrip = () => {
 
   useEffect(() => {
 
-    if (!current && inputValue && message){
-      setCurrent(inputValue)
+    if (!current && prompt && message){
+      setCurrent(prompt)
     }
-    if(current && inputValue && message){
+    if(current && prompt && message){
       setPrevious(prevChats => (
         [...prevChats, {
           title: current,
           role: "user", 
-          content: inputValue
-        },{
+          content: prompt
+        }, {
           title: current,
           role: message.role,
           content: message.content
@@ -63,6 +65,11 @@ const PlanTrip = () => {
       ))
     }
   }, [message, current])
+
+  const handleChangeInput = (e) => {
+    setInput(e.target.value)
+    setPrompt(e.target.value)
+  }
 
   const currentChat = previousChats.filter(prevchat => prevchat.title === current);
   const uniqueTitles = Array.from(new Set(previousChats.map(prevchat => prevchat.title)));
@@ -90,7 +97,7 @@ const PlanTrip = () => {
         </ul>
         <div className="bottom">
           <div className="input">
-            <input value={inputValue} onChange= {(e) => setInput(e.target.value)}/>
+            <input value={inputValue} onChange= {(e) => handleChangeInput(e)}/>
             <div id="submit" onClick={getMessages}>✈</div>
           </div>
           <p className="information">

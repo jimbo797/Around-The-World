@@ -375,6 +375,8 @@ const NewStory = (props) => {
           name="caption"
           className="new-post-layout"
         />
+        </div>
+        <div className="changing-layout">
         <div className="flex-display">
           <label className="Image-text" for="files" class="btn">
             Add Image
@@ -419,7 +421,7 @@ const NewStory = (props) => {
           </option>
         ))}
       </select> */}
-
+  
           <button
             type="submit"
             className="NewPostInput-button"
@@ -430,7 +432,7 @@ const NewStory = (props) => {
           </button>
         </div>
       </div>
-    </div>
+      </div>
   );
 };
 

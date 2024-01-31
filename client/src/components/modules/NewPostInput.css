@@ -45,6 +45,9 @@
   border-radius: 8px;
   background: none;
   transition: color 0.1s, background 0.1s;
+  height: 40px;
+  width: 100px;
+  margin-left:auto;
 }
 
 .NewPostInput-button:hover {
@@ -77,9 +80,22 @@
 .flex-display{
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: center;
+  padding-top: 15px;
 }
 
+.changing-layout{
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+  width: 100%;
+  flex-grow: 1;
+  border: var(--darkgrey) 1px solid;
+  border-radius: var(--xs) 0 0 var(--xs);
+  transition: box-shadow 0.1s;
+  background-color: white;
+  justify-self: center;
+}
 
 label{
   border: 1px solid #e5e5e5;
@@ -90,13 +106,15 @@ label{
   transition: .5s;
   text-align: center;
   justify-content: center;
-  height: 40px;
-  width: 200px;
+  height: min-content;
+  min-height: 35px;
+  min-width: 200px;
+  width: min-content;
   /* color: var(--darkgrey); */
   color: rgb(155,163,175);
   /* font-family: "sans-serif"; */
-  font-size: 18px;
-  padding: var(--s) var(--m);
+  font-size: 19px;
+  transition: box-shadow 0.1s;
 }
 
 .Image-text{
