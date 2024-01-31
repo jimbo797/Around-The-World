@@ -3,6 +3,7 @@
   width: 90%;
   position: absolute;
   z-index: 6;
-  background-color: rgb(132, 132, 241);
+  /* background-color: rgb(132, 132, 241); */
+  background-color: rgb(132, 149, 164);
   overflow: scroll;
 }
