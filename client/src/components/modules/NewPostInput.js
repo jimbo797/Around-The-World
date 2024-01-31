@@ -5,7 +5,6 @@ import axios from "axios";
 import "./NewPostInput.css";
 import ImgurUpload from "./ImgurUpload";
 
-
 /**
  * New Post is a parent component for all input components
  *
@@ -152,23 +151,23 @@ const NewStory = (props) => {
 
     handleImageUpload().then(() => {
       // if (uploaded) {
-        // console.log("here")
-        event.preventDefault();
+      // console.log("here")
+      event.preventDefault();
 
-        addStory && addStory(value, locationBody);
-        // console.log("after adding story")
-        setValue("");
-        setImage(null);
-        setLocation("");
-        // setSelectedLocations([]);
+      addStory && addStory(value, locationBody);
+      // console.log("after adding story")
+      setValue("");
+      setImage(null);
+      setLocation("");
+      // setSelectedLocations([]);
 
-        if (inputFile.current) {
-          inputFile.current.value = "";
-          inputFile.current.type = "text";
-          inputFile.current.type = "file";
-        }
+      if (inputFile.current) {
+        inputFile.current.value = "";
+        inputFile.current.type = "text";
+        inputFile.current.type = "file";
+      }
 
-        // setUploaded(false);
+      // setUploaded(false);
       // }
 
       // key=Math.random();
