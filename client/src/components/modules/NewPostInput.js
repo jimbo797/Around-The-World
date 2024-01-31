@@ -199,7 +199,7 @@ const NewStory = (props) => {
       // console.log(parseImgurImageId(response.data.data.link));
     } catch (error) {
       console.error("Error uploading image:", error);
-      alert("Please upload a .png image!");
+      // alert("Please upload a .png image!");
       // setUploaded(false);
     }
   };
@@ -287,7 +287,7 @@ const NewStory = (props) => {
           inputFile.current.type = "file";
         }
 
-        setUploaded(false);
+        // setUploaded(false);
       // }
 
       // key=Math.random();
