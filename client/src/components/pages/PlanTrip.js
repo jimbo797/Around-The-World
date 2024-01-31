@@ -21,13 +21,12 @@ const PlanTrip = () => {
       role: "user", 
       content: inputValue
     }]))
-
+    alert("Please patientally wait for a response")
     const options = {
         message: inputValue
     }
     try{
       const response = await post("/api/completions", options);
-      console.log(response);
       setMessage(response.choices[0].message);
     } catch(error){
       console.error(error);
