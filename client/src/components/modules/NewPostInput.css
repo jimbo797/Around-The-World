@@ -123,5 +123,6 @@ label{
   width: min-content;
 }
 label:hover {
-  background-color: white;
+  color: var(--white);
+  background-color: rgb(132, 149, 164);
 }
