@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Page from "../modules/Page";
 import axios from "axios";
 
@@ -33,10 +33,7 @@ const ImgurRequest = (props) => {
     <div>
       {imageData && (
         <div>
-          {/* <h1>Image Details</h1> */}
           <img src={imageData.link} referrerpolicy="no-referrer" alt={imageData.title} />
-          {/* <p>Title: {imageData.title}</p> */}
-          {/* <p>Description: {imageData.description}</p> */}
         </div>
       )}
     </div>

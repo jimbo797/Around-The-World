@@ -43,22 +43,7 @@ const UnsavedPost = (props) => {
   const saveTrip = () => {
     const body = { saveTripId: props._id };
     post("/api/savepost", body);
-    // .then((comment) => {
-    //   // display this comment on the screen
-    //   props.addNewComment(comment);
-    // });
   };
-
-  // router.post("/savepost", (req, res) => {
-  //   if (req.user){
-  //     User.findOne({_id: req.user._id}).then((user) => {
-  //       user.savedTrips.push(req.body.saveTripId);
-  //       user.save();
-  //     })
-  //   }
-
-  //   res.send({saveTripId: req.body.saveTripId});
-  // })
 
   return (
     <div className="Card-container">

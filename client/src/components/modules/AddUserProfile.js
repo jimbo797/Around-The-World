@@ -21,24 +21,16 @@ const AddUserProfile = (props) => {
     post("/api/follow", body).then((user) => {
       props.followUser(user);
     });
-    // .then((following) => {
-    //   props.followUser(following);
-    // });
-
-    // .then((user) => {
-    //   // display this comment on the screen
-    //   props.followUser(user);
-    // });
   };
 
   function capitalizeFirstLetter(city) {
     // Check if the city is not an empty string or null
-    if (city && typeof city === 'string') {
+    if (city && typeof city === "string") {
       // Capitalize the first letter of each word in the string
       return city
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
     } else {
       // Return the original value for non-string or empty values
       return city;
@@ -56,25 +48,24 @@ const AddUserProfile = (props) => {
     }
   }
 
-  function formatCityNames(cityList){
-   
-    for ( let i = 0; i < cityList.length - 1; i++){
+  function formatCityNames(cityList) {
+    for (let i = 0; i < cityList.length - 1; i++) {
       cityList[i] = cityList[i] + ", ";
     }
 
-    return cityList
+    return cityList;
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     addUser && addUser(user);
     setUser("");
-    // const body = { name: props.name, _id: props._id, googleid: props.googleid };
-    // post("/api/follow", body).then((res) => {
-    // })
   };
 
-  const visited = (props.locations.length > 0) ? formatCityNames(capitalizeCityNames(props.locations)) : "No places visited yet!";
+  const visited =
+    props.locations.length > 0
+      ? formatCityNames(capitalizeCityNames(props.locations))
+      : "No places visited yet!";
 
   return (
     <div className="Card-story AddUser-container">
@@ -83,8 +74,6 @@ const AddUserProfile = (props) => {
       <button
         type="submit"
         className="UserProfile-button u-pointer"
-        // value="Follow"
-        // value={props.googleid}
         value={user}
         onClick={handleSubmit}
       >

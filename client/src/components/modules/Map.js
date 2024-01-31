@@ -17,11 +17,6 @@ const MapComponent = ({ userId, posts }) => {
   const [popupPosts, setPopupPosts] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
 
-
-  // const request = require('request');
-
-  // var locations = [];
-
   const locationToString = (location) => `${location.latitude}_${location.longitude}`;
 
   useEffect(() => {
@@ -101,17 +96,14 @@ const MapComponent = ({ userId, posts }) => {
     setValue("");
   };
 
-  // const checkValidCoordinates = (latitude, longitude) => {
-  //   if (-180 > longitude || longitude > 180) return false;
-  //   if (-90 > latitude || latitude > 90) return false;
-  //   return true;
-  // };
+  const checkValidCoordinates = (latitude, longitude) => {
+    if (-180 > longitude || longitude > 180) return false;
+    if (-90 > latitude || latitude > 90) return false;
+    return true;
+  };
 
   const convertLocation = async (city) => {
     try {
-      //   const formData = new FormData();
-      //   formData.append("image", image);
-
       const response = await axios.get("https://api.api-ninjas.com/v1/geocoding", {
         params: { city: city },
         headers: {
@@ -126,14 +118,7 @@ const MapComponent = ({ userId, posts }) => {
   };
 
   const addLocation = (value) => {
-    //     convertLocation(value).then((response) => {
-    //         // setLocations([...locations, [response[0].longitude, response[0].latitude]]);
-
-    //         // const body = {location: value};
-    //         // post("/api/setlocation", body);
-    //   })
     convertLocation(value).then((res) => {
-
       if (res.length === 0) {
         alert("Enter a valid city");
       } else {
@@ -142,62 +127,10 @@ const MapComponent = ({ userId, posts }) => {
         setLocations([...locations, value]);
       }
     });
-
-    // const body = {location: value};
-    // post("/api/setlocation", body);
   };
-
-  //   const addLocation = (value) => {
-  //     // const body = { parent: props.storyId, content: value };
-  //     // post("/api/comment", body).then((comment) => {
-  //     //   // display this comment on the screen
-  //     //   props.addNewComment(comment);
-  //     // });
-
-  //         // const body = {location: [response[0].longitude, response[0].latitude]};
-  //         // post("/api/setlocation", body);
-
-  //         // const addUser = (value) => {
-  //         //     const body = { name: props.name, _id: props._id, googleid: props.googleid };
-  //         //     post("/api/follow", body).then((user) => {
-  //         //       props.followUser(user);
-  //         //     });
-  //     })
-
-  // const coordinatesArray = value.slice(1, -1).split(",");
-  // const longitude = parseFloat(coordinatesArray[0]);
-  // const latitude = parseFloat(coordinatesArray[1]);
-  // if (!checkValidCoordinates(latitude, longitude)) return;
-  // if (!isNaN(longitude) && !isNaN(latitude)) {
-  //   setLocations([...locations, [longitude, latitude]]);
-  // }
-
-  // Convert each substring to a number
-
-  // locations.push([longitude, latitude]);
-
-  // return <div id="map" style={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }} />;
 
   return (
     <div>
-      {/* <div className="u-flex">
-        <input // TODO: Remove manual locations
-          type="text"
-          placeholder={"Enter a city you've visited: "}
-          value={value}
-          onChange={handleChange}
-          className="NewPostInput-input"
-        />
-
-        <button
-          type="submit"
-          className="NewPostInput-button u-pointer"
-          value="Submit"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
-      </div> */}
       <div className="flex justify-center items-center box-border map-container">
         {showPopup === true ? (
           <MapPopup posts={popupPosts} handleExit={() => setShowPopup(false)}></MapPopup>

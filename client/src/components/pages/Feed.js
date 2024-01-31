@@ -13,7 +13,6 @@ const Feed = ({ userId }) => {
 
   useEffect(() => {
     get("/api/stories").then((storyObjs) => {
-      // setStories(storyObjs);
       let reversedStoryObjs = storyObjs.reverse();
       setStories(reversedStoryObjs);
     });
@@ -39,20 +38,20 @@ const Feed = ({ userId }) => {
       />
     ));
   } else {
-    storiesList = <div className="Feed-noFollowing">Please visit the Add Friends page to follow other users!</div>;
+    storiesList = (
+      <div className="Feed-noFollowing">
+        Please visit the Add Friends page to follow other users!
+      </div>
+    );
   }
 
   return (
     <Page userId={userId}>
       <div>
-        {/* {!userId ? (
-        <LogIn userId={userId} handleLogin={handleLogin} handleLogout={handleLogout}></LogIn>
-      ):( */}
         <div className="overflow-scroll">
           <NewStory addNewStory={addNewStory} />
           {storiesList}
         </div>
-        {/* )} */}
       </div>
     </Page>
   );

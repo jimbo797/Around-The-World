@@ -54,7 +54,7 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
         <ChangeUsername></ChangeUsername>
         <ChangeBio></ChangeBio>
       </div>
-      
+
       <div>
         <h1 className="Settings-unfollow">Unfollow users</h1>
         {usersList}

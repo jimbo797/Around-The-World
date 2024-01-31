@@ -10,7 +10,6 @@ const SavedTrips = ({ userId }) => {
 
   useEffect(() => {
     get("/api/savedTrips").then((storyObjs) => {
-      // setStories(storyObjs);
       let reversedStoryObjs = storyObjs.reverse();
       setStories(reversedStoryObjs);
     });

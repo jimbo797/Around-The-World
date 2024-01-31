@@ -6,24 +6,15 @@ import "./AddFriends.css";
 
 const AddFriends = ({ userId }) => {
   const [users, setUsers] = useState([]);
-  //   let usersCurrent = users;
-  // let users = [];
 
   useEffect(() => {
     get("/api/notfollowed").then((userObjs) => {
-      // setStories(storyObjs);
-      //   users = userObjs;
       setUsers(userObjs);
     });
   }, []);
 
   const followUser = (user) => {
-    // for (let item of users) {
-    // }
-    // googleid = String(googleid);
-
     setUsers(users.filter((item) => item._id !== user.userid));
-    // // usersCurrent = users.filter(item => item._id !== userid.userid)
   };
 
   let usersList = null;
@@ -46,7 +37,6 @@ const AddFriends = ({ userId }) => {
   return (
     <Page userId={userId}>
       <div className="overflow-scroll">
-        {/* <NewStory addNewStory={addNewStory} /> */}
         <h1 className="AddFriends-header">Other Users</h1>
         {usersList}
       </div>

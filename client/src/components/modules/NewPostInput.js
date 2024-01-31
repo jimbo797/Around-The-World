@@ -14,17 +14,9 @@ import ImgurUpload from "./ImgurUpload";
  * @param {({storyId, value}) => void} onSubmit: (function) triggered when this post is submitted, takes {storyId, value} as parameters (might need to remove from props later!!)
  */
 const NewStory = (props) => {
-  // const initialValues = {
-  //   caption: "",
-  //   img: ""
-  // };
-
   const [value, setValue] = useState("");
   const [image, setImage] = useState(null); // for Imgur upload
   const [location, setLocation] = useState("");
-  // const [uploaded, setUploaded] = useState(false);
-  // const [possibleLocations, setPossibleLocations] = useState([]);
-  // const [selectedLocations, setSelectedLocations] = useState([]);
 
   var imgId = "";
   const inputFile = useRef(null);
@@ -40,14 +32,6 @@ const NewStory = (props) => {
   };
 
   // called whenever the user types in the new post input box
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setValues({
-  //     ...values,
-  //     [name]: value,
-  //   });
-  //   // setValues(event.target.value);
-  // };
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -55,9 +39,6 @@ const NewStory = (props) => {
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
   };
-  // const handleLocationChange = (selectedOptions) => {
-  //   setSelectedLocations(selectedOptions);
-  // };
 
   // upload image to imgur api
   const handleImageUpload = async () => {
@@ -74,7 +55,6 @@ const NewStory = (props) => {
       // console.log("Upload successful:", response.data);
       imgId = parseImgurImageId(response.data.data.link);
       // setUploaded(true);
-
     } catch (error) {
       console.error("Error uploading image:", error);
       // alert("Please upload a .png image!");
@@ -82,7 +62,7 @@ const NewStory = (props) => {
     }
   };
 
-  // location = { city, state?, country? }
+  // location param format: location = { city, state?, country? }
   const convertLocation = async (location) => {
     try {
       const response = await axios.get("https://api.api-ninjas.com/v1/geocoding", {
@@ -133,16 +113,8 @@ const NewStory = (props) => {
       alert("Enter a valid city");
       return;
     }
-    const resultsFirst = results[0];
 
-    // setPossibleLocations(results);
-    // return
-
-    const locationBody = resultsFirst;
-    // post("/api/setlocation", body);
-    // setLocations([...locations, value]);
-
-    // const locationBody = selectedLocations.map(loc => loc.value);
+    const locationBody = results[0];
 
     handleImageUpload().then(() => {
       // if (uploaded) {
@@ -162,16 +134,7 @@ const NewStory = (props) => {
 
       // setUploaded(false);
       // }
-
-      // key=Math.random();
     });
-
-    // openMultiSelectPopup();
-
-    // handleImageUpload();
-    // event.preventDefault();
-    // props.addStory && props.addStory(values);
-    // setValues("");
   };
 
   // parse input link for just the image id
@@ -193,7 +156,6 @@ const NewStory = (props) => {
   };
 
   const addStory = (value, location) => {
-
     const body = { content: value, imgSrc: imgId, location: location };
 
     post("/api/story", body).then((story) => {

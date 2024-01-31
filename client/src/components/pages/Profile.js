@@ -11,17 +11,6 @@ import Card from "../modules/UnsavedPost.js";
 import Home from "./Home.js";
 
 const Profile = ({ userId }) => {
-  // if (userId === undefined){
-  //   return <Home/> //need to make this page
-  // }
-
-  // const getUser = () => {
-  //   // the "sub" field means "subject", which is a unique identifier for each user
-  //   get("/api/getUsername").then((data) => {
-  //     return data.username;
-  //   });
-  // };
-
   const [username, setUsername] = useState("");
   const [editBiography, setEditBiography] = useState(false);
   const [biography, setBiography] = useState("");
@@ -69,31 +58,13 @@ const Profile = ({ userId }) => {
     });
   }, []);
 
-  // const getUsername = () => {
-  //   get("/api/getUsername").then((res) => {
-  //     return res.username;
-  //   });
-  // };
-
-  // socket.on("username", (data) => setUsername(data));
-
   useEffect(() => {
-    // if (userId) {
-    // get("/api/whoami").then((user) => {
-    //   get("/api/getPostsByUser", { userId: user._id }).then((posts) => {
-    //   });
-    // });
     get("/api/getUsername").then((data) => setUsername(data.username));
     get("/api/getBiography").then((data) => setBiography(data.biography));
     get("/api/getPostsByUser").then((posts) => {
       setPosts(posts);
       setLocations(posts.map(({ location }) => location));
     });
-    // get("/api/getUser", { userId});
-    // });
-
-    // });
-    // }
   }, []);
 
   // message stores input field value
@@ -113,7 +84,6 @@ const Profile = ({ userId }) => {
 
   useEffect(() => {
     get("/api/mystories").then((storyObjs) => {
-      // setStories(storyObjs);
       let reversedStoryObjs = storyObjs.reverse();
       setStories(reversedStoryObjs);
     });
@@ -168,7 +138,6 @@ const Profile = ({ userId }) => {
           <div className="Profile-text Profile-username">Username: {username} </div>
           <div className="Profile-text">Bio: {biography} </div>
           <p className="Profile-text">Places Visited: {displayLocations}</p>
-          {/* <p> HI </p> */}
         </div>
 
         {/* <div className="padding-between">{BiographyModule}</div> */}

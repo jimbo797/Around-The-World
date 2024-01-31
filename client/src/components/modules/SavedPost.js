@@ -4,7 +4,7 @@ import CommentsBlock from "./CommentsBlock.js";
 import { get, post } from "../../utilities";
 
 import "./Post.css";
-import "./SavedPost.css"
+import "./SavedPost.css";
 
 /**
  * Card is a component for displaying content like stories
@@ -30,55 +30,35 @@ const SavedPost = (props) => {
     setComments(comments.concat([commentObj]));
   };
 
-//   const [saved, setSaved] = useState("Save Trip")
-
   // called when the user hits "Submit" for a new post
   const handleSubmit = (event) => {
     event.preventDefault();
     unsaveTrip && unsaveTrip();
-    // setSaved("Trip Saved");
   };
 
   const unsaveTrip = () => {
     const body = { saveTripId: props._id };
     post("/api/unsavepost", body);
-    // .then((comment) => {
-    //   // display this comment on the screen
-    //   props.addNewComment(comment);
-    // });
   };
-
-  // router.post("/savepost", (req, res) => {
-  //   if (req.user){
-  //     User.findOne({_id: req.user._id}).then((user) => {
-  //       user.savedTrips.push(req.body.saveTripId);
-  //       user.save();
-  //     })
-  //   }
-  
-  //   res.send({saveTripId: req.body.saveTripId});
-  // })
 
   return (
     <div className="Card-container">
-        <div className="UnsavedPost-size">
+      <div className="UnsavedPost-size">
         <SingleStory
-        _id={props._id}
-        creator_name={props.creator_name}
-        content={props.content}
-        imgSrc={props.imgSrc}
-        location={props.location}
-      />
-      <button
-        type="submit"
-        className="NewPostInput-button u-pointer SavedPost-button"
-        // value={saved}
-        onClick={handleSubmit}
-      >
-        Unsave Trip
-      </button>
-
-        </div>
+          _id={props._id}
+          creator_name={props.creator_name}
+          content={props.content}
+          imgSrc={props.imgSrc}
+          location={props.location}
+        />
+        <button
+          type="submit"
+          className="NewPostInput-button u-pointer SavedPost-button"
+          onClick={handleSubmit}
+        >
+          Unsave Trip
+        </button>
+      </div>
       <CommentsBlock story={props} comments={comments} addNewComment={addNewComment} />
     </div>
   );
