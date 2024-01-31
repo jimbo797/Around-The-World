@@ -103,6 +103,7 @@ label{
 .Image-text{
   font-family: Outfit, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
   'Liberation Sans', sans-serif;
+  width: min-content;
 }
 /* label:hover {
   background-color: 

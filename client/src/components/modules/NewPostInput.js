@@ -142,7 +142,7 @@ const NewStory = (props) => {
   const [value, setValue] = useState("");
   const [image, setImage] = useState(null); // for Imgur upload
   const [location, setLocation] = useState("");
-  const [uploaded, setUploaded] = useState(false);
+  // const [uploaded, setUploaded] = useState(false);
   // const [possibleLocations, setPossibleLocations] = useState([]);
   // const [selectedLocations, setSelectedLocations] = useState([]);
 
@@ -193,14 +193,14 @@ const NewStory = (props) => {
 
       console.log("Upload successful:", response.data);
       imgId = parseImgurImageId(response.data.data.link);
-      setUploaded(true);
+      // setUploaded(true);
 
       // console.log(response.data.data.link);
       // console.log(parseImgurImageId(response.data.data.link));
     } catch (error) {
       console.error("Error uploading image:", error);
       alert("Please upload a .png image!");
-      setUploaded(false);
+      // setUploaded(false);
     }
   };
 
@@ -270,7 +270,7 @@ const NewStory = (props) => {
     // const locationBody = selectedLocations.map(loc => loc.value);
 
     handleImageUpload().then(() => {
-      if (uploaded) {
+      // if (uploaded) {
         // console.log("here")
         event.preventDefault();
 
@@ -288,7 +288,7 @@ const NewStory = (props) => {
         }
 
         setUploaded(false);
-      }
+      // }
 
       // key=Math.random();
     });
