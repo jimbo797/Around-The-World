@@ -37,8 +37,9 @@ const Home = ({ userId, handleLogin, handleLoggedIn }) => {
           <LogIn userId={userId} handleLogin={handleLogin} handleLoggedIn={handleLoggedIn}></LogIn>
         </div>
 
-        <div className="rectangle20 pointer-events-none"></div>
+        <div className="rectangle20 pointer-events-none">
         <div className="startTraveling pointer-events-none">start traveling</div>
+        </div>
 
         <div className="aroundTheWRld11"></div>
         <div className="aROUNDTHEWORLD">AROUND THE WORLD</div>

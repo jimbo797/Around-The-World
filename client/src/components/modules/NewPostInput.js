@@ -370,7 +370,7 @@ const NewStory = (props) => {
         className="new-post-layout"
       />
       <div className="flex-display">
-      <label for="files" class="btn">Add Media</label>
+      <label className="Image-text" for="files" class="btn">Add Image</label>
       <input id ="files" type="file" accept="image/*" ref={inputFile} onChange={handleImageChange} className="image-input"/>
 
       {/* <LocationSelect

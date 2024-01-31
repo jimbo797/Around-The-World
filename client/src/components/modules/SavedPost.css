@@ -1,6 +1,7 @@
 .SavedPost-button:hover{
     color: var(--white);
-    background-color: var(--primary);
+    /* background-color: var(--primary); */
+    background-color: rgb(132, 149, 164);
 }
 
 .SavedPost-button{

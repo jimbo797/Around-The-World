@@ -61,9 +61,9 @@
       'Liberation Sans', sans-serif;
     letter-spacing: 0.05em;
     position: absolute;
-    left: 7.5%;
-    right: 64.1705%;
-    top: 86.268%;
+    left: 15%;
+    /* right: %; */
+    top: 25%;
     bottom: 0%;
     width: 176.1746px;
     height: 59.4595px;

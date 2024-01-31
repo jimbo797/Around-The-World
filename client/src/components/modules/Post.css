@@ -15,6 +15,7 @@
   .Card-story,
   .Card-commentSection {
     padding: var(--m) var(--l);
+    /* color: black; */
   }
   
   .Card-storyUser {
