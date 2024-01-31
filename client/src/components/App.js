@@ -69,6 +69,7 @@ const App = () => {
     post("/api/logout").then(redirectToHome);
   };
 
+  // Utilizing React Router to easily change webpages
   return (
     <div>
       <Routes>

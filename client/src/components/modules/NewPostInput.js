@@ -63,6 +63,7 @@ const NewStory = (props) => {
   };
 
   // location param format: location = { city, state?, country? }
+  // Utilizing the Geocoding API to convert a location to latitude longitude coordinates
   const convertLocation = async (location) => {
     try {
       const response = await axios.get("https://api.api-ninjas.com/v1/geocoding", {

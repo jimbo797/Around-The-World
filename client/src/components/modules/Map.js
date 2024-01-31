@@ -25,6 +25,7 @@ const MapComponent = ({ userId, posts }) => {
     });
   }, []);
 
+  // Utilizing the Mapbox GL API to create map and markers on the map
   useEffect(() => {
     // Set your Mapbox access token
     mapboxgl.accessToken =
@@ -102,6 +103,7 @@ const MapComponent = ({ userId, posts }) => {
     return true;
   };
 
+  // Calling the Geocoding API to convert city names to latitude longitude coordinates
   const convertLocation = async (city) => {
     try {
       const response = await axios.get("https://api.api-ninjas.com/v1/geocoding", {

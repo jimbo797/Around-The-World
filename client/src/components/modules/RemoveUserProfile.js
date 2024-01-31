@@ -16,27 +16,19 @@ const RemoveUserProfile = (props) => {
   const [user, setUser] = useState("");
 
   const removeUser = (value) => {
-    const body = { _id: props._id};
+    const body = { _id: props._id };
     post("/api/unfollow", body).then((user) => {
       props.unfollowUser(user);
     });
-    // .then((following) => {
-    //   props.followUser(following);
-    // });
-
-    // .then((user) => {
-    //   // display this comment on the screen
-    //   props.followUser(user);
-    // });
   };
   function capitalizeFirstLetter(city) {
     // Check if the city is not an empty string or null
-    if (city && typeof city === 'string') {
+    if (city && typeof city === "string") {
       // Capitalize the first letter of each word in the string
       return city
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
     } else {
       // Return the original value for non-string or empty values
       return city;
@@ -54,19 +46,18 @@ const RemoveUserProfile = (props) => {
     }
   }
 
-  function formatCityNames(cityList){
-   
-    for ( let i = 0; i < cityList.length - 1; i++){
+  function formatCityNames(cityList) {
+    for (let i = 0; i < cityList.length - 1; i++) {
       cityList[i] = cityList[i] + ", ";
     }
 
-    return cityList
+    return cityList;
   }
 
   function removeDuplicates(arr) {
     const newSet = new Set(arr);
     const newArr = [...newSet];
-  
+
     return newArr;
   }
 
@@ -74,11 +65,11 @@ const RemoveUserProfile = (props) => {
     event.preventDefault();
     removeUser && removeUser(user);
     setUser("");
-    // const body = { name: props.name, _id: props._id, googleid: props.googleid };
-    // post("/api/follow", body).then((res) => {
-    // })
   };
-  const visited = (props.locations.length > 0) ? formatCityNames(capitalizeCityNames(removeDuplicates(props.locations))) : "No places visited yet!";
+  const visited =
+    props.locations.length > 0
+      ? formatCityNames(capitalizeCityNames(removeDuplicates(props.locations)))
+      : "No places visited yet!";
 
   return (
     <div className="Card-story AddUser-container">
@@ -87,8 +78,6 @@ const RemoveUserProfile = (props) => {
       <button
         type="submit"
         className="UserProfile-button u-pointer"
-        // value="Follow"
-        // value={props.googleid}
         value={user}
         onClick={handleSubmit}
       >

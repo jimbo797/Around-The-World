@@ -14,6 +14,7 @@ const [image, setImage] = useState(null);
     setImage(selectedImage);
   };
 
+  // Calling the Imgur API to upload images
   const handleUpload = async () => {
     try {
       const formData = new FormData();

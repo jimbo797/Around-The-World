@@ -11,6 +11,7 @@ import axios from "axios";
 const ImgurRequest = (props) => {
   const [imageData, setImageData] = useState(null);
 
+  // Calling the Imgur API to get images
   useEffect(() => {
     const fetchImage = async () => {
       try {
