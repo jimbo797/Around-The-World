@@ -12,8 +12,16 @@ const PlanTrip = () => {
   const [inputValue, setInput] = useState(null)
   const [previousChats, setPrevious] = useState([])
   const [current, setCurrent] = useState(null)
+  const [userPrompts, setPrompts] = useState([])
 
   const getMessages = async () =>{
+
+    setPrompts(prevPrompts => (
+      [...prevPrompts, {
+      role: "user", 
+      content: inputValue
+    }]))
+
     const options = {
         message: inputValue
     }
@@ -30,6 +38,7 @@ const PlanTrip = () => {
     setMessage(null);
     setInput("");
     setCurrent(null);
+    setPrompts([]);
   }
 
   const handleClick = (title) =>{
@@ -39,17 +48,13 @@ const PlanTrip = () => {
   }
 
   useEffect(() => {
-    console.log(current, inputValue, message);
+
     if (!current && inputValue && message){
       setCurrent(inputValue)
     }
     if(current && inputValue && message){
       setPrevious(prevChats => (
         [...prevChats, {
-          title: current, 
-          role : "user",
-          content: inputValue
-        }, {
           title: current,
           role: message.role,
           content: message.content
@@ -59,6 +64,7 @@ const PlanTrip = () => {
   }, [message, current])
 
   const currentChat = previousChats.filter(prevchat => prevchat.title === current);
+  const currentPrompt= userPrompts;
   const uniqueTitles = Array.from(new Set(previousChats.map(prevchat => prevchat.title)));
 
 
@@ -77,6 +83,10 @@ const PlanTrip = () => {
       <section className="main">
         {!current && <h1> Plan a Trip </h1>}
         <ul className="feed">
+          {currentPrompt?.map((prompt, index) => <li key={index}>
+            <p className="role">{prompt.role}</p>
+            <p>{prompt.content}</p>
+          </li>)}
           {currentChat?.map((chat, index) => <li key={index}>
             <p className="role">{chat.role}</p>
             <p>{chat.content}</p>
