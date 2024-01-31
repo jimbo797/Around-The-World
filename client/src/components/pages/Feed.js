@@ -6,6 +6,7 @@ import Page from "../modules/Page";
 import "../modules/Page.css";
 import LogIn from "../modules/LogIn";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
+import "./Feed.css";
 
 const Feed = ({ userId }) => {
   const [stories, setStories] = useState([]);
@@ -39,7 +40,7 @@ const Feed = ({ userId }) => {
       />
     ));
   } else {
-    storiesList = <div>Please visit the Add Friends page to follow other users!</div>;
+    storiesList = <div className="Feed-noFollowing">Please visit the Add Friends page to follow other users!</div>;
   }
 
   return (

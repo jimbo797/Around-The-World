@@ -142,6 +142,7 @@ const NewStory = (props) => {
   const [value, setValue] = useState("");
   const [image, setImage] = useState(null); // for Imgur upload
   const [location, setLocation] = useState("");
+  const [uploaded, setUploaded] = useState(false);
   // const [possibleLocations, setPossibleLocations] = useState([]);
   // const [selectedLocations, setSelectedLocations] = useState([]);
 
@@ -155,7 +156,7 @@ const NewStory = (props) => {
     const filename = event.target.files[0].name;
     setImage(selectedImage);
     const label = document.querySelector("label[for=files");
-    label.innerText = filename?? "Browse Files";
+    label.innerText = filename ?? "Browse Files";
   };
 
   // called whenever the user types in the new post input box
@@ -192,11 +193,14 @@ const NewStory = (props) => {
 
       console.log("Upload successful:", response.data);
       imgId = parseImgurImageId(response.data.data.link);
+      setUploaded(true);
 
       // console.log(response.data.data.link);
       // console.log(parseImgurImageId(response.data.data.link));
     } catch (error) {
       console.error("Error uploading image:", error);
+      alert("Please upload a .png image!");
+      setUploaded(false);
     }
   };
 
@@ -266,20 +270,24 @@ const NewStory = (props) => {
     // const locationBody = selectedLocations.map(loc => loc.value);
 
     handleImageUpload().then(() => {
-      // console.log("here")
-      event.preventDefault();
+      if (uploaded) {
+        // console.log("here")
+        event.preventDefault();
 
-      addStory && addStory(value, locationBody);
-      // console.log("after adding story")
-      setValue("");
-      setImage(null);
-      setLocation("");
-      // setSelectedLocations([]);
+        addStory && addStory(value, locationBody);
+        // console.log("after adding story")
+        setValue("");
+        setImage(null);
+        setLocation("");
+        // setSelectedLocations([]);
 
-      if (inputFile.current) {
-        inputFile.current.value = "";
-        inputFile.current.type = "text";
-        inputFile.current.type = "file";
+        if (inputFile.current) {
+          inputFile.current.value = "";
+          inputFile.current.type = "text";
+          inputFile.current.type = "file";
+        }
+
+        setUploaded(false);
       }
 
       // key=Math.random();
@@ -327,11 +335,9 @@ const NewStory = (props) => {
     });
   };
 
-  const handleMedia = () =>{
-    return(
-      <input type="file" accept="image/*" ref={inputFile} onChange={handleImageChange} />
-    )
-  }
+  const handleMedia = () => {
+    return <input type="file" accept="image/*" ref={inputFile} onChange={handleImageChange} />;
+  };
 
   // multiselect
   // const [isMultiSelectPopupOpen, setIsMultiSelectPopupOpen] = useState(false);
@@ -361,42 +367,51 @@ const NewStory = (props) => {
         className="NewPostInput-input"
       /> */}
       <div className="new-post-layout">
-      <input
-        type="text"
-        placeholder={"New Caption"}
-        value={value}
-        onChange={handleChange}
-        name="caption"
-        className="new-post-layout"
-      />
-      <div className="flex-display">
-      <label className="Image-text" for="files" class="btn">Add Image</label>
-      <input id ="files" type="file" accept="image/*" ref={inputFile} onChange={handleImageChange} className="image-input"/>
+        <input
+          type="text"
+          placeholder={"New Caption"}
+          value={value}
+          onChange={handleChange}
+          name="caption"
+          className="new-post-layout"
+        />
+        <div className="flex-display">
+          <label className="Image-text" for="files" class="btn">
+            Add Image
+          </label>
+          <input
+            id="files"
+            type="file"
+            accept="image/*"
+            ref={inputFile}
+            onChange={handleImageChange}
+            className="image-input"
+          />
 
-      {/* <LocationSelect
+          {/* <LocationSelect
         options={possibleLocations.map(loc => ({ value: loc.name, label: loc.name }))}
         value={selectedLocations}
         onChange={handleLocationChange}
       />   */}
-      <div className="location-setting">
-      <input
-        type="text"
-        placeholder={"Add Location"}
-        value={location}
-        onChange={handleLocationChange}
-        name="caption"
-        className="location-input"
-      />
-      </div>
+          <div className="location-setting">
+            <input
+              type="text"
+              placeholder={"Add Location"}
+              value={location}
+              onChange={handleLocationChange}
+              name="caption"
+              className="location-input"
+            />
+          </div>
 
-      {/* <LocationSelection
+          {/* <LocationSelection
         isOpen={isMultiSelectPopupOpen}
         onRequestClose={closeMultiSelectPopup}
         options={possibleLocations}
         onSelect={handleMultiSelect}
       /> */}
 
-      {/* <select value={location} onChange={handleLocationChange}>
+          {/* <select value={location} onChange={handleLocationChange}>
         <option value="" disabled>Select a location</option>
         {possibleLocations.map((loc) => (
           <option key={loc.id} value={loc.name}>
@@ -405,15 +420,15 @@ const NewStory = (props) => {
         ))}
       </select> */}
 
-      <button
-        type="submit"
-        className="NewPostInput-button"
-        value="Submit"
-        onClick={handleSubmit}
-      >
-        Submit
-      </button>
-      </div>
+          <button
+            type="submit"
+            className="NewPostInput-button"
+            value="Submit"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
+        </div>
       </div>
     </div>
   );
