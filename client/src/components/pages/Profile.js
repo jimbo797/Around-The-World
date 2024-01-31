@@ -52,9 +52,16 @@ const Profile = ({ userId }) => {
     return cityList;
   }
 
+  function removeDuplicates(arr) {
+    const newSet = new Set(arr);
+    const newArr = [...newSet];
+  
+    return newArr;
+  }
+
   useEffect(() => {
     get("/api/locations").then((visited) => {
-      setDisplayLocations(formatCityNames(capitalizeCityNames(visited.locations)));
+      setDisplayLocations(formatCityNames(capitalizeCityNames(removeDuplicates(visited.locations))));
     });
   }, []);
 
