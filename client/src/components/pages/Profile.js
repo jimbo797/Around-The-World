@@ -173,15 +173,20 @@ const Profile = ({ userId }) => {
   return (
     <Page userId={userId}>
       <div>
-        <div className="white-text-overall"> {username} </div>
-        <div className="white-text-overall"> {biography} </div>
+        <div className="Card-story Profile-info">
+        <div className="Profile-text Profile-username">Username: {username} </div>
+        <div className="Profile-text">Bio: {biography} </div>
+        <p className="Profile-text">Places Visited: {displayLocations}</p>
+        {/* <p> HI </p> */}
+        </div>
+    
         {/* <div className="padding-between">{BiographyModule}</div> */}
         {/* {adding images via link for imgur: https://apidocs.imgur.com/} */}
         {/* <img 
       src="https://worldanimalfoundation.org/wp-content/uploads/2023/09/Cute-dogs.jpg"
       alt="new"
       /> */}
-        <h1>Places Visited: {displayLocations}</h1>
+        
 
         <MapComponent userId={userId} posts={posts} />
         {storiesList}

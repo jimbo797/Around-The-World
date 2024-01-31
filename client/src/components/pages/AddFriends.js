@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Page from "../modules/Page";
 import { get } from "../../utilities";
 import AddUserProfile from "../modules/AddUserProfile";
+import "./AddFriends.css";
 
 const AddFriends = ({ userId }) => {
   const [users, setUsers] = useState([]);
@@ -52,7 +53,7 @@ const AddFriends = ({ userId }) => {
       />
     ));
   } else {
-    usersList = <div>No users to follow yet, check back later!</div>;
+    usersList = <div className="AddFriends-header">No users to follow yet, check back later!</div>;
   }
   // console.log(usersList);
 
@@ -60,7 +61,7 @@ const AddFriends = ({ userId }) => {
     <Page userId={userId}>
       <div className="overflow-scroll">
         {/* <NewStory addNewStory={addNewStory} /> */}
-        <h1>Other Users</h1>
+        <h1 className="AddFriends-header">Other Users</h1>
         {usersList}
       </div>
     </Page>

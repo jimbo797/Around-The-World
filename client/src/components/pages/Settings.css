@@ -1,0 +1,32 @@
+.Settings-unfollow {
+  color: white;
+}
+
+.Settings-logout {
+  color: white;
+  /* border: var(--primary) 1px solid; */
+  border: rgb(132, 149, 164) 1px solid;
+  border-radius: 0 var(--xs) var(--xs) 0;
+  background: #00063D;
+  transition: color 0.1s, background 0.1s;
+  border-radius: 8px;
+  font-size: 14px;
+  padding: var(--s) var(--m);
+  text-decoration-color: rgb(64, 60, 60);
+}
+
+.Settings-logout:hover {
+  color: var(--white);
+  /* background-color: var(--primary); */
+  /* background-color: rgb(132, 149, 164); */
+  background-color: #83C4D4;
+}
+.Settings-container {
+    border: var(--darkgrey) 1px solid;
+    border-radius: var(--xs);
+    margin-top: var(--m);
+    border-radius: 8px;
+    background-color: white;
+    justify-content: left;
+    /* position: relative; */
+  }

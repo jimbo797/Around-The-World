@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
+import "./ChangeUsername.css";
+
 
 
 const ChangeUsername = () => {
@@ -25,17 +27,17 @@ const ChangeUsername = () => {
   };
 
   return (
-    <>
+    <div className="u-flexRow ChangeUsername-input">
       <input
         type="text"
-        placeholder="Username"
+        placeholder="Set new username"
         className="profile-bio"
         name="message"
         onChange={handleChange}
         value={newUsername}
       ></input>
-      <button onClick={handleButton}>Set Username</button>
-    </>
+      <button className="ChangeUsername-text ChangeUsername-button" onClick={handleButton}>Set Username</button>
+    </div>
   );
 };
 

@@ -1,0 +1,33 @@
+.ChangeUsername-input{
+    justify-items: normal;
+}
+
+.ChangeUsername-text{
+    width: 250px;
+    font-family: "Roboto", sans-serif;;
+}
+
+.ChangeUsername-button {
+    /* color: var(--primary); */
+    color: darkslategray;
+    /* border: var(--primary) 1px solid; */
+    border: rgb(132, 149, 164) 1px solid;
+    border-radius: 0 var(--xs) var(--xs) 0;
+    background: none;
+    transition: color 0.1s, background 0.1s;
+    border-radius: 8px;
+  }
+  
+  .ChangeUsername-button:hover {
+    color: var(--white);
+    /* background-color: var(--primary); */
+    background-color: rgb(132, 149, 164);
+  }
+
+  .ChangeUsername-button {
+    /* font-family: "Open Sans"; */
+    font-size: 14px;
+    padding: var(--s) var(--m);
+    text-decoration-color:rgb(64, 60, 60);
+    
+  }

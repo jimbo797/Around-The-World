@@ -7,6 +7,7 @@ import { get, post } from "../../utilities";
 import RemoveUserProfile from "../modules/RemoveUserProfile";
 import ChangeUsername from "../modules/ChangeUsername";
 import ChangeBio from "../modules/ChangeBio";
+import "./Settings.css";
 
 const Settings = ({ userId, handleLogin, handleLogout }) => {
   // unfollow users
@@ -37,12 +38,13 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
       />
     ));
   } else {
-    usersList = <div>You haven't followed anyone yet!</div>;
+    usersList = <div className="Settings-unfollow">You haven't followed anyone yet!</div>;
   }
 
   return (
     <Page userId={userId}>
       <button
+        className="Settings-logout"
         onClick={() => {
           googleLogout();
           handleLogout();
@@ -50,10 +52,13 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
       >
         LOGOUT
       </button>
-      <ChangeUsername></ChangeUsername>
-      <ChangeBio></ChangeBio>
+      <div className="Settings-container">
+        <ChangeUsername></ChangeUsername>
+        <ChangeBio></ChangeBio>
+      </div>
+      
       <div>
-        <h1>Unfollow users</h1>
+        <h1 className="Settings-unfollow">Unfollow users</h1>
         {usersList}
       </div>
     </Page>

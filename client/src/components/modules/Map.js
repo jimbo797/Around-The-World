@@ -200,7 +200,7 @@ const MapComponent = ({ userId, posts }) => {
 
   return (
     <div>
-      <div className="u-flex">
+      {/* <div className="u-flex">
         <input // TODO: Remove manual locations
           type="text"
           placeholder={"Enter a city you've visited: "}
@@ -217,7 +217,7 @@ const MapComponent = ({ userId, posts }) => {
         >
           Submit
         </button>
-      </div>
+      </div> */}
       <div className="flex justify-center items-center box-border map-container">
         {showPopup === true ? (
           <MapPopup posts={popupPosts} handleExit={() => setShowPopup(false)}></MapPopup>

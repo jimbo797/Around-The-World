@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
+import "./ChangeBio.css";
 
 
 const ChangeBio = () => {
@@ -25,17 +26,17 @@ const ChangeBio = () => {
   };
 
   return (
-    <>
+    <div className="u-flexRow ChangeBio-input">
       <input
         type="text"
-        placeholder="Username"
+        placeholder="Set new bio"
         className="profile-bio"
         name="message"
         onChange={handleChange}
         value={newBio}
       ></input>
-      <button onClick={handleButton}>Set Biography</button>
-    </>
+      <button className="ChangeBio-text ChangeBio-button" onClick={handleButton}>Set Biography</button>
+    </div>
   );
 };
 

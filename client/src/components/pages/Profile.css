@@ -4,15 +4,15 @@
     flex-direction: row;
     justify-content: center;
     text-align: center;
-    font-size: 20px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 14px;
+    /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
     color: black;
 }
 
 .white-text-overall{
     color: white;
     font-size: 20px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
     display: flex;
     flex-direction: column;
   
@@ -34,4 +34,23 @@
 
 .align-bio-button{
     justify-content: center;
+}
+
+.Profile-info{
+    border: var(--darkgrey) 1px solid;
+    border-radius: var(--xs);
+    margin-top: var(--m);
+    border-radius: 8px;
+    background-color: white;
+    /* color: black; */
+    /* position: relative; */
+}
+
+.Profile-text{
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.Profile-username{
+    font-weight: bold;
 }
