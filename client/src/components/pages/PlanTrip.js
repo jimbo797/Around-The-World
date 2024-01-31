@@ -17,7 +17,7 @@ const PlanTrip = () => {
 
   const getMessages = async () => {
     if (!flag) {
-      alert("Please patiently wait for responses");
+      alert("Please wait for a response!");
     }
     setFlag(true);
     setInput("");
@@ -102,7 +102,7 @@ const PlanTrip = () => {
           </ul>
           <div className="bottom">
             <div className="input">
-              <input style={{backgroundColor: "white"}} placeholder="Plan a trip to ..." value={inputValue} onChange={(e) => handleChangeInput(e)} />
+              <input style={{backgroundColor: "white"}} placeholder="Ask questions about your next trip!" value={inputValue} onChange={(e) => handleChangeInput(e)} />
               <div id="submit" onClick={getMessages}>
                 ✈
               </div>
