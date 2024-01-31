@@ -369,7 +369,7 @@ const NewStory = (props) => {
       <div className="new-post-layout">
         <input
           type="text"
-          placeholder={"New Caption"}
+          placeholder={"Share your thoughts on this adventure! What were your favorite parts?"}
           value={value}
           onChange={handleChange}
           name="caption"

@@ -21,7 +21,7 @@ const PlanTrip = () => {
       role: "user", 
       content: inputValue
     }]))
-    alert("Please patientally wait for a response")
+    alert("Please wait for a response!")
     const options = {
         message: inputValue
     }
