@@ -5,10 +5,11 @@ Around The World is a social media site focusing on travel, so users can share w
 ## Our team
 
 - Miranda Liu
-- Camila Zavala
 - Jimmy Kuhlman
+- Camila Zavala
 
-## Webapp hosting by Render
+
+## Webapp hosted by Render
 
 Deployed website can be found at https://onlinepassport.onrender.com
 
