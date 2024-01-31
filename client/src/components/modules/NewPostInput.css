@@ -45,6 +45,8 @@
   border-radius: 8px;
   background: none;
   transition: color 0.1s, background 0.1s;
+  height: 40px;
+  width: 100px;
 }
 
 .NewPostInput-button:hover {
@@ -80,6 +82,17 @@
   justify-content: left;
 }
 
+.changing-layout{
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+  width: 100%;
+  flex-grow: 1;
+  border: var(--darkgrey) 1px solid;
+  border-radius: var(--xs) 0 0 var(--xs);
+  transition: box-shadow 0.1s;
+  background-color: white;
+}
 
 label{
   border: 1px solid #e5e5e5;
@@ -90,8 +103,10 @@ label{
   transition: .5s;
   text-align: center;
   justify-content: center;
-  height: 40px;
-  width: 200px;
+  height: min-content;
+  min-height: 40px;
+  min-width: 200px;
+  width: min-content;
   /* color: var(--darkgrey); */
   color: rgb(155,163,175);
   /* font-family: "sans-serif"; */
