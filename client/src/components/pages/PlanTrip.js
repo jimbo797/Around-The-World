@@ -13,6 +13,7 @@ const PlanTrip = () => {
   const [previousChats, setPrevious] = useState([])
   const [current, setCurrent] = useState(null)
   const [userPrompts, setPrompts] = useState([])
+  const [flag, setFlag] = useState(false);
 
   const getMessages = async () =>{
 
@@ -21,7 +22,10 @@ const PlanTrip = () => {
       role: "user", 
       content: inputValue
     }]))
-    alert("Please wait for a response!")
+    if (!flag){
+      alert("Please patientally wait for a response")
+    }
+    setFlag(true)
     const options = {
         message: inputValue
     }
