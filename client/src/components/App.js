@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
-import Skeleton from "./pages/Skeleton.js";
 import Profile from "./pages/Profile.js";
 import Feed from "./pages/Feed.js";
 import PlanTrip from "./pages/PlanTrip.js";
@@ -13,14 +12,12 @@ import Page from "./modules/Page.js";
 import LogInPage from "./pages/LogInPage.js";
 import Home from "./pages/Home.js";
 import AddFriends from "./pages/AddFriends.js";
-// import MapMarker from "./pages/MapMarker.js"
 
 import "../utilities.css";
 import "./App.css";
 
 // import './App.module.css';
 import "./_resets.module.css";
-// import Home from './components/pages/Home.js';
 
 import { socket } from "../client-socket.js";
 
@@ -58,7 +55,7 @@ const App = () => {
   const handleLogin = (credentialResponse) => {
     const userToken = credentialResponse.credential;
     const decodedCredential = jwt_decode(userToken);
-    console.log(`Logged in as ${decodedCredential.name}`);
+    // console.log(`Logged in as ${decodedCredential.name}`);
     post("/api/login", { token: userToken })
       .then((user) => {
         setUserId(user._id);
@@ -72,19 +69,9 @@ const App = () => {
     post("/api/logout").then(redirectToHome);
   };
 
-  // if (!userId)
-  //   return <LogInPage handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />;
-
   return (
     <div>
-      {/* <Page userId={userId}> */}
       <Routes>
-        <Route
-          path="/skeleton"
-          element={
-            <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-          }
-        />
         <Route
           path="/"
           className="clapyResets root"
@@ -97,7 +84,6 @@ const App = () => {
         <Route path="/addfriends" element={<AddFriends userId={userId} />} />
         <Route path="/plantrip" element={<PlanTrip userId={userId} />} />
         <Route path="/savedtrips" element={<SavedTrips userId={userId} />} />
-        {/* <Route path="/map" element={<MapMarker userId={userId} />} /> */}
         <Route
           path="/settings"
           element={
@@ -106,7 +92,6 @@ const App = () => {
         />
         <Route path="*" element={<NotFound userId={userId} />} />
       </Routes>
-      {/* </Page> */}
     </div>
   );
 };

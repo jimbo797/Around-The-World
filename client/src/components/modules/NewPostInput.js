@@ -4,126 +4,6 @@ import axios from "axios";
 
 import "./NewPostInput.css";
 import ImgurUpload from "./ImgurUpload";
-// import LocationSelect from "./LocationSelect";
-
-/**
- * New Post is a parent component for all input components
- *
- * Proptypes
- * @param {string} defaultText is the placeholder text
- * @param {string} storyId optional prop, used for comments
- * @param {({storyId, value}) => void} onSubmit: (function) triggered when this post is submitted, takes {storyId, value} as parameters
- */
-// const NewPostInput = (props) => {
-//   const [value, setValue] = useState("");
-
-//   // called whenever the user types in the new post input box
-//   const handleChange = (event) => {
-//     setValue(event.target.value);
-//   };
-
-//   // called when the user hits "Submit" for a new post
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     props.onSubmit && props.onSubmit(value);
-//     setValue("");
-//   };
-
-//   return (
-//     <div className="u-flex">
-//       <input
-//         type="text"
-//         placeholder={props.defaultText}
-//         value={value}
-//         onChange={handleChange}
-//         className="NewPostInput-input"
-//       />
-
-//       <button
-//         type="submit"
-//         className="NewPostInput-button u-pointer"
-//         value="Submit"
-//         onClick={handleSubmit}
-//       >
-//         Submit
-//       </button>
-//     </div>
-//   );
-// };
-
-/**
- * New Story is a New Post component for stories
- */
-// const NewStory = (props) => {
-//   const addStory = (value) => {
-//     const body = { content: value };
-//     post("/api/story", body).then((story) => {
-//       // display this story on the screen
-//       props.addNewStory(story);
-//     });
-//   };
-
-//   return <NewPostInput defaultText="New Story" onSubmit={addStory} />;
-// };
-
-// /**
-//  * New Story is a New Post component for stories
-//  * @param {string} imgSrc imgur link
-//  */
-// const NewStory = (props) => {
-//   const addStory = (value) => {
-//     const body = { content: value };
-//     post("/api/story", body).then((story) => {
-//       // display this story on the screen
-//       props.addNewStory(story);
-//     });
-//   };
-
-//   // // called whenever the user types in the new post input box
-//   // const handleChange = (event) => {
-//   //   setValue(event.target.value);
-//   // };
-
-//   // // called when the user hits "Submit" for a new post
-//   // const handleSubmit = (event) => {
-//   //   event.preventDefault();
-//   //   props.onSubmit && props.onSubmit(value);
-//   //   setValue("");
-//   // };
-
-//   return (
-//     // <div>
-//     //   <input
-//     //     type="text"
-//     //     placeholder={"New Image"}
-//     //     value={props.imgSrc}
-//     //     onChange={handleChange}
-//     //     className="NewPostInput-input"
-//     //   />
-//       <NewPostInput defaultText="New Story" onSubmit={addStory} />
-
-//     // </div>
-
-//   );
-// };
-
-/**
- * New Comment is a New Post component for comments
- *
- * Proptypes
- * @param {string} storyId to add comment to
- */
-// const NewComment = (props) => {
-//   const addComment = (value) => {
-//     const body = { parent: props.storyId, content: value };
-//     post("/api/comment", body).then((comment) => {
-//       // display this comment on the screen
-//       props.addNewComment(comment);
-//     });
-//   };
-
-//   return <NewPostInput defaultText="New Comment" onSubmit={addComment} />;
-// };
 
 /**
  * New Post is a parent component for all input components
@@ -134,17 +14,9 @@ import ImgurUpload from "./ImgurUpload";
  * @param {({storyId, value}) => void} onSubmit: (function) triggered when this post is submitted, takes {storyId, value} as parameters (might need to remove from props later!!)
  */
 const NewStory = (props) => {
-  // const initialValues = {
-  //   caption: "",
-  //   img: ""
-  // };
-
   const [value, setValue] = useState("");
   const [image, setImage] = useState(null); // for Imgur upload
   const [location, setLocation] = useState("");
-  // const [uploaded, setUploaded] = useState(false);
-  // const [possibleLocations, setPossibleLocations] = useState([]);
-  // const [selectedLocations, setSelectedLocations] = useState([]);
 
   var imgId = "";
   const inputFile = useRef(null);
@@ -160,14 +32,6 @@ const NewStory = (props) => {
   };
 
   // called whenever the user types in the new post input box
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setValues({
-  //     ...values,
-  //     [name]: value,
-  //   });
-  //   // setValues(event.target.value);
-  // };
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -175,9 +39,6 @@ const NewStory = (props) => {
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
   };
-  // const handleLocationChange = (selectedOptions) => {
-  //   setSelectedLocations(selectedOptions);
-  // };
 
   // upload image to imgur api
   const handleImageUpload = async () => {
@@ -191,12 +52,9 @@ const NewStory = (props) => {
         },
       });
 
-      console.log("Upload successful:", response.data);
+      // console.log("Upload successful:", response.data);
       imgId = parseImgurImageId(response.data.data.link);
       // setUploaded(true);
-
-      // console.log(response.data.data.link);
-      // console.log(parseImgurImageId(response.data.data.link));
     } catch (error) {
       console.error("Error uploading image:", error);
       // alert("Please upload a .png image!");
@@ -204,7 +62,7 @@ const NewStory = (props) => {
     }
   };
 
-  // location = { city, state?, country? }
+  // location param format: location = { city, state?, country? }
   const convertLocation = async (location) => {
     try {
       const response = await axios.get("https://api.api-ninjas.com/v1/geocoding", {
@@ -214,7 +72,6 @@ const NewStory = (props) => {
           // "X-Api-Key": process.env.GEOCODING_KEY,
         },
       });
-      // console.log("res" + response.data);
       // console.log("Upload successful:", response.data);
       return response.data;
     } catch (error) {
@@ -223,7 +80,6 @@ const NewStory = (props) => {
   };
 
   const parseLocation = (location) => {
-    // return undefined;
     const locationArray = location.split(",").map((content) => content.trim());
     if (locationArray.includes("") || locationArray.length > 3) return undefined;
 
@@ -257,48 +113,28 @@ const NewStory = (props) => {
       alert("Enter a valid city");
       return;
     }
-    const resultsFirst = results[0];
-    console.log(resultsFirst);
 
-    // setPossibleLocations(results);
-    // return
-
-    const locationBody = resultsFirst;
-    // post("/api/setlocation", body);
-    // setLocations([...locations, value]);
-
-    // const locationBody = selectedLocations.map(loc => loc.value);
+    const locationBody = results[0];
 
     handleImageUpload().then(() => {
       // if (uploaded) {
-        // console.log("here")
-        event.preventDefault();
+      event.preventDefault();
 
-        addStory && addStory(value, locationBody);
-        // console.log("after adding story")
-        setValue("");
-        setImage(null);
-        setLocation("");
-        // setSelectedLocations([]);
+      addStory && addStory(value, locationBody);
+      setValue("");
+      setImage(null);
+      setLocation("");
+      // setSelectedLocations([]);
 
-        if (inputFile.current) {
-          inputFile.current.value = "";
-          inputFile.current.type = "text";
-          inputFile.current.type = "file";
-        }
+      if (inputFile.current) {
+        inputFile.current.value = "";
+        inputFile.current.type = "text";
+        inputFile.current.type = "file";
+      }
 
-        // setUploaded(false);
+      // setUploaded(false);
       // }
-
-      // key=Math.random();
     });
-
-    // openMultiSelectPopup();
-
-    // handleImageUpload();
-    // event.preventDefault();
-    // props.addStory && props.addStory(values);
-    // setValues("");
   };
 
   // parse input link for just the image id
@@ -320,18 +156,11 @@ const NewStory = (props) => {
   };
 
   const addStory = (value, location) => {
-    // console.log(imgId);
-
     const body = { content: value, imgSrc: imgId, location: location };
 
-    // console.log("body " + value + imgId)
-    // console.log("inside add Story:" + body);
     post("/api/story", body).then((story) => {
       // display this story on the screen
-      // console.log("post done")
-      // console.log("here")
       props.addNewStory(story);
-      // console.log("story entry:" + story);
     });
   };
 

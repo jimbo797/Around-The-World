@@ -17,14 +17,10 @@ const RemoveUserProfile = (props) => {
 
   const removeUser = (value) => {
     const body = { _id: props._id};
-    // console.log("before req" + props._id);
     post("/api/unfollow", body).then((user) => {
-      // console.log("req made");
       props.unfollowUser(user);
-      console.log("after");
     });
     // .then((following) => {
-    //   console.log("req done")
     //   props.followUser(following);
     // });
 
@@ -72,9 +68,7 @@ const RemoveUserProfile = (props) => {
     removeUser && removeUser(user);
     setUser("");
     // const body = { name: props.name, _id: props._id, googleid: props.googleid };
-    // // console.log(body.googleid)
     // post("/api/follow", body).then((res) => {
-    //   console.log("submitted" + res);
     // })
   };
   const visited = (props.locations.length > 0) ? formatCityNames(capitalizeCityNames(props.locations)) : "No places visited yet!";

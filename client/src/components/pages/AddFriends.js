@@ -6,39 +6,17 @@ import "./AddFriends.css";
 
 const AddFriends = ({ userId }) => {
   const [users, setUsers] = useState([]);
-  //   let usersCurrent = users;
-  // let users = [];
 
   useEffect(() => {
     get("/api/notfollowed").then((userObjs) => {
-      // setStories(storyObjs);
-      //   users = userObjs;
-      //   console.log(users);
-      console.log(userObjs);
       setUsers(userObjs);
-    //   console.log("here" + userObjs);
     });
   }, []);
 
   const followUser = (user) => {
-    // console.log(storyObj.content + " " + storyObj._id);
-    // console.log(typeof googleid);
-    // for (let item of users) {
-    //     console.log(item.googleid);
-    //     console.log(typeof item.googleid);
-    // }
-    // googleid = String(googleid);
-    // console.log(user);
-
-    // console.log(users.filter(item => item._id !== userid.userid));
-    // console.log(user.userid);
-    // console.log(users[0]._id);
     setUsers(users.filter((item) => item._id !== user.userid));
-    // // usersCurrent = users.filter(item => item._id !== userid.userid)
-    // console.log(users);
   };
 
-  // console.log(users);
   let usersList = null;
   const hasUsers = users.length !== 0;
   if (hasUsers) {
@@ -55,12 +33,10 @@ const AddFriends = ({ userId }) => {
   } else {
     usersList = <div className="AddFriends-header">No users to follow yet, check back later!</div>;
   }
-  // console.log(usersList);
 
   return (
     <Page userId={userId}>
       <div className="overflow-scroll">
-        {/* <NewStory addNewStory={addNewStory} /> */}
         <h1 className="AddFriends-header">Other Users</h1>
         {usersList}
       </div>

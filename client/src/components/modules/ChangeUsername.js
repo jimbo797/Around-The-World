@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import "./ChangeUsername.css";
 
-
-
 const ChangeUsername = () => {
   const [newUsername, setUsername] = useState("");
 
@@ -18,12 +16,7 @@ const ChangeUsername = () => {
   };
 
   const handleButton = () => {
-    post("/api/changeUsername", { username: newUsername }).then((data) => {
-      console.log(data);
-    });
-    // get("/api/user").then((data) => {
-    //   console.log(data);
-    // });
+    post("/api/changeUsername", { username: newUsername }).then((data) => {});
   };
 
   return (
@@ -36,7 +29,9 @@ const ChangeUsername = () => {
         onChange={handleChange}
         value={newUsername}
       ></input>
-      <button className="ChangeUsername-text ChangeUsername-button" onClick={handleButton}>Set Username</button>
+      <button className="ChangeUsername-text ChangeUsername-button" onClick={handleButton}>
+        Set Username
+      </button>
     </div>
   );
 };

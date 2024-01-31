@@ -35,7 +35,6 @@ router.get("/whoami", (req, res) => {
     // not logged in
     return res.send({});
   }
-  // console.log(req.user);
   res.send(req.user);
 });
 
@@ -89,12 +88,8 @@ router.get("/user", (req, res) => {
 });
 
 router.get("/getUser", (req, res) => {
-  console.log(req);
-
   if (req.query.userId) {
-    // console.log('weee')
     User.findOne({ _id: req.query.userId }).then((user) => {
-      console.log(user);
       res.send(user);
     });
   } else res.send({});
@@ -102,7 +97,6 @@ router.get("/getUser", (req, res) => {
 
 router.get("/getPostsByUser", (req, res) => {
   // TODO: Change so it accepts parameter for specific user in database, not just the current user
-  // console.log(req.user)
   if (req.user) {
     Story.find({ creator_id: req.user._id }).then((posts) => {
       res.send(posts);
@@ -146,7 +140,6 @@ router.post("/changeUsername", (req, res) => {
       // For some reason, user._id gets set to 'new Object(user._id)'
       user.name = req.body.username;
       user.save();
-      // console.log(user)
       // socketManager.getSocketFromUserID(req.user._id).emit("username", user.username); // is this correct/necessary?
     });
     res.send({ message: "updated username" });
@@ -212,22 +205,14 @@ router.get("/stories", (req, res) => {
 
   // empty selector means get all documents
   // let stories = [];
-  // console.log("following" + req.user.following);
 
   // Story.find({}).then((stories) => res.send(stories));
 
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((currUser) => {
-      // for (let elmt of currUser.following) {
-      //   console.log(elmt);
-      // }
-      // console.log(currUser.following);
-      // Story.find({ creator_id: { $in: currUser.following } }).then((stories) => {
-      //   // console.log(stories);
-      //   res.send(stories);
-      // });
-      // console.log(currUser);
-      Story.find({ creator_id: { $in: currUser.following.concat(currUser._id) } }).then((stories) => res.send(stories));
+      Story.find({ creator_id: { $in: currUser.following.concat(currUser._id) } }).then((stories) =>
+        res.send(stories)
+      );
     });
   }
 
@@ -240,69 +225,43 @@ router.get("/mystories", (req, res) => {
       Story.find({ creator_id: currUser._id }).then((stories) => res.send(stories));
     });
   }
-
 });
 
 router.get("/savedtrips", (req, res) => {
   if (req.user) {
-    User.findOne({_id: req.user._id}).then((currUser) => {
-      Story.find({_id: {$in: currUser.savedTrips}}).then((stories) => res.send(stories));
-    })
+    User.findOne({ _id: req.user._id }).then((currUser) => {
+      Story.find({ _id: { $in: currUser.savedTrips } }).then((stories) => res.send(stories));
+    });
   }
-})
+});
 
 router.get("/followed", (req, res) => {
   let final = [];
 
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((currUser) => {
-      // console.log("user" + user);
-      // User.find({}).then((users) => {
-      //   final = [...users];
-      //   // console.log("users" + users);
-      //   // console.log("hi" + users[0]._id);
-      //   // // console.log("id" + currUser._id);
-      //   // console.log(currUser.following);
-
-      //   for (let followed of currUser.following) {
-      //     final = final.filter((user) => String(user._id) === followed);
-      //   }
-      //   final = final.filter((user) => String(user._id) !== String(currUser._id));
-      //   // console.log("FINAL" + final);
-      //   res.send(final);
-      // });
       let idFollowing = currUser.following;
-      User.find({_id: {$in: idFollowing}}).then((users) => res.send(users));
+      User.find({ _id: { $in: idFollowing } }).then((users) => res.send(users));
     });
-    // console.log("here in not followed" + final)
   } else {
     res.send([]);
   }
-})
+});
 router.get("/notfollowed", (req, res) => {
-  // console.log(req.user.following);
-  // console.log("BREAK");
   let final = [];
 
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((currUser) => {
-      // console.log("user" + user);
       User.find({}).then((users) => {
         final = [...users];
-        // console.log("users" + users);
-        // console.log("hi" + users[0]._id);
-        // // console.log("id" + currUser._id);
-        // console.log(currUser.following);
 
         for (let followed of currUser.following) {
           final = final.filter((user) => String(user._id) !== followed);
         }
         final = final.filter((user) => String(user._id) !== String(currUser._id));
-        // console.log("FINAL" + final);
         res.send(final);
       });
     });
-    // console.log("here in not followed" + final)
   } else {
     res.send([]);
   }
@@ -311,14 +270,12 @@ router.get("/notfollowed", (req, res) => {
 // router.get("/following", (req, res) => {
 //   if (req.user) {
 //     User.findOne({ name: req.user.name }).then((user) => {
-//       console.log("found user")
 //       user.following.push(req.body._id);
 //       user.save();
 //       socketManager.getSocketFromUserID(req.user._id).emit("follow", user.following);
 //     });
 //   // res.send(User.findOne({googleid: req.body.googleid}));
 //     // res.send({message: req.body.googleid});
-//     // console.log(req.user);
 //     res.send({userid: req.body._id});
 //   }
 // });
@@ -333,7 +290,6 @@ router.get("/comment", (req, res) => {
 
 router.post("/story", (req, res) => {
   const newStory = new Story({
-    // _id: data.stories.length,
     creator_id: req.user._id,
     creator_name: req.user.name,
     content: req.body.content,
@@ -341,46 +297,41 @@ router.post("/story", (req, res) => {
     location: req.body.location,
   });
 
-  if (req.user){
-    User.findOne({_id: req.user._id}).then((user) => {
+  if (req.user) {
+    User.findOne({ _id: req.user._id }).then((user) => {
       user.locations.push(req.body.location.name);
       user.save();
-    })
+    });
   }
 
   newStory.save().then((story) => res.send(story));
-
-  // data.stories.push(newStory);
-  // res.send(newStory);
 });
 
 router.post("/savepost", (req, res) => {
-  if (req.user){
-    User.findOne({_id: req.user._id}).then((user) => {
+  if (req.user) {
+    User.findOne({ _id: req.user._id }).then((user) => {
       user.savedTrips.push(req.body.saveTripId);
       user.save();
-    })
+    });
   }
 
-  res.send({saveTripId: req.body.saveTripId});
-})
+  res.send({ saveTripId: req.body.saveTripId });
+});
 
 router.post("/unsavepost", (req, res) => {
   if (req.user) {
-    User.findOne({_id: req.user._id}).then((user) => {
+    User.findOne({ _id: req.user._id }).then((user) => {
       // let idFollowing = currUser.following;
       // User.find({_id: {$in: idFollowing}}).then((users) => res.send(users));
       user.savedTrips = user.savedTrips.filter((trip) => trip !== req.body.saveTripId);
-      user.save()
-    })
+      user.save();
+    });
   }
-})
+});
 
 router.get("/locations", (req, res) => {
-  // console.log("get request");
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((user) => {
-      // console.log("hi" + user.name);
       res.send({ locations: user.locations });
     });
   }
@@ -388,20 +339,14 @@ router.get("/locations", (req, res) => {
 
 //       User.find({}).then((users) => {
 //         final = [...users];
-//         // console.log("users" + users);
-//         // console.log("hi" + users[0]._id);
-//         console.log("id" + currUser._id);
-//         console.log(currUser.following);
 
 //         for (let followed of currUser.following) {
 //           final = final.filter((user) => String(user._id) !== followed);
 //         }
-//         console.log("FINAL" + final);
 //         res.send(final);
 
 //       });
 //     })
-//   // console.log("here in not followed" + final)
 // } else {
 //   res.send([]);
 // }
@@ -409,39 +354,18 @@ router.get("/locations", (req, res) => {
 // Story.find({}).then((stories) => res.send(stories));
 
 router.post("/setlocation", (req, res) => {
-  console.log("post req");
   if (req.user) {
     User.findOne({ _id: req.user._id }).then((user) => {
       user.locations.push(req.body.location);
-      // console.log("user locations" + user.locations);
       user.save();
     });
     res.send({ location: req.body.location });
-    // console.log("hi" + req.user.locations);
   }
 });
 
 router.post("/follow", (req, res) => {
-  // console.log("here")
   if (req.user) {
-    // console.log("here2")
-
     User.findOne({ _id: req.user._id }).then((user) => {
-      // const newFollowing = user.following.concat(req.body._id);
-      //   const newUser = new User({
-      //     name: user.name,
-      //     // _id: user._id,
-      //     googleid: user.googleid,
-      //     biography : user.biography,
-      //     stories : user.stories,
-      //     following: newFollowing
-      //   })
-      //   newUser.save();
-      //   res.send({ userid: req.body._id , newId: newUser._id});
-      //   console.log(newUser._id);
-
-      // console.log("found user")
-
       user.following.push(req.body._id);
       user.save();
       // req.user.save();
@@ -452,35 +376,22 @@ router.post("/follow", (req, res) => {
 
     // res.send(User.findOne({googleid: req.body.googleid}));
     // res.send({message: req.body.googleid});
-    // console.log(req.user);
     res.send({ userid: req.body._id });
-    // console.log(req.user.following)
   }
 });
 
 router.post("/unfollow", (req, res) => {
-  // console.log("here")
   if (req.user) {
-    // console.log("here2")
-
     User.findOne({ _id: req.user._id }).then((user) => {
-      // console.log("user following before" + user.following)
-      console.log(req.body._id);
-
       user.following = user.following.filter((item) => item !== req.body._id);
-      // console.log("user following after" + user.following)
       user.save();
-
     });
     res.send({ userid: req.body._id });
   }
 });
 
 router.post("/comment", (req, res) => {
-  console.log(req.body);
-  // console.log(req.user)
   const newComment = new Comment({
-    // _id: data.comments.length,
     creator_id: req.user._id,
     creator_name: req.user.name,
     parent: req.body.parent,

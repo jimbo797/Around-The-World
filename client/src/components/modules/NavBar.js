@@ -2,15 +2,14 @@ import React from "react";
 
 import "./NavBar.css";
 import "../../utilities.css";
-// import "../pages/Home.css";
 
 const NavBar = ({ userId }) => {
   const pages = [
     // { name: "AROUND THE WORLD", link: "/" },
     { name: "Feed", link: "/feed" },
     { name: "Profile", link: "/profile" },
-    { name: "Add Friends", link: "/addfriends"},
-    {name: "Saved Trips", link: "/savedtrips"},
+    { name: "Add Friends", link: "/addfriends" },
+    { name: "Saved Trips", link: "/savedtrips" },
     { name: "Plan a Trip", link: "/plantrip" },
     { name: "Settings", link: "/settings" },
   ];
@@ -28,7 +27,7 @@ const NavBar = ({ userId }) => {
       {/* <div className="NavBar-logoImage"/> */}
       {/* <div> {logoLink} </div> */}
       <a href="/">
-        <img className="navbar-logo" src="/assets/logo.png" alt="Your Image"/>
+        <img className="navbar-logo" src="/assets/logo.png" alt="Your Image" />
       </a>
       <div className="navbar-centering">{navbarLinks}</div>
     </div>

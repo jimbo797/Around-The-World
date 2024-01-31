@@ -123,6 +123,7 @@ label{
   'Liberation Sans', sans-serif;
   width: min-content;
 }
-/* label:hover {
-  background-color: 
-} */
+label:hover {
+  color: var(--white);
+  background-color: rgb(132, 149, 164);
+}

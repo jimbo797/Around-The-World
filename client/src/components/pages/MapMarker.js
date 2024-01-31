@@ -1,14 +1,14 @@
-import React , {useState} from 'react';
-import { Link } from 'react-router-dom';
-import ReactMapGL, { Marker } from 'react-map-gl';
-import Page from '../modules/Page';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import ReactMapGL, { Marker } from "react-map-gl";
+import Page from "../modules/Page";
 
 // IGNORE THIS IS TO TEST OUT CLICKING MARKERS
 
 const MapMarker = () => {
   const [viewport, setViewport] = useState({
-    width: '100vw',
-    height: '100vh',
+    width: "100vw",
+    height: "100vh",
     latitude: 37.7749,
     longitude: -122.4194,
     zoom: 12,
@@ -16,23 +16,19 @@ const MapMarker = () => {
 
   return (
     <Page>
-<ReactMapGL
-      {...viewport}
-      onViewportChange={(newViewport) => setViewport(newViewport)}
-      mapboxApiAccessToken={"pk.eyJ1IjoibWlyYW5kYWxpdTAzIiwiYSI6ImNscnJiM2RzZDBidngyaWxwdDluYnlzZWoifQ.5Cb3LJA-YmwGKx5_rktVBQ"}
-    >
-      {/* Add your markers with links */}
-      <Marker
-        latitude={37.7749}
-        longitude={-122.4194}
-        offsetLeft={-20}
-        offsetTop={-10}
+      <ReactMapGL
+        {...viewport}
+        onViewportChange={(newViewport) => setViewport(newViewport)}
+        mapboxApiAccessToken={
+          "pk.eyJ1IjoibWlyYW5kYWxpdTAzIiwiYSI6ImNscnJiM2RzZDBidngyaWxwdDluYnlzZWoifQ.5Cb3LJA-YmwGKx5_rktVBQ"
+        }
       >
-        <Link to="/feed">Marker Content</Link>
-      </Marker>
-    </ReactMapGL>
+        {/* Add your markers with links */}
+        <Marker latitude={37.7749} longitude={-122.4194} offsetLeft={-20} offsetTop={-10}>
+          <Link to="/feed">Marker Content</Link>
+        </Marker>
+      </ReactMapGL>
     </Page>
-    
   );
 };
 
