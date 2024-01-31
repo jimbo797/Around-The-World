@@ -4,6 +4,8 @@ import axios from "axios";
 import { get, post } from "../../utilities.js";
 import "./PlanTrip.css";
 
+/** borrowed code from a youtube video for skeleton of this page https://www.youtube.com/watch?v=JJ9fkYX7q4A&t=2919s */
+
 const PlanTrip = () => {
   const [message, setMessage] = useState(null);
   const [inputValue, setInput] = useState(null);
@@ -11,16 +13,18 @@ const PlanTrip = () => {
   const [current, setCurrent] = useState(null);
   const [flag, setFlag] = useState(false);
   const [prompt, setPrompt] = useState(null);
+  const [username, setUsername] = useState("")
 
   const getMessages = async () => {
     if (!flag) {
-      alert("Please patientally wait for responses");
+      alert("Please patiently wait for responses");
     }
     setFlag(true);
     setInput("");
     const options = {
       message: inputValue,
     };
+    get("/api/getUsername").then((data) => setUsername(data.username));
     try {
       const response = await post("/api/completions", options);
       setMessage(response.choices[0].message);
@@ -50,7 +54,7 @@ const PlanTrip = () => {
         ...prevChats,
         {
           title: current,
-          role: "user",
+          role: username,
           content: prompt,
         },
         {

@@ -100,6 +100,7 @@ const NewStory = (props) => {
       alert("Enter a city");
       return;
     }
+    setImage(null);
 
     const parsedLocation = parseLocation(location);
     if (parsedLocation === undefined) {
