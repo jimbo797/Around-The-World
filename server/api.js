@@ -335,13 +335,15 @@ router.post("/unfollow", (req, res) => {
 });
 
 router.post("/comment", (req, res) => {
-  const newComment = new Comment({
-    creator_id: req.user._id,
-    creator_name: req.user.name,
-    parent: req.body.parent,
-    content: req.body.content,
+  User.findOne({ _id: req.user._id }).then((user) => {
+    const newComment = new Comment({
+      creator_id: req.user._id,
+      creator_name: user.name,
+      parent: req.body.parent,
+      content: req.body.content,
+    });
+    newComment.save().then((comment) => res.send(comment));
   });
-  newComment.save().then((comment) => res.send(comment));
 });
 
 // anything else falls to this "not found" case
