@@ -19,10 +19,8 @@ const ChangeUsername = () => {
 
   const handleButton = () => {
     post("/api/changeUsername", { username: newUsername }).then((data) => {
-      console.log(data);
     });
     // get("/api/user").then((data) => {
-    //   console.log(data);
     // });
   };
 

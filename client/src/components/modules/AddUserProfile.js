@@ -18,14 +18,10 @@ const AddUserProfile = (props) => {
 
   const addUser = (value) => {
     const body = { name: props.name, _id: props._id, googleid: props.googleid };
-    // console.log("before req" + props._id);
     post("/api/follow", body).then((user) => {
-      // console.log("req made");
       props.followUser(user);
-      // console.log("after");
     });
     // .then((following) => {
-    //   console.log("req done")
     //   props.followUser(following);
     // });
 
@@ -74,9 +70,7 @@ const AddUserProfile = (props) => {
     addUser && addUser(user);
     setUser("");
     // const body = { name: props.name, _id: props._id, googleid: props.googleid };
-    // // console.log(body.googleid)
     // post("/api/follow", body).then((res) => {
-    //   console.log("submitted" + res);
     // })
   };
 

@@ -22,7 +22,6 @@ const Feed = ({ userId }) => {
   // this gets called when the user pushes "Submit", so their
   // post gets added to the screen right away
   const addNewStory = (storyObj) => {
-    console.log(storyObj.content + " " + storyObj._id);
     setStories(stories.concat([storyObj]));
   };
 

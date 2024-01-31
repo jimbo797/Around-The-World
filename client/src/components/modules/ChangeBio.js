@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import "./ChangeBio.css";
 
-
 const ChangeBio = () => {
   const [newBio, setBio] = useState("");
 
@@ -17,12 +16,7 @@ const ChangeBio = () => {
   };
 
   const handleButton = () => {
-    post("/api/changeBiography", { biography: newBio }).then((data) => {
-      console.log(data);
-    });
-    // get("/api/user").then((data) => {
-    //   console.log(data);
-    // });
+    post("/api/changeBiography", { biography: newBio });
   };
 
   return (
@@ -35,7 +29,9 @@ const ChangeBio = () => {
         onChange={handleChange}
         value={newBio}
       ></input>
-      <button className="ChangeBio-text ChangeBio-button" onClick={handleButton}>Set Biography</button>
+      <button className="ChangeBio-text ChangeBio-button" onClick={handleButton}>
+        Set Biography
+      </button>
     </div>
   );
 };

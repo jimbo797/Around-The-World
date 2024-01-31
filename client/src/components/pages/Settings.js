@@ -14,7 +14,6 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     get("/api/followed").then((userObjs) => {
-      console.log(userObjs);
       setUsers(userObjs);
     });
   }, []);
@@ -23,7 +22,6 @@ const Settings = ({ userId, handleLogin, handleLogout }) => {
     setUsers(users.filter((item) => item._id !== user.userid));
   };
 
-  // console.log(users);
   let usersList = null;
   const hasUsers = users.length !== 0;
   if (hasUsers) {

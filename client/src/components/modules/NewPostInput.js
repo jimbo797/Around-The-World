@@ -71,12 +71,10 @@ const NewStory = (props) => {
         },
       });
 
-      console.log("Upload successful:", response.data);
+      // console.log("Upload successful:", response.data);
       imgId = parseImgurImageId(response.data.data.link);
       // setUploaded(true);
 
-      // console.log(response.data.data.link);
-      // console.log(parseImgurImageId(response.data.data.link));
     } catch (error) {
       console.error("Error uploading image:", error);
       // alert("Please upload a .png image!");
@@ -94,7 +92,6 @@ const NewStory = (props) => {
           // "X-Api-Key": process.env.GEOCODING_KEY,
         },
       });
-      // console.log("res" + response.data);
       // console.log("Upload successful:", response.data);
       return response.data;
     } catch (error) {
@@ -103,7 +100,6 @@ const NewStory = (props) => {
   };
 
   const parseLocation = (location) => {
-    // return undefined;
     const locationArray = location.split(",").map((content) => content.trim());
     if (locationArray.includes("") || locationArray.length > 3) return undefined;
 
@@ -138,7 +134,6 @@ const NewStory = (props) => {
       return;
     }
     const resultsFirst = results[0];
-    console.log(resultsFirst);
 
     // setPossibleLocations(results);
     // return
@@ -151,11 +146,9 @@ const NewStory = (props) => {
 
     handleImageUpload().then(() => {
       // if (uploaded) {
-      // console.log("here")
       event.preventDefault();
 
       addStory && addStory(value, locationBody);
-      // console.log("after adding story")
       setValue("");
       setImage(null);
       setLocation("");
@@ -200,18 +193,12 @@ const NewStory = (props) => {
   };
 
   const addStory = (value, location) => {
-    // console.log(imgId);
 
     const body = { content: value, imgSrc: imgId, location: location };
 
-    // console.log("body " + value + imgId)
-    // console.log("inside add Story:" + body);
     post("/api/story", body).then((story) => {
       // display this story on the screen
-      // console.log("post done")
-      // console.log("here")
       props.addNewStory(story);
-      // console.log("story entry:" + story);
     });
   };
 

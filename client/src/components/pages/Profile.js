@@ -65,7 +65,6 @@ const Profile = ({ userId }) => {
 
   useEffect(() => {
     get("/api/locations").then((visited) => {
-      console.log(visited);
       setDisplayLocations(formatCityNames(capitalizeCityNames(visited.locations)));
     });
   }, []);
@@ -80,23 +79,17 @@ const Profile = ({ userId }) => {
 
   useEffect(() => {
     // if (userId) {
-    // console.log({userId: userId});
     // get("/api/whoami").then((user) => {
     //   get("/api/getPostsByUser", { userId: user._id }).then((posts) => {
-    //     console.log(posts);
-    //     // console.log(user)
     //   });
     // });
     get("/api/getUsername").then((data) => setUsername(data.username));
     get("/api/getBiography").then((data) => setBiography(data.biography));
     get("/api/getPostsByUser").then((posts) => {
       setPosts(posts);
-      // console.log(posts)
       setLocations(posts.map(({ location }) => location));
-      // console.log(locations);
     });
     // get("/api/getUser", { userId});
-    //   console.log(user);
     // });
 
     // });
@@ -111,9 +104,7 @@ const Profile = ({ userId }) => {
 
   const changeBiography = () => {
     let body = { biography: biography };
-    post("/api/changeBiography", body).then((res) => {
-      console.log(res.message);
-    });
+    post("/api/changeBiography", body);
     setEditBiography(true);
   };
 
@@ -174,19 +165,18 @@ const Profile = ({ userId }) => {
     <Page userId={userId}>
       <div>
         <div className="Card-story Profile-info">
-        <div className="Profile-text Profile-username">Username: {username} </div>
-        <div className="Profile-text">Bio: {biography} </div>
-        <p className="Profile-text">Places Visited: {displayLocations}</p>
-        {/* <p> HI </p> */}
+          <div className="Profile-text Profile-username">Username: {username} </div>
+          <div className="Profile-text">Bio: {biography} </div>
+          <p className="Profile-text">Places Visited: {displayLocations}</p>
+          {/* <p> HI </p> */}
         </div>
-    
+
         {/* <div className="padding-between">{BiographyModule}</div> */}
         {/* {adding images via link for imgur: https://apidocs.imgur.com/} */}
         {/* <img 
       src="https://worldanimalfoundation.org/wp-content/uploads/2023/09/Cute-dogs.jpg"
       alt="new"
       /> */}
-        
 
         <MapComponent userId={userId} posts={posts} />
         {storiesList}

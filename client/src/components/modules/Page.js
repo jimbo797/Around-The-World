@@ -13,7 +13,6 @@ const Page = ({ userId, children }) => {
   const [message, setMessage] = useState(notLoggedInMessage);
 
   useEffect(() => {
-    // console.log('username at page load is '+username)
 
     get("/api/getUsername").then((data) => {
       const newMessage = data.username ? `Logged in as ${data.username}` : notLoggedInMessage;

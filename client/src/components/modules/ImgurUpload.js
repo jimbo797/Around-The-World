@@ -25,7 +25,7 @@ const [image, setImage] = useState(null);
         },
       });
 
-      console.log("Upload successful:", response.data);
+      // console.log("Upload successful:", response.data);
     } catch (error) {
       console.error("Error uploading image:", error);
     }

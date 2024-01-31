@@ -21,7 +21,6 @@ const ImgurRequest = (props) => {
         });
 
         setImageData(response.data.data);
-        console.log(imageData);
       } catch (error) {
         console.error("Error fetching image:", error);
       }

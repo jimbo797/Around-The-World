@@ -17,7 +17,6 @@ const MapComponent = ({ userId, posts }) => {
   const [popupPosts, setPopupPosts] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
 
-  // console.log(locations);
 
   // const request = require('request');
 
@@ -27,7 +26,6 @@ const MapComponent = ({ userId, posts }) => {
 
   useEffect(() => {
     get("/api/locations").then((visited) => {
-      // console.log(visited);
       setLocations(visited.locations);
     });
   }, []);
@@ -49,8 +47,6 @@ const MapComponent = ({ userId, posts }) => {
     for (const element of manualLocations) {
       // TODO: Remove manual locations
       convertLocation(element).then((converted) => {
-        // console.log("element" + element)
-        // console.log(typeof converted);
         var [longitude, latitude] = [converted[0].longitude, converted[0].latitude];
         new mapboxgl.Marker()
           .setLngLat([longitude, latitude])
@@ -66,13 +62,11 @@ const MapComponent = ({ userId, posts }) => {
       if (!locationsMap[stringifiedLocation]) locationsMap[stringifiedLocation] = [];
       locationsMap[stringifiedLocation].push(post);
     }
-    // console.log(locationsMap)
 
     for (const key of Object.keys(locationsMap)) {
       // if (!post.location) continue;
       const locationArray = locationsMap[key];
       const { latitude, longitude } = locationArray[0].location;
-      // console.log(locationArray[0]);
       const popup = new mapboxgl.Popup()
         .addClassName("popup-text-color")
         // .setHTML(`<h1>You visited ${locationArray.length} locations here!</h1>`)
@@ -125,8 +119,6 @@ const MapComponent = ({ userId, posts }) => {
           // "X-Api-Key": process.env.GEOCODING_KEY,
         },
       });
-      // console.log("res" + response.data);
-      // console.log("Upload successful:", response.data);
       return response.data;
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -134,23 +126,17 @@ const MapComponent = ({ userId, posts }) => {
   };
 
   const addLocation = (value) => {
-    // console.log("add location");
     //     convertLocation(value).then((response) => {
-    //         // console.log(response[0].longitude);
     //         // setLocations([...locations, [response[0].longitude, response[0].latitude]]);
-    //         console.log(locations);
 
     //         // const body = {location: value};
     //         // post("/api/setlocation", body);
     //   })
     convertLocation(value).then((res) => {
-      // console.log("length", res.length);
 
       if (res.length === 0) {
-        // console.log(typeof res[0].longitude === Number);
         alert("Enter a valid city");
       } else {
-        // console.log("else");
         const body = { location: value };
         post("/api/setlocation", body);
         setLocations([...locations, value]);
@@ -169,16 +155,12 @@ const MapComponent = ({ userId, posts }) => {
   //     // });
 
   //         // const body = {location: [response[0].longitude, response[0].latitude]};
-  //         // console.log(body);
   //         // post("/api/setlocation", body);
 
   //         // const addUser = (value) => {
   //         //     const body = { name: props.name, _id: props._id, googleid: props.googleid };
-  //         //     // console.log("before req" + props._id);
   //         //     post("/api/follow", body).then((user) => {
-  //         //       // console.log("req made");
   //         //       props.followUser(user);
-  //         //       // console.log("after");
   //         //     });
   //     })
 
@@ -192,9 +174,7 @@ const MapComponent = ({ userId, posts }) => {
 
   // Convert each substring to a number
 
-  // console.log(typeof longitude);
   // locations.push([longitude, latitude]);
-  // console.log(locations);
 
   // return <div id="map" style={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }} />;
 
