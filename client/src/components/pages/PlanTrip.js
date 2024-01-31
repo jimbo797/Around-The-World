@@ -17,7 +17,7 @@ const PlanTrip = () => {
 
   const getMessages = async () => {
     if (!flag) {
-      alert("Please patiently wait for responses");
+      alert("Please wait for a response!");
     }
     setFlag(true);
     setInput("");
@@ -91,7 +91,7 @@ const PlanTrip = () => {
           </nav>
         </section>
         <section className="main">
-          {!current && <h1> Plan a Trip </h1>}
+          {!current && <h1 style={{color: "white"}}> Plan a Trip </h1>}
           <ul className="feed">
             {currentChat?.map((chat, index) => (
               <li key={index}>
@@ -102,7 +102,7 @@ const PlanTrip = () => {
           </ul>
           <div className="bottom">
             <div className="input">
-              <input value={inputValue} onChange={(e) => handleChangeInput(e)} />
+              <input style={{backgroundColor: "white"}} placeholder="Ask questions about your next trip!" value={inputValue} onChange={(e) => handleChangeInput(e)} />
               <div id="submit" onClick={getMessages}>
                 ✈
               </div>
