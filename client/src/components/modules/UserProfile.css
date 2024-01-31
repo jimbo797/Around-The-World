@@ -1,0 +1,42 @@
+.UserProfile-button{
+    /* color: var(--primary); */
+    color:black;
+    /* border: var(--primary) 1px solid; */
+    /* border: rgb(132, 149, 164) 1px solid; */
+    border: white 1px solid;
+    border-radius: 0 var(--xs) var(--xs) 0;
+    background: none;
+    transition: color 0.1s, background 0.1s;
+}
+
+.UserProfile-button:hover {
+    color: var(--white);
+  /* background-color: var(--primary); */
+  background-color: rgb(132, 149, 164);
+  }
+
+.UserProfile-button {
+    color: darkslategray;
+  /* border: var(--primary) 1px solid; */
+  border: rgb(132, 149, 164) 1px solid;
+  border-radius: 0 var(--xs) var(--xs) 0;
+  background: none;
+  transition: color 0.1s, background 0.1s;
+  border-radius: 8px;
+  justify-self: left;
+    
+  }
+
+  .AddUser-name{
+    font-weight: bold;
+  }
+
+  .AddUser-container {
+    border: var(--darkgrey) 1px solid;
+    border-radius: var(--xs);
+    margin-top: var(--m);
+    border-radius: 8px;
+    background-color: white;
+    justify-content: left;
+    /* position: relative; */
+  }

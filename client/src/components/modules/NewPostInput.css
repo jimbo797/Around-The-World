@@ -45,6 +45,7 @@
   border-radius: 0 var(--xs) var(--xs) 0;
   background: none;
   transition: color 0.1s, background 0.1s;
+  border-radius: 8px;
 }
 
 .NewPostInput-button:hover {

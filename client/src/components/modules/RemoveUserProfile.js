@@ -77,14 +77,15 @@ const RemoveUserProfile = (props) => {
     //   console.log("submitted" + res);
     // })
   };
+  const visited = (props.locations.length > 0) ? formatCityNames(capitalizeCityNames(props.locations)) : "No places visited yet!";
 
   return (
-    <div className="Card-story">
-      <p className="">{props.name}</p>
-      <p className="">Visited: {formatCityNames(capitalizeCityNames(props.locations))}</p>
+    <div className="Card-story AddUser-container">
+      <p className="AddUser-name">{props.name}</p>
+      <p className="">Visited: {visited}</p>
       <button
         type="submit"
-        className="NewPostInput-button u-pointer"
+        className="UserProfile-button u-pointer"
         // value="Follow"
         // value={props.googleid}
         value={user}

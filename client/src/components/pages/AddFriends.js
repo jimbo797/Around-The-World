@@ -52,7 +52,7 @@ const AddFriends = ({ userId }) => {
       />
     ));
   } else {
-    usersList = <div>No users to follow yet!</div>;
+    usersList = <div>No users to follow yet, check back later!</div>;
   }
   // console.log(usersList);
 
@@ -60,6 +60,7 @@ const AddFriends = ({ userId }) => {
     <Page userId={userId}>
       <div className="overflow-scroll">
         {/* <NewStory addNewStory={addNewStory} /> */}
+        <h1>Other Users</h1>
         {usersList}
       </div>
     </Page>
