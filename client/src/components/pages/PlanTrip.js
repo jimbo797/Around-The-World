@@ -91,7 +91,7 @@ const PlanTrip = () => {
           </nav>
         </section>
         <section className="main">
-          {!current && <h1> Plan a Trip </h1>}
+          {!current && <h1 style={{color: "white"}}> Plan a Trip </h1>}
           <ul className="feed">
             {currentChat?.map((chat, index) => (
               <li key={index}>
