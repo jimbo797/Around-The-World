@@ -42,7 +42,7 @@
   color: darkslategray;
   /* border: var(--primary) 1px solid; */
   border: rgb(132, 149, 164) 1px solid;
-  border-radius: 0 var(--xs) var(--xs) 0;
+  border-radius: 8px;
   background: none;
   transition: color 0.1s, background 0.1s;
 }
