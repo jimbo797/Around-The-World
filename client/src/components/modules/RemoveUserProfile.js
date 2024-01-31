@@ -63,6 +63,13 @@ const RemoveUserProfile = (props) => {
     return cityList
   }
 
+  function removeDuplicates(arr) {
+    const newSet = new Set(arr);
+    const newArr = [...newSet];
+  
+    return newArr;
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     removeUser && removeUser(user);
@@ -71,7 +78,7 @@ const RemoveUserProfile = (props) => {
     // post("/api/follow", body).then((res) => {
     // })
   };
-  const visited = (props.locations.length > 0) ? formatCityNames(capitalizeCityNames(props.locations)) : "No places visited yet!";
+  const visited = (props.locations.length > 0) ? formatCityNames(capitalizeCityNames(removeDuplicates(props.locations))) : "No places visited yet!";
 
   return (
     <div className="Card-story AddUser-container">

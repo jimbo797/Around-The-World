@@ -56,6 +56,13 @@ const AddUserProfile = (props) => {
     return cityList;
   }
 
+  function removeDuplicates(arr) {
+    const newSet = new Set(arr);
+    const newArr = [...newSet];
+  
+    return newArr;
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     addUser && addUser(user);
@@ -64,7 +71,7 @@ const AddUserProfile = (props) => {
 
   const visited =
     props.locations.length > 0
-      ? formatCityNames(capitalizeCityNames(props.locations))
+      ? formatCityNames(capitalizeCityNames(removeDuplicates(props.locations)))
       : "No places visited yet!";
 
   return (
