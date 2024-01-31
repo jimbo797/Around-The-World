@@ -47,6 +47,7 @@
   transition: color 0.1s, background 0.1s;
   height: 40px;
   width: 100px;
+  margin-left:auto;
 }
 
 .NewPostInput-button:hover {
@@ -79,7 +80,8 @@
 .flex-display{
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: center;
+  padding-top: 15px;
 }
 
 .changing-layout{
@@ -92,6 +94,7 @@
   border-radius: var(--xs) 0 0 var(--xs);
   transition: box-shadow 0.1s;
   background-color: white;
+  justify-self: center;
 }
 
 label{
