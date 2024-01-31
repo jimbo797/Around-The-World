@@ -4,9 +4,9 @@ Around The World is a social media site focusing on travel, so users can share w
 
 ## Our team
 
-Miranda Liu
-Camila Zavala
-Jimmy Kuhlman
+- Miranda Liu
+- Camila Zavala
+- Jimmy Kuhlman
 
 ## Webapp hosting by Render
 
