@@ -33,5 +33,7 @@ Our webapp was built on the webapp skeleton provided by the web.lab class.
 - OpenAI
 - Imgur API
 - Geocoding API
+- React Router
+- dotenv
 
 # Happy travels
