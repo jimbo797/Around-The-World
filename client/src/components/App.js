@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
-import Skeleton from "./pages/Skeleton.js";
 import Profile from "./pages/Profile.js";
 import Feed from "./pages/Feed.js";
 import PlanTrip from "./pages/PlanTrip.js";
@@ -77,14 +76,7 @@ const App = () => {
 
   return (
     <div>
-      {/* <Page userId={userId}> */}
       <Routes>
-        <Route
-          path="/skeleton"
-          element={
-            <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-          }
-        />
         <Route
           path="/"
           className="clapyResets root"
@@ -106,7 +98,6 @@ const App = () => {
         />
         <Route path="*" element={<NotFound userId={userId} />} />
       </Routes>
-      {/* </Page> */}
     </div>
   );
 };
