@@ -27,7 +27,7 @@ const SingleStory = (props) => {
         <span className="u-bold black-text">{props.creator_name}</span>
         <span className="black-text">{location}</span>
       </div>
-      <ImgurRequest imgId={props.imgSrc} />
+      <ImgurRequest className="Card-imgSize" imgId={props.imgSrc} />
       <p className="Card-storyContent">{props.content}</p>
     </div>
   );
