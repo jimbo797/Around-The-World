@@ -17,7 +17,7 @@ const ImgurRequest = (props) => {
       try {
         const response = await axios.get("https://api.imgur.com/3/image/" + props.imgId, {
           headers: {
-            Authorization: "Client-ID 6b1e2512d36fa88",
+            Authorization: process.env.IMGUR_CLIENT_ID,
           },
         });
 

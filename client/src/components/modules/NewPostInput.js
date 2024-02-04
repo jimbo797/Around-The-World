@@ -48,7 +48,7 @@ const NewStory = (props) => {
 
       const response = await axios.post("https://api.imgur.com/3/image", formData, {
         headers: {
-          Authorization: "Client-ID 6b1e2512d36fa88", // Replace with your Imgur client ID
+          Authorization: process.env.IMGUR_CLIENT_ID,
         },
       });
 
@@ -69,8 +69,7 @@ const NewStory = (props) => {
       const response = await axios.get("https://api.api-ninjas.com/v1/geocoding", {
         params: location,
         headers: {
-          "X-Api-Key": "P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj",
-          // "X-Api-Key": process.env.GEOCODING_KEY,
+          "X-Api-Key": process.env.GEOCODING_KEY,
         },
       });
       // console.log("Upload successful:", response.data);
@@ -206,8 +205,8 @@ const NewStory = (props) => {
           name="caption"
           className="new-post-layout"
         />
-        </div>
-        <div className="changing-layout">
+      </div>
+      <div className="changing-layout">
         <div className="flex-display">
           <label className="Image-text" for="files" class="btn">
             Add Image
@@ -252,7 +251,7 @@ const NewStory = (props) => {
           </option>
         ))}
       </select> */}
-  
+
           <button
             type="submit"
             className="NewPostInput-button"
@@ -263,7 +262,7 @@ const NewStory = (props) => {
           </button>
         </div>
       </div>
-      </div>
+    </div>
   );
 };
 

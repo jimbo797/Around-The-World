@@ -28,9 +28,7 @@ const MapComponent = ({ userId, posts }) => {
   // Utilizing the Mapbox GL API to create map and markers on the map
   useEffect(() => {
     // Set your Mapbox access token
-    mapboxgl.accessToken =
-      "pk.eyJ1IjoibWlyYW5kYWxpdTAzIiwiYSI6ImNscnJhazZuNDBjNzIyanBkeWtveWVyNmYifQ.FnTwTmwWIwlexn6FkBXGbw";
-    // mapboxgl.accessToken = process_env.MAPBOX_ACCESS_TOKEN;
+    mapboxgl.accessToken = process_env.MAPBOX_ACCESS_TOKEN;
 
     // Create a new Map instance
     const map = new mapboxgl.Map({
@@ -109,8 +107,7 @@ const MapComponent = ({ userId, posts }) => {
       const response = await axios.get("https://api.api-ninjas.com/v1/geocoding", {
         params: { city: city },
         headers: {
-          "X-Api-Key": "P++ZL0Z+VV3YUYrRazvHnA==73PCXJetnMsZmehj",
-          // "X-Api-Key": process.env.GEOCODING_KEY,
+          "X-Api-Key": process.env.GEOCODING_KEY,
         },
       });
       return response.data;

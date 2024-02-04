@@ -1,12 +1,11 @@
 // components for uploading usng imgur api
 
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Page from "../modules/Page";
 import axios from "axios";
 
 const ImgurUpload = () => {
-
-const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null);
 
   const handleImageChange = (event) => {
     // Assuming you have an input field for selecting a file
@@ -22,7 +21,7 @@ const [image, setImage] = useState(null);
 
       const response = await axios.post("https://api.imgur.com/3/image", formData, {
         headers: {
-          Authorization: "Client-ID 6b1e2512d36fa88", // Replace with your Imgur client ID
+          Authorization: process.env.IMGUR_CLIENT_ID,
         },
       });
 

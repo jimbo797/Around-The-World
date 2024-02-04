@@ -20,7 +20,7 @@ const MapMarker = () => {
         {...viewport}
         onViewportChange={(newViewport) => setViewport(newViewport)}
         mapboxApiAccessToken={
-          "pk.eyJ1IjoibWlyYW5kYWxpdTAzIiwiYSI6ImNscnJiM2RzZDBidngyaWxwdDluYnlzZWoifQ.5Cb3LJA-YmwGKx5_rktVBQ"
+          process.env.MAPBOX_ACCESS_TOKEN
         }
       >
         {/* Add your markers with links */}
